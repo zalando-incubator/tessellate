@@ -6,6 +6,8 @@ import morgan from 'koa-morgan'
 import nconf from './nconf'
 import logger from './logger'
 import routes from './routes'
+import error from './error'
+import * as handlers from './handlers'
 
 const log = logger('server')
 
@@ -16,6 +18,7 @@ export function init(): Koa {
 
   return app
     .use(morgan(morganFormat, {skip: morganSkip}))
+    .use(error)
     .use(routes)
 }
 

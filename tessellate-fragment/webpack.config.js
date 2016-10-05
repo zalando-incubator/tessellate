@@ -26,7 +26,10 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
-        presets: ['latest-minimal'],
+        presets: [
+          'latest-minimal',
+          'react'
+        ],
         plugins: [
           'syntax-flow',
           'transform-flow-strip-types'
