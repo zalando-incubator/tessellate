@@ -1,0 +1,4 @@
+**/*{.,-}min.js
+webpack.config.js
+/coverage
+/dist

@@ -1,0 +1,56 @@
+{
+  "name": "tessellate-bundler",
+  "version": "0.1.0-alpha.1",
+  "description": "Tessellate bundler service.",
+  "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
+  "private": true,
+  "main": "dist/server.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.bus.zalan.do/mfellner/tessellate.git"
+  },
+  "scripts": {
+    "dist": "webpack",
+    "start": "DEBUG=tessellate-bundler:*,webpack-sandboxed:* babel-node src/server.js",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test jest --coverage"
+  },
+  "dependencies": {
+    "debug": "2.2.0",
+    "js-yaml": "3.6.1",
+    "koa": "2.0.0-alpha.7",
+    "koa-morgan": "1.0.1",
+    "koa-router": "7.0.1",
+    "mz": "2.4.0",
+    "nconf": "0.8.4"
+  },
+  "devDependencies": {
+    "babel-cli": "6.16.0",
+    "babel-core": "6.17.0",
+    "babel-eslint": "7.0.0",
+    "babel-jest": "16.0.0",
+    "babel-loader": "6.2.5",
+    "babel-plugin-syntax-flow": "6.13.0",
+    "babel-plugin-transform-flow-strip-types": "6.14.0",
+    "babel-preset-latest-minimal": "1.1.2",
+    "eslint": "3.7.1",
+    "eslint-plugin-babel": "3.3.0",
+    "eslint-plugin-flowtype": "2.19.0",
+    "eslint-plugin-promise": "2.0.1",
+    "eslint-plugin-react": "6.3.0",
+    "jest": "16.0.1",
+    "supertest": "2.0.0",
+    "supertest-as-promised": "4.0.0",
+    "webpack": "2.1.0-beta.25"
+  },
+  "jest": {
+    "coverageReporters": [
+      "lcov",
+      "html",
+      "text"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "presets": [
+    "latest-minimal"
+  ],
+  "plugins": [
+    "syntax-flow",
+    "transform-flow-strip-types"
+  ]
+}
