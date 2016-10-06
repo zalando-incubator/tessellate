@@ -46,7 +46,7 @@ function parseBundleName(skipper: SkipperArgs): string {
 
   const {hostname, pathname} = url.parse(skipper.requestURI)
 
-  if (hostname && pathname) return path.join(hostname, pathname)
+  if (hostname && pathname) return path.join(hostname.replace(/^www\./, ''), pathname)
   else throw new FragmentProblem(`Illegal URI '${skipper.requestURI}'`)
 }
 

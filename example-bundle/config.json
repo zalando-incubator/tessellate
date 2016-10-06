@@ -1,0 +1,6 @@
+{
+  "SOURCE_DIR": "dist",
+  "S3_REGION": "eu-west-1",
+  "S3_BUCKET": "fragment-bundles-eu-west-1",
+  "S3_PREFIX": "zalando.de/example"
+}

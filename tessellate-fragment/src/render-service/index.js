@@ -8,11 +8,11 @@ import HTMLRoot from './HTMLRoot'
 import logger from '../logger'
 
 const log = logger('render-service')
-const sandbox = new SandboxVM({React, ReactDOM})
+const sandbox = new SandboxVM({require})
 
 export function renderToStaticMarkup(source: string, props: Object = {}): string {
   log.debug('Execute source code....')
-  const ReactClass = sandbox.run(source)
+  const {Fragment} = sandbox.run(source)
   log.debug('Render static markup with props %o', props)
-  return ReactDOMServer.renderToStaticMarkup(<HTMLRoot Root={ReactClass} mountPoint="main" {...props}/>)
+  return ReactDOMServer.renderToStaticMarkup(<HTMLRoot Root={Fragment} mountPoint="main" {...props}/>)
 }

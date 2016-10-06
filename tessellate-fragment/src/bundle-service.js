@@ -1,7 +1,9 @@
 // @flow
 
+import url from 'url'
 import path from 'path'
-import fs from 'mz/fs'
+import request from 'request-promise-native'
+import nconf from './nconf'
 import logger from './logger'
 
 const log = logger('bundle-service')
@@ -15,8 +17,18 @@ export type Bundle = {
 }
 
 export async function fetchBundle(name: string): Promise<Bundle> {
-  log.debug('Fetch bundle %s...', name)
-  // TODO: fetch bundle from remote location
-  const source = await fs.readFile(path.resolve(__dirname, '../../example-bundle/example.min.js'))
-  return {source, links: {js: '', css: ''}}
+  const jsURL = url.format({
+    protocol: 'https',
+    hostname: nconf.get('FRAGMENT_BUNDLES'),
+    pathname: path.join(name, 'index.js')
+  })
+  const cssURL = url.format({
+    protocol: 'https',
+    hostname: nconf.get('FRAGMENT_BUNDLES'),
+    pathname: path.join(name, 'index.css')
+  })
+
+  log.debug('Fetch bundle %s', jsURL)
+  const source = await request(jsURL)
+  return {source, links: {js: jsURL, css: cssURL}}
 }

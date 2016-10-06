@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import Styles from './example.css'
 
-export default class Example extends Component {
+/**
+ * Root class of the fragment bundle can be rendered on the server.
+ */
+export class Fragment extends Component {
   render() {
-    return <div>
-      <h1>Hello, world!</h1>
-      <script defer={true} dangerouslySetInnerHTML={{
-          __html: `window.__PROPS__ = ${JSON.stringify(this.props)}`
-      }}/>
-    </div>
+    return <h1>Welcome to {this.props.requestURI}!</h1>
   }
 }
 
-if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  const props = window.__PROPS__ || {}
-  console.log('Retrieved inlined properties:', props)
-  ReactDOM.render(<Example {...props}/>, document.getElementById('main'))
+/**
+ * Render function will be called by the Mosaic layout engine in the browser.
+ * @param element - DOM root element to mount React component on.
+ */
+export default function render(element) {
+  // Fetch inlined properties.
+  const props = JSON.parse(element.getAttribute('data-props'))
+
+  ReactDOM.render(<Fragment {...props}/>, element)
 }

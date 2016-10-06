@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="dist/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
+    <script>
+      // Shim isomorphic dependencies so that they can be required by the webpack UMD loader.
+      window['react'] = window.React
+      window['react-dom'] = window.ReactDOM
+    </script>
+    <script src="dist/index.js"></script>
+  </head>
+  <body>
+    <main
+      id="main"
+      data-props="{&quot;userAgent&quot;:&quot;curl/7.43.0&quot;,&quot;requestURI&quot;:&quot;https://www.zalando.de/example&quot;}">
+    </main>
+    <script defer>
+      // Call the render function (exported as 'default' in the fragment bundle).
+      window.default(document.getElementById('main'))
+    </script>
+  </body>
+</html>
