@@ -5,6 +5,9 @@
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "private": true,
   "main": "dist/server.js",
+  "bin": {
+    "tessellate-bundler": "./bin/tessellate-bundler"
+  },
   "engines": {
     "node": ">=6"
   },
@@ -19,20 +22,30 @@
     "test": "NODE_ENV=test jest --coverage"
   },
   "dependencies": {
+    "babel-core": "6.17.0",
+    "babel-loader": "6.2.5",
+    "babel-preset-es2015": "6.16.0",
+    "babel-preset-react": "6.16.0",
+    "change-case": "3.0.0",
     "debug": "2.2.0",
     "js-yaml": "3.6.1",
     "koa": "2.0.0-alpha.7",
+    "koa-bodyparser": "3.2.0",
     "koa-morgan": "1.0.1",
     "koa-router": "7.0.1",
+    "koa-static": "3.0.0",
+    "mkdirp": "0.5.1",
     "mz": "2.4.0",
-    "nconf": "0.8.4"
+    "nconf": "0.8.4",
+    "thenify": "3.2.1",
+    "uuid": "2.0.3",
+    "webpack": "2.1.0-beta.25",
+    "webpack-sandboxed": "github:mfellner/webpack-sandboxed"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",
-    "babel-core": "6.17.0",
     "babel-eslint": "7.0.0",
     "babel-jest": "16.0.0",
-    "babel-loader": "6.2.5",
     "babel-plugin-syntax-flow": "6.13.0",
     "babel-plugin-transform-flow-strip-types": "6.14.0",
     "babel-preset-latest-minimal": "1.1.2",
@@ -43,8 +56,7 @@
     "eslint-plugin-react": "6.3.0",
     "jest": "16.0.1",
     "supertest": "2.0.0",
-    "supertest-as-promised": "4.0.0",
-    "webpack": "2.1.0-beta.25"
+    "supertest-as-promised": "4.0.0"
   },
   "jest": {
     "coverageReporters": [

@@ -1,0 +1,24 @@
+exports[`script-builder should fragment script string from a content structure 1`] = `
+"import React, { Component } from \'react\'
+import ReactDOM from \'react-dom\'
+import zShopUi from \'z-shop-ui\'
+const BUNDLED_PROPS = {\"1\":{\"level\":1},\"2\":null}
+export class Fragment extends Component {
+render() {
+const props = Object.assign({}, BUNDLED_PROPS, this.props)
+return React.createElement(
+zShopUi.Headline,
+props[\"1\"] , 
+React.createElement(
+div,
+props[\"2\"] , 
+\"Hello, World!\"
+)
+)
+}
+}
+export default function render(element) {
+const props = JSON.parse(element.getAttribute(\'data-props\'))
+ReactDOM.render(<Fragment {...props}/>, element)
+}"
+`;

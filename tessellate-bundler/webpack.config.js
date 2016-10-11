@@ -21,7 +21,7 @@ module.exports = {
   output: {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, 'dist'),
-    filename: 'server.min.js'
+    filename: 'server.js'
   },
   module: {
     loaders: [{

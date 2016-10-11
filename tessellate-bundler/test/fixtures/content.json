@@ -1,0 +1,11 @@
+{
+  "type": "z-shop-ui.Headline",
+  "props": {
+    "level": 1
+  },
+  "children": [{
+    "type": "div",
+    "props": null,
+    "children": ["Hello, World!"]
+  }]
+}

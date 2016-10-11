@@ -2,6 +2,7 @@
 
 import Router from 'koa-router'
 import * as health from './health'
+import * as bundles from './bundles'
 
 export type Route = (router: Router) => Router
 export type RouteSet = { [key: string]: Route }
@@ -15,6 +16,6 @@ function initializeRoutes(router: Router, ...routes: Array<RouteSet>): Router {
                .reduce((router, route) => route(router), router)
 }
 
-const router = initializeRoutes(new Router(), health)
+const router = initializeRoutes(new Router(), health, bundles)
 
 export default router.routes()
