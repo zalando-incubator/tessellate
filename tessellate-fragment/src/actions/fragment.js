@@ -22,23 +22,20 @@ class FragmentProblem extends Problem {
   }
 }
 
-export default register('fragment', async ({headers, query}) => {
-  const response = {}
+export const FETCH_BUNDLE = Symbol('FETCH_BUNDLE')
+
+export const fetchBundle = register(FETCH_BUNDLE, async ({headers, query}) => {
   const skipperArgs = parseSkipperArgs(headers)
   const bundleName = parseBundleName(skipperArgs)
   const bundle = await bundleService.fetchBundle(bundleName)
-  const html = renderService.renderToStaticMarkup(bundle.source, skipperArgs)
+  return {bundle, props: skipperArgs}
+})
 
-  response.headers = {
-    'Content-Type': 'text/html;charset=utf-8',
-    'Link': [
-      `<${bundle.links.css}>; rel="stylesheet"`,
-      `<${bundle.links.js}>; rel="fragment-script"`
-    ]
-  }
-  response.body = html
+export const RENDER_BUNDLE = Symbol('RENDER_BUNDLE')
 
-  return response
+export const renderBundle = register(RENDER_BUNDLE, async ({bundle, props}) => {
+  const html = renderService.renderToStaticMarkup(bundle.source, props)
+  return {html}
 })
 
 function parseBundleName(skipper: SkipperArgs): string {

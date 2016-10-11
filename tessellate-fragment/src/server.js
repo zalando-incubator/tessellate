@@ -7,7 +7,7 @@ import nconf from './nconf'
 import logger from './logger'
 import routes from './routes'
 import error from './error'
-import * as handlers from './handlers'
+import './actions'
 
 const log = logger('server')
 

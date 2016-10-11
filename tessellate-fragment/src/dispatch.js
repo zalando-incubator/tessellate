@@ -5,17 +5,13 @@ import { Problem } from './error'
 
 const log = logger('dispatch')
 
-type DispatchArgs = {
-  headers: { [key: string]: string };
-  query: { [key: string]: string };
-}
+type DispatchArgs = { [key: string]: mixed }
 
-type DispatchResult = {
-  body?: string;
-  headers?: { [key: string]: string | Array<string> };
-}
+type DispatchResult<K: Symbol> = { [key: string]: mixed }
 
-type DispatchHandler = (args: DispatchArgs) => Promise<DispatchResult>
+type DispatchHandler<K: Symbol, A: DispatchArgs, R: DispatchResult<K>> = (args: A) => Promise<R>
+
+type Registry = { [key: Symbol]: DispatchHandler<*, any, any> }
 
 class DispatchProblem extends Problem {
   constructor(detail: string) {
@@ -23,17 +19,18 @@ class DispatchProblem extends Problem {
   }
 }
 
-const registry = {}
+const registry: Registry = {}
 
-export function register(name: string, handler: DispatchHandler): DispatchHandler {
+export function register<K: Symbol, A: DispatchArgs, R: DispatchResult<K>>(name: K, handler: DispatchHandler<K, A, R>): DispatchHandler<K, A, R> {
   registry[name] = handler
   return handler
 }
 
-export default async function dispatch(name: string, args: DispatchArgs): Promise<DispatchResult> {
+export default async function dispatch<K: Symbol, A: DispatchArgs, R: DispatchResult<K>>(name: K, args: A): Promise<R> {
   if (!registry[name]) {
     log.error('No such handler \'%s\'', name)
-    throw new DispatchProblem(`No such handler '${name}'`)
+    throw new DispatchProblem(`No such handler '${name.toString()}'`)
   }
-  return await registry[name](args)
+  const handler: DispatchHandler<K, A, R> = registry[name]
+  return await handler(args)
 }
