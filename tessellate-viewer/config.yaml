@@ -1,0 +1,4 @@
+APP_PORT: 3003
+MORGAN_FORMAT: dev  # Format preset for request logs.
+MORGAN_THRESHOLD: 0 # Do not log requests with a status code less than this value.
+FRAGMENT_SOURCE: http://localhost:3002/fragment

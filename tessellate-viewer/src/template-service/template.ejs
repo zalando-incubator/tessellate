@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="<%= meta.language %>">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title><%= meta.title %></title>
+        <meta name="description" content="<%= meta.description %>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <% if (fragment.css) { %>
+        <link rel="stylesheet" href="<%- fragment.css %>">
+        <% } %>
+
+        <script data-main="/js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" integrity="sha256-Vjusm6Kh2U7/tb6jBh+MOfxnaf2TWsTph34bMKhC1Qc=" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+      <fragment id="<%- fragment.name %>" src="<%- fragment.src %>">
+        <%- fragment.html %>
+      </fragment>
+    </body>
+</html>
