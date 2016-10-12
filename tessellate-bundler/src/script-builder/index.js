@@ -76,7 +76,7 @@ function parseElementType(element: ElementType): {|className: string, imported?:
   } else {
     const name = camelCase(element.type)
     const module = element.type
-    const className = name
+    const className = `'${name}'`
     return  {className}
   }
 }
