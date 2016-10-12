@@ -1,5 +1,6 @@
 // @flow
 
+import uuid from 'uuid'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
@@ -14,5 +15,6 @@ export function renderToStaticMarkup(source: string, props: Object = {}): string
   log.debug('Execute source code....')
   const {Fragment} = sandbox.run(source)
   log.debug('Render static markup with props %o', props)
-  return ReactDOMServer.renderToStaticMarkup(<HTMLRoot Root={Fragment} mountPoint="main" {...props}/>)
+  const mountPoint = uuid.v4()
+  return ReactDOMServer.renderToStaticMarkup(<HTMLRoot Root={Fragment} mountPoint={mountPoint} {...props}/>)
 }

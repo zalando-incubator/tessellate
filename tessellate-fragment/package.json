@@ -5,6 +5,9 @@
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "private": true,
   "main": "dist/server.js",
+  "bin": {
+    "tessellate-fragment": "./bin/tessellate-fragment"
+  },
   "engines": {
     "node": ">=6"
   },
@@ -28,7 +31,8 @@
     "nconf": "0.8.4",
     "react": "15.3.2",
     "react-dom": "15.3.2",
-    "request-promise-native": "1.0.3"
+    "request-promise-native": "1.0.3",
+    "uuid": "2.0.3"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",

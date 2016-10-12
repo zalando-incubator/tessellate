@@ -1,12 +1,10 @@
 // @flow
 
 import url from 'url'
-import path from 'path'
 import request from 'request-promise-native'
 import nconf from './nconf'
 import logger from './logger'
-
-const log = logger('bundle-service')
+import { Problem } from './error'
 
 export type Bundle = {
   source: string;
@@ -16,17 +14,33 @@ export type Bundle = {
   };
 }
 
+const log = logger('bundle-service')
+
+class BundleProblem extends Problem {
+  constructor(detail: string) {
+    super({title: 'Bundle error.', detail, status: 404})
+  }
+}
+
 export async function fetchBundle(name: string): Promise<Bundle> {
-  const jsURL = url.format({
-    protocol: 'https',
-    hostname: nconf.get('FRAGMENT_BUNDLES'),
-    pathname: path.join(name, 'index.js')
-  })
-  const cssURL = url.format({
-    protocol: 'https',
-    hostname: nconf.get('FRAGMENT_BUNDLES'),
-    pathname: path.join(name, 'index.css')
-  })
+  const uri = url.parse(nconf.get('BUNDLE_SOURCE'))
+
+  if ((uri.protocol === 'http:' || uri.protocol === 'https:') && uri.hostname) {
+    const baseURL = url.format({
+      protocol: uri.protocol,
+      hostname: uri.hostname,
+      port: uri.port || 80,
+      pathname: name
+    })
+    return await fetchBundleFromHTTPSource(baseURL)
+  } else {
+    throw new BundleProblem(`Illegal bundle source ${uri.href}`)
+  }
+}
+
+async function fetchBundleFromHTTPSource(baseURL: string): Promise<Bundle> {
+  const jsURL = `${baseURL}/index.js`
+  const cssURL =  `${baseURL}/index.css`
 
   log.debug('Fetch bundle %s', jsURL)
   const source = await request(jsURL)
