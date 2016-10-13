@@ -2,6 +2,7 @@
 
 import path from 'path'
 import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import WebpackSandbox from 'webpack-sandboxed'
 import logger from './logger'
 import nconf from './nconf'
@@ -25,17 +26,26 @@ async function _createWebpackSandbox(): Promise<WebpackSandbox> {
     config: {
       target: 'web',
       module: {
-        loaders: [{
-          test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
+        loaders: [
+          {
+            test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
             presets: ['es2015', 'react']
+            }
+          },
+          {
+            test: /\.css$/, loader: ExtractTextPlugin.extract({
+              fallbackLoader: 'style-loader',
+              loader: 'css-loader'
+            })
           }
-        }]
+        ]
       },
       output: {
         libraryTarget: 'umd'
       },
       plugins: [
         new webpack.DefinePlugin({process: {env: {NODE_ENV: '"production"'}}}),
+        new ExtractTextPlugin('[name]-[hash].min.css')
       ].concat((nconf.get('NODE_ENV') === 'production'
           ? [
             new webpack.optimize.UglifyJsPlugin(),
@@ -48,6 +58,8 @@ async function _createWebpackSandbox(): Promise<WebpackSandbox> {
       }
     },
     packages: [
+      'style-loader',
+      'css-loader',
       'z-shop-ui' // FIXME: make configurable
     ],
     includes: [

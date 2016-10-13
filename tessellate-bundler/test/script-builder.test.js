@@ -8,7 +8,7 @@ import * as scriptBuilder from '../src/script-builder'
 
 describe('script-builder', () => {
   const uuid = require('uuid')
-  uuid.v4 = jest.fn(mockUUID())
+  uuid.v4.mockImplementation(mockUUID())
 
   it('should fragment script string from a content structure', async () => {
     const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'))

@@ -1,5 +1,6 @@
 {
   "type": "z-shop-ui.Headline",
+  "style": "z-shop-ui/dist/z-shop-ui.css",
   "props": {
     "level": 1
   },

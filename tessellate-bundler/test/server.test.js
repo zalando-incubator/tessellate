@@ -13,6 +13,7 @@ import nconf from '../src/nconf'
 import * as server from '../src/server'
 
 describe('server', () => {
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
   let app, request
 
   beforeEach(() => {
@@ -41,7 +42,7 @@ describe('server', () => {
 
   describe('/bundles/:domain/:name', () => {
     const contentService = require('../src/content-service')
-    contentService.publish = jest.fn(() => Promise.resolve({js: '', css: ''}))
+    contentService.publish.mockImplementation(() => Promise.resolve({js: '', css: ''}))
 
     it('build a bundle from a JSON payload', async () => {
       const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'))

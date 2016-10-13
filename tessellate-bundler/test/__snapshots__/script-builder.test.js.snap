@@ -2,6 +2,7 @@ exports[`script-builder should fragment script string from a content structure 1
 "import React, { Component } from \'react\'
 import ReactDOM from \'react-dom\'
 import zShopUi from \'z-shop-ui\'
+import Z_SHOP_UI_DIST_Z_SHOP_UI_CSS from \'z-shop-ui/dist/z-shop-ui.css\'
 const BUNDLED_PROPS = {\"1\":{\"level\":1},\"2\":null}
 export class Fragment extends Component {
 render() {
@@ -10,7 +11,7 @@ return React.createElement(
 zShopUi.Headline,
 props[\"1\"] , 
 React.createElement(
-div,
+\'div\',
 props[\"2\"] , 
 \"Hello, World!\"
 )
