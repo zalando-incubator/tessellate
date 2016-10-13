@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const webpack = require('webpack')
 
 /**
  * Externalize node_modules.
@@ -21,7 +22,7 @@ module.exports = {
   output: {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, 'dist'),
-    filename: 'server.min.js'
+    filename: 'server.js'
   },
   module: {
     loaders: [{
@@ -37,6 +38,11 @@ module.exports = {
       }
     }]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'require: require': 'require: __webpack_require__'
+    })
+  ],
   externals: nodeModules(),
   node: {
     __dirname: true
