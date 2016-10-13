@@ -19,7 +19,7 @@ describe('script-builder', () => {
   })
 })
 
-function mockUUID() {
+function mockUUID(): () => number {
   let i = 0
   return () => ++i
 }

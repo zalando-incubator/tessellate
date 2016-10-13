@@ -67,7 +67,7 @@ function toReactScripts(elements: ?Array<ElementType | string>, props: PropsType
     return []
 }
 
-function parseElementType(element: ElementType): {|className: string, imported?: ImportsType|} {
+function parseElementType(element: ElementType): {|className: string; imported?: ImportsType;|} {
   const parts = element.type.split('.')
 
   if (parts.length > 2)
