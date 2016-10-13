@@ -9,7 +9,7 @@ export default class SandboxVM {
     this.globals = globals
   }
 
-  run(source: string) {
+  run(source: string): Object {
     const globals = {
       module: {},
       exports: {}
@@ -19,6 +19,6 @@ export default class SandboxVM {
     const sandbox = Object.assign({}, globals, this.globals)
     const context = vm.createContext(sandbox)
     const result = script.runInContext(context)
-    return result ? result || result.default : sandbox.module.exports || sandbox.exports
+    return result ? result || result.default : sandbox.module.exports || sandbox.exports || {}
   }
 }

@@ -133,7 +133,7 @@ rules:
 
   # Node.js and CommonJS
   callback-return: 2
-  global-require: 2
+  global-require: 1
   handle-callback-err: 2
   no-mixed-requires: 0
   no-new-require: 0

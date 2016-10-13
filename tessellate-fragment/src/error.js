@@ -9,7 +9,7 @@ export class Problem extends Error {
   detail: ?string;
   status: ?number;
 
-  constructor(args: {title: string, detail?: string, status?: number}) {
+  constructor(args: {title: string; detail?: string; status?: number;}) {
     super(args.title)
     this.title = args.title
     this.detail = args.detail
@@ -17,9 +17,9 @@ export class Problem extends Error {
   }
 }
 
-export default async function error(ctx: Object, next: () => Promise<any>) {
+export default async function error(ctx: Object, next: () => Promise<any>): Promise<any> {
   try {
-    await next()
+    return await next()
   } catch (err) {
     log.error(err)
     ctx.status = err.status || err.code || 500
