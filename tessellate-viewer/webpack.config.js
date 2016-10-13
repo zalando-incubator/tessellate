@@ -10,7 +10,7 @@ function nodeModules() {
            .reduce((modules, m) => {
              modules[m] = 'commonjs2 ' + m
              return modules
-           })
+           }, {})
 }
 
 module.exports = {

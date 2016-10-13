@@ -26,7 +26,6 @@ export function init(): Koa {
 function start(port: number | string = nconf.get('APP_PORT')) {
   init().listen(port)
   log.info(`listening on port ${port}`)
-  log.info(`serving static files from ${path.resolve(__dirname, '../static')}`)
 }
 
 // $FlowIssue https://github.com/facebook/flow/issues/1362

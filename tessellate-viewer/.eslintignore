@@ -2,3 +2,4 @@
 webpack.config.js
 /coverage
 /dist
+/static
