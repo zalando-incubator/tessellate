@@ -9,7 +9,9 @@ import HTMLRoot from './HTMLRoot'
 import logger from '../logger'
 
 const log = logger('render-service')
-const sandbox = new SandboxVM({require})
+// Hack: global.__REQUIRE_FN__ must be defined in webpack.config.
+const requireFn = global.__REQUIRE_FN__ || require
+const sandbox = new SandboxVM({require: requireFn})
 
 export function renderToStaticMarkup(source: string, props: Object = {}): string {
   log.debug('Execute source code....')

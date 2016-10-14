@@ -40,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'require: require': 'require: __webpack_require__'
+      'global.__REQUIRE_FN__': 'require'
     })
   ],
   externals: nodeModules(),
