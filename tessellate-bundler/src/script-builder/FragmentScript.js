@@ -2,6 +2,7 @@
 
 type FragmentArgs = {|
   reactElement: string;
+  rootID: string;
   props: { [key: string]: any };
   imports: { [key: string]: string };
 |}
@@ -21,12 +22,15 @@ export default function FragmentScript(args: FragmentArgs): string {
   export class Fragment extends Component {
     render() {
       const props = Object.assign({}, BUNDLED_PROPS, this.props)
-      return ${args.reactElement}
+      return (<div id="${args.rootID}" data-props={JSON.stringify(this.props)}>
+        {${args.reactElement}}
+      </div>)
     }
   }
 
   export default function render(element) {
-    const props = JSON.parse(element.getAttribute('data-props'))
+    const fragmentRoot = document.getElementById('${args.rootID}')
+    const props = JSON.parse(fragmentRoot.getAttribute('data-props'))
     ReactDOM.render(<Fragment {...props}/>, element)
   }
   `.trim().replace(/^\s+/gm, '')

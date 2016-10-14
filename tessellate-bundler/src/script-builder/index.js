@@ -34,7 +34,7 @@ class ElementProblem extends Problem {
 export function build(element: ElementType): string {
   log.debug('Build fragment script...')
   const {script, props, imports} = toReactScript(element)
-  return FragmentScript({reactElement: script, props, imports})
+  return FragmentScript({reactElement: script, rootID: uuid.v4(), props, imports})
 }
 
 function toReactScript(element: ElementType | string, props: PropsType = {}, imports: ImportsType = {}): ReactScript {

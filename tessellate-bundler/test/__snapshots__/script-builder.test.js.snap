@@ -7,7 +7,8 @@ const BUNDLED_PROPS = {\"1\":{\"level\":1},\"2\":null}
 export class Fragment extends Component {
 render() {
 const props = Object.assign({}, BUNDLED_PROPS, this.props)
-return React.createElement(
+return (<div id=\"3\" data-props={JSON.stringify(this.props)}>
+{React.createElement(
 zShopUi.Headline,
 props[\"1\"] , 
 React.createElement(
@@ -15,11 +16,13 @@ React.createElement(
 props[\"2\"] , 
 \"Hello, World!\"
 )
-)
+)}
+</div>)
 }
 }
 export default function render(element) {
-const props = JSON.parse(element.getAttribute(\'data-props\'))
+const fragmentRoot = document.getElementById(\'3\')
+const props = JSON.parse(fragmentRoot.getAttribute(\'data-props\'))
 ReactDOM.render(<Fragment {...props}/>, element)
 }"
 `;
