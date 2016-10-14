@@ -30,6 +30,7 @@
     "koa-router": "7.0.1",
     "koa-static": "3.0.0",
     "nconf": "0.8.4",
+    "request": "2.75.0",
     "request-promise-native": "1.0.3",
     "thenify": "3.2.1"
   },
