@@ -1,0 +1,69 @@
+type: z-shop-ui.Grid
+style: z-shop-ui/dist/z-shop-ui.css
+props: null
+children:
+  - type: z-shop-ui.Grid.Item
+    props:
+      span:
+        xs: 12
+    children:
+      - type: z-shop-ui.Headline
+        props:
+          level: 1
+        children:
+          - Welcome to Tessellate
+  - type: z-shop-ui.Grid.Item
+    props:
+      span:
+        xs: 12
+        s: 12
+        m: 12
+        ml: 6
+        l: 4
+    children:
+      - type: z-shop-ui.Image
+        props:
+          altText: sunset
+          src: http://i.giphy.com/oSYflamt3IEjm.gif
+        children: []
+  - type: z-shop-ui.Grid.Item
+    props:
+      span:
+        xs: 12
+        s: 12
+        m: 12
+        ml: 6
+        l: 4
+    children:
+      - type: z-shop-ui.Panel
+        props: null
+        children:
+          - type: z-shop-ui.Text
+            props: null
+            children:
+            - >
+              Great turbulent clouds decipherment, preserve and cherish that pale blue dot, cosmic ocean dream of the mind's eye muse about Jean-François Champollion kindling the energy hidden in matter network of wormholes, tendrils of gossamer clouds cosmos realm of the galaxies cosmic fugue Apollonius of Perga culture across the centuries. Tingling of the spine hundreds of thousands hydrogen atoms? Descended from astronomers, something incredible is waiting to be known quasar, citizens of distant epochs network of wormholes, inconspicuous motes of rock and gas with pretty stories for which there's little good evidence hundreds of thousands.
+  - type: z-shop-ui.Grid.Item
+    props:
+      span:
+        xs: 12
+        s: 12
+        m: 12
+        ml: 6
+        l: 4
+    children:
+      - type: z-shop-ui.Image
+        props:
+          altText: vectors
+          src: http://i.imgur.com/FTEzOEv.jpg
+        children: []
+      - type: z-shop-ui.Spacer
+        props:
+          direction: horizontal
+        children:
+          - click me now
+      - type: z-shop-ui.Button
+        props:
+          priority: tertiary
+        children:
+          - click me now
