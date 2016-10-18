@@ -1,0 +1,19 @@
+{
+  "name": "tessellate-example",
+  "version": "0.1.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "bundler": "tessellate-bundler",
+    "fragment": "tessellate-fragment",
+    "viewer": "tessellate-viewer",
+    "all": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment viewer"
+  },
+  "dependencies": {
+    "npm-run-all": "3.1.1",
+    "z-shop-ui": "https://mosaic01.ztat.net/npm/z-shop-ui.tgz",
+    "tessellate-bundler": "../tessellate-bundler",
+    "tessellate-fragment": "../tessellate-fragment",
+    "tessellate-viewer": "../tessellate-viewer"
+  }
+}
