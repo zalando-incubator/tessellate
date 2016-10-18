@@ -16,16 +16,19 @@ export function init(): Koa {
   const morganFormat = nconf.get('MORGAN_FORMAT')
   const morganSkip = (req, res) => res.statusCode < nconf.get('MORGAN_THRESHOLD')
 
+  const staticDir = path.resolve(__dirname, '../static')
+  log.info('Serving files from %s', staticDir)
+
   return app
     .use(morgan(morganFormat, {skip: morganSkip}))
     .use(error)
-    .use(koaStatic(path.resolve(__dirname, '../static'), {defer: false, gzip: true}))
+    .use(koaStatic(staticDir, {defer: false, gzip: true}))
     .use(routes)
 }
 
 function start(port: number | string = nconf.get('APP_PORT')) {
   init().listen(port)
-  log.info(`listening on port ${port}`)
+  log.info('listening on port %d', port)
 }
 
 // $FlowIssue https://github.com/facebook/flow/issues/1362

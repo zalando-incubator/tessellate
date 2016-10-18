@@ -1,5 +1,5 @@
 {
-  "name": "tessellate-fragment",
+  "name": "tessellate-viewer",
   "version": "0.1.0-alpha.1",
   "description": "Tessellate viewer service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
@@ -16,6 +16,7 @@
     "url": "https://github.bus.zalan.do/mfellner/tessellate.git"
   },
   "scripts": {
+    "clean": "rm -rf dist/*",
     "dist": "webpack",
     "start": "DEBUG=tessellate-viewer:* babel-node src/server.js",
     "lint": "eslint .",
@@ -43,6 +44,7 @@
     "babel-plugin-syntax-flow": "6.13.0",
     "babel-plugin-transform-flow-strip-types": "6.14.0",
     "babel-preset-latest-minimal": "1.1.2",
+    "copy-webpack-plugin": "3.0.1",
     "eslint": "3.7.1",
     "eslint-plugin-babel": "3.3.0",
     "eslint-plugin-flowtype": "2.20.0",

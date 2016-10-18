@@ -1,5 +1,6 @@
 /src
 /test
+/coverage
 .babelrc
 .eslintignore
 .eslintrc

@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 /**
  * Externalize node_modules.
@@ -34,8 +35,13 @@ module.exports = {
       }
     }]
   },
+  plugins: [
+    new CopyWebpackPlugin([{
+      from: './static/', to: 'static'
+    }])
+  ],
   externals: nodeModules(),
   node: {
-    __dirname: true
+    __dirname: false
   }
 }

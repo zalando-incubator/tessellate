@@ -23,3 +23,9 @@ export default nconf.use('memory')
                     .argv()
                     .env()
                     .add('config', {type: 'literal', store: readYamlFile(configFile)})
+                    .defaults({
+                      APP_PORT: 3003,
+                      MORGAN_FORMAT: 'dev',
+                      MORGAN_THRESHOLD: 0,
+                      FRAGMENT_SOURCE: 'http://localhost:3002/fragment'
+                    })
