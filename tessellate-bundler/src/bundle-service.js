@@ -63,7 +63,7 @@ async function _createWebpackSandbox(): Promise<WebpackSandbox> {
       'z-shop-ui' // FIXME: make configurable
     ],
     includes: [
-      path.resolve(__dirname, './components')
+      // path.resolve(__dirname, './components')
     ]
   })
   return sandbox

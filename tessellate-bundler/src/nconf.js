@@ -11,9 +11,10 @@ const log = logger('nconf')
 
 function readYamlFile(file: string): Object {
   try {
+    log.debug('Using configuration file %s', file)
     return yaml.safeLoad(fs.readFileSync(file, 'utf8'))
   } catch (e) {
-    log.warn(`Unable to load ${file}`)
+    log.warn('Unable to load %s', file)
     return {}
   }
 }
@@ -24,12 +25,18 @@ export default nconf.use('memory')
                     .argv()
                     .env()
                     .add('config', {type: 'literal', store: readYamlFile(configFile)})
+                    .defaults({
+                      APP_PORT: 3001,
+                      MORGAN_FORMAT: 'dev',
+                      MORGAN_THRESHOLD: 0,
+                      PUBLISH_TARGET: 'file://bundles/'
+                    })
 
 export function getFileSystemPublishTarget(): string | null {
   const target = url.parse(nconf.get('PUBLISH_TARGET'))
   if (target.protocol === 'file:') {
-    if (!target.hostname || !target.pathname) return null
-    else return path.join(target.hostname, target.pathname)
+    if (!target.hostname && !target.pathname) return null
+    else return path.resolve(process.cwd(), path.join(target.hostname, target.pathname))
   }
   return null
 }

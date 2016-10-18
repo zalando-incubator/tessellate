@@ -26,7 +26,7 @@ export function init(): Koa {
 
   const fileSystemPublishTarget = getFileSystemPublishTarget()
   if (fileSystemPublishTarget) {
-    log.info(`Serving files from ${fileSystemPublishTarget}`)
+    log.info('Serving files from %s', fileSystemPublishTarget)
     app.use(koaStatic(fileSystemPublishTarget, {defer: true, gzip: true}))
   }
 
@@ -35,7 +35,7 @@ export function init(): Koa {
 
 export function start(port: number | string = nconf.get('APP_PORT')) {
   init().listen(port)
-  log.info(`listening on port ${port}`)
+  log.info('listening on port %d', port)
 }
 
 // $FlowIssue https://github.com/facebook/flow/issues/1362
