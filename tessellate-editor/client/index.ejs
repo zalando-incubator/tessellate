@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>tessellate-editor</title>
+        <meta name="description" content="Tessellate Editor">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha256-SC9pI7daKIBEHzXq0JEtOr9yMl5V7yMMqoowsw8uzNs=" crossorigin="anonymous">
+        <% htmlWebpackPlugin.files.css.map(function(style) { %>
+        <link rel="stylesheet" href="<%= style %>">
+        <% }) %>
+
+        <% if (htmlWebpackPlugin.options.production) { %>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.min.js" integrity="sha256-cLWs9L+cjZg8CjGHMpJqUgKKouPlmoMP/0wIdPtaPGs=" crossorigin="anonymous" defer></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.min.js" integrity="sha256-JIW8lNqN2EtqC6ggNZYnAdKMJXRQfkPMvdRt+b0/Jxc=" crossorigin="anonymous" defer></script>
+        <% } else { %>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js" integrity="sha256-S35NJYrW34su183KBmfUDbOfAwmK0h3fFqdpdDS/8po=" crossorigin="anonymous" defer></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js" integrity="sha256-M5lc1yUhpXlm2VZjGk4aoFwqR9H1OJ0p5MR5xpipulk=" crossorigin="anonymous" defer></script>
+        <% } %>
+    </head>
+    <body>
+      <main id="main"></main>
+      <% htmlWebpackPlugin.files.js.map(function(script) { %>
+      <script src="<%= script %>" defer></script>
+      <% }) %>
+    </body>
+</html>
