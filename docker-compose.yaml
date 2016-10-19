@@ -1,0 +1,24 @@
+tessellate-bundler:
+  build: tessellate-bundler
+  environment:
+    APP_PORT: 3001
+  ports:
+    - 3001:3001
+tessellate-fragment:
+  build: tessellate-fragment
+  environment:
+    APP_PORT: 3002
+    BUNDLE_SOURCE: http://tessellate-bundler:3001
+  ports:
+    - 3002:3002
+  links:
+    - tessellate-bundler
+tessellate-viewer:
+  build: tessellate-viewer
+  environment:
+    APP_PORT: 3003
+    FRAGMENT_SOURCE: http://tessellate-fragment:3002/fragment
+  ports:
+    - 3003:3003
+  links:
+    - tessellate-fragment
