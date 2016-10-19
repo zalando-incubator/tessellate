@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.1",
   "description": "Tessellate bundler service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
-  "private": true,
+  "license": "MIT",
   "main": "dist/server.js",
   "bin": {
     "tessellate-bundler": "./bin/tessellate-bundler"
@@ -31,6 +31,7 @@
     "debug": "2.2.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "js-yaml": "3.6.1",
+    "kcors": "2.2.0",
     "koa": "2.0.0-alpha.7",
     "koa-bodyparser": "3.2.0",
     "koa-morgan": "1.0.1",

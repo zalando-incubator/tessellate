@@ -5,6 +5,7 @@ import Koa from 'koa'
 import morgan from 'koa-morgan'
 import bodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
+import kcors from 'kcors'
 import logger from './logger'
 import routes from './routes'
 import error from './error'
@@ -21,6 +22,7 @@ export function init(): Koa {
   app
     .use(morgan(morganFormat, {skip: morganSkip}))
     .use(error)
+    .use(kcors())
     .use(bodyParser({enableTypes: ['json'], strict: true}))
     .use(routes)
 
