@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.1",
   "description": "Tessellate viewer service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
-  "private": true,
+  "license": "MIT",
   "main": "dist/server.js",
   "bin": {
     "tessellate-viewer": "./bin/tessellate-viewer"
