@@ -2,6 +2,7 @@
 
 import url from 'url'
 import path from 'path'
+import nconf from '../nconf'
 import { register } from '../dispatch'
 import { Problem } from '../error'
 import * as scriptBuilder from '../script-builder'
@@ -18,7 +19,12 @@ export const CREATE_BUNDLE = Symbol('CREATE_BUNDLE')
 
 export const createBundle = register(CREATE_BUNDLE, async ({domain, name, element}) => {
   const source = scriptBuilder.build(element)
-  const bundle = await bundleService.make(source)
+  const bundle = await bundleService.make(source, {
+    cssSupport: true,
+    production: nconf.get('NODE_ENV') === 'production',
+    packages: nconf.get('NPM_MODULES'),
+    externals: nconf.get('NPM_EXTERNALS').reduce((exts, ext) => Object.assign(exts, {[ext]: ext}), {})
+  })
   return {bundle}
 })
 

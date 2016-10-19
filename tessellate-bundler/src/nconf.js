@@ -22,14 +22,20 @@ function readYamlFile(file: string): Object {
 const configFile = path.resolve(process.cwd(), 'config.yaml')
 
 export default nconf.use('memory')
-                    .argv()
+                    .argv({
+                      'NPM_MODULES': {
+                        array: true
+                      }
+                    })
                     .env()
                     .add('config', {type: 'literal', store: readYamlFile(configFile)})
                     .defaults({
                       APP_PORT: 3001,
                       MORGAN_FORMAT: 'dev',
                       MORGAN_THRESHOLD: 0,
-                      PUBLISH_TARGET: 'file://bundles/'
+                      PUBLISH_TARGET: 'file://bundles/',
+                      NPM_MODULES: [],
+                      NPM_EXTERNALS: []
                     })
 
 export function getFileSystemPublishTarget(): string | null {

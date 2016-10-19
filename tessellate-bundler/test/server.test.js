@@ -13,7 +13,8 @@ import nconf from '../src/nconf'
 import * as server from '../src/server'
 
 describe('server', () => {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
+
   let app, request
 
   beforeEach(() => {

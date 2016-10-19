@@ -14,7 +14,7 @@ props[\"1\"] ,
 React.createElement(
 \'div\',
 props[\"2\"] , 
-\"Hello, World!\"
+\`Hello, World!\`
 )
 )}
 </div>)
