@@ -88,12 +88,13 @@ function parseElementType(element: ElementType, imports: ImportsType): {|classNa
     // The import is 'import { <component-name> } from '<node-module-name>'
     else {
       className = componentName
+      const [_, importName, rest] = componentName.match(/^([^\.]+)\.?(.+)?/) || []
       if (Array.isArray(imports[moduleName])) {
-        if (!imports[moduleName].includes(className)) {
-          imports[moduleName] = imports[moduleName].concat(className)
+        if (!imports[moduleName].includes(importName)) {
+          imports[moduleName] = imports[moduleName].concat(importName)
         }
       } else {
-        imports[moduleName] = [className]
+        imports[moduleName] = [importName]
       }
     }
 

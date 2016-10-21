@@ -47,7 +47,7 @@ props[\"5\"]
 MyComponent2,
 props[\"6\"] 
 ), React.createElement(
-MyComponent,
+MyComponent.FooBar,
 props[\"7\"] 
 )
 )}

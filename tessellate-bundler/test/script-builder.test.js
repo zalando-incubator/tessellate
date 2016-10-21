@@ -31,7 +31,7 @@ describe('script-builder', () => {
         props: null,
         children: []
       }, {
-        type: 'node-module-b.MyComponent',
+        type: 'node-module-b.MyComponent.FooBar',
         props: null,
         children: []
       }]
