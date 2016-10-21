@@ -23,7 +23,7 @@ type ReactScript = {
 }
 
 type PropsType = {[key: string]: any}
-type ImportsType = {[key: string]: string}
+type ImportsType = {[key: string]: Array<string> | string}
 
 class ElementProblem extends Problem {
   constructor(detail: string) {
@@ -42,11 +42,9 @@ function toReactScript(element: ElementType | string, props: PropsType = {}, imp
   if (typeof element === 'string')
     return {script: `\`${element}\``, props, imports}
 
-  const {className, imported} = parseElementType(element)
+  const {className} = parseElementType(element, imports)
   const id = uuid.v4()
   props[id] = element.props
-
-  if (imported) Object.assign(imports, imported)
 
   const children = toReactScripts(element.children, props, imports)
 
@@ -67,7 +65,7 @@ function toReactScripts(elements: ?Array<ElementType | string>, props: PropsType
     return []
 }
 
-function parseElementType(element: ElementType): {|className: string; imported?: ImportsType;|} {
+function parseElementType(element: ElementType, imports: ImportsType): {|className: string; imports: ImportsType;|} {
   if (!element.type)
     throw new ElementProblem('Missing element type on ' + JSON.stringify(element))
 
@@ -75,35 +73,38 @@ function parseElementType(element: ElementType): {|className: string; imported?:
   const [_, moduleName, componentName] = element.type.match(/^([^\.]+)\.?(.+)?/) || []
 
   if (moduleName && componentName) {
-    // Module imports for this element.
-    const imported = {}
-
     // If a style attribute is present, add a module import for it.
-    const style: ?string = camelCase(element.style)
-    if (style) imported[style] = element.style
+    const styleImport = camelCase(element.style)
+    if (element.style) imports[element.style] = styleImport
 
     // Add a module import based on the type.
-    const importName: string = camelCase(moduleName)
-    imported[importName] = moduleName
-
     let className
-    // The React class name is '<import-name>'
+    // Them import is 'import <import-name> from <node-module-name>'
     if (componentName === 'default') {
+      const importName: string = camelCase(moduleName)
+      imports[moduleName] = importName
       className = importName
     }
-    // The React class name is '<import-name>.<component-name>'
+    // The import is 'import { <component-name> } from '<node-module-name>'
     else {
-      className = `${importName}.${componentName}`
+      className = componentName
+      if (Array.isArray(imports[moduleName])) {
+        if (!imports[moduleName].includes(className)) {
+          imports[moduleName] = imports[moduleName].concat(className)
+        }
+      } else {
+        imports[moduleName] = [className]
+      }
     }
 
-    return {className, imported}
+    return {className, imports}
   }
   // Type is a literal React component name (e.g. 'div')
   else if (moduleName) {
     const name: string = camelCase(moduleName)
     const module = moduleName
     const className = `'${name}'`
-    return  {className}
+    return  {className, imports}
   }
   else
     throw new ElementProblem(`Illegal element type ${element.type}`)

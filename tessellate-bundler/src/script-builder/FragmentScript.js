@@ -7,8 +7,12 @@ type FragmentArgs = {|
   imports: { [key: string]: string };
 |}
 
-function ImportScript(name: string, module: string): string {
-  return `import ${name} from '${module}'`
+function ImportScript(module: string, imported: Array<string> | string): string {
+  if (Array.isArray(imported)) {
+    return `import { ${imported.join(', ')} } from '${module}'`
+  } else {
+    return `import ${imported} from '${module}'`
+  }
 }
 
 export default function FragmentScript(args: FragmentArgs): string {

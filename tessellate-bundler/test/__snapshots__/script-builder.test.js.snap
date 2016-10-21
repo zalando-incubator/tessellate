@@ -1,4 +1,4 @@
-exports[`script-builder should fragment script string from a content structure 1`] = `
+exports[`script-builder should build a fragment script string from a content structure 1`] = `
 "import React, { Component } from \'react\'
 import ReactDOM from \'react-dom\'
 import mosaicComponentExampleDistStylesCss from \'mosaic-component-example/dist/styles.css\'
@@ -22,6 +22,40 @@ props[\"2\"] ,
 }
 export default function render(element) {
 const fragmentRoot = document.getElementById(\'3\')
+const props = JSON.parse(fragmentRoot.getAttribute(\'data-props\'))
+ReactDOM.render(<Fragment {...props}/>, element)
+}"
+`;
+
+exports[`script-builder should build a fragment script string with multiple component imports 1`] = `
+"import React, { Component } from \'react\'
+import ReactDOM from \'react-dom\'
+import { MyComponent1, MyComponent2 } from \'node-module-a\'
+import { MyComponent } from \'node-module-b\'
+const BUNDLED_PROPS = {\"4\":null,\"5\":null,\"6\":null,\"7\":null}
+export class Fragment extends Component {
+render() {
+const props = Object.assign({}, BUNDLED_PROPS, this.props)
+return (<div id=\"8\" data-props={JSON.stringify(this.props)}>
+{React.createElement(
+MyComponent1,
+props[\"4\"] , 
+React.createElement(
+MyComponent2,
+props[\"5\"] 
+), React.createElement(
+MyComponent2,
+props[\"6\"] 
+), React.createElement(
+MyComponent,
+props[\"7\"] 
+)
+)}
+</div>)
+}
+}
+export default function render(element) {
+const fragmentRoot = document.getElementById(\'8\')
 const props = JSON.parse(fragmentRoot.getAttribute(\'data-props\'))
 ReactDOM.render(<Fragment {...props}/>, element)
 }"
