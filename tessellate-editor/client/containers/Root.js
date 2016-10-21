@@ -1,18 +1,35 @@
 // @flow
 import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
+import yaml from 'js-yaml'
 import FileLoader from '../components/FileLoader'
 import TextArea from '../components/TextArea'
+import SubmitForm from '../components/SubmitForm'
 
 export default class Root extends Component {
+  props: {
+    options: Object;
+  };
+
   state: {
     currentFile?: File;
     fileContent?: string;
-  }
+    status: string;
+  };
 
   constructor(props: Object) {
     super(props)
-    this.state = {}
+    this.state = {
+      status: ''
+    }
+  }
+
+  parseFileContent(file?: File, content?: string): ?string {
+    if (file && (file.name.endsWith('.yaml') || file.name.endsWith('.yml'))) {
+      return JSON.stringify(yaml.safeLoad(content))
+    } else {
+      return content
+    }
   }
 
   onFileChanged(file?: File) {
@@ -32,17 +49,30 @@ export default class Root extends Component {
     reader.readAsText(file)
   }
 
-  onPublishContent() {
-    fetch('http://localhost:3001/bundles/zalando.de/example', {
+  onPublishContent(args: {|domain: string; key: string;|}) {
+    this.setState({
+      status: 'publishing...'
+    })
+    fetch(`${this.props.options.BUNDLE_TARGET}/${args.domain}/${args.key}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: this.state.fileContent
+      body: this.parseFileContent(this.state.currentFile, this.state.fileContent)
     })
-    .then(data => console.log('Succes', data))
-    .catch(error => console.error(error))
+    .then(response => {
+      console.debug(response)
+      this.setState({
+        status: `${response.status} - ${response.statusText}`
+      })
+    })
+    .catch(error => {
+      console.error(error)
+      this.setState({
+        status: `Error: ${error.message}`
+      })
+    })
   }
 
   render() {
@@ -57,10 +87,8 @@ export default class Root extends Component {
           <FileLoader
             currentFile={this.state.currentFile}
             onFileChanged={this.onFileChanged.bind(this)}/>
-          <button type="submit"
-            disabled={publishDisabled}
-            className="btn btn-primary"
-            onClick={this.onPublishContent.bind(this)}>Publish content</button>
+          <SubmitForm onSubmit={this.onPublishContent.bind(this)}/>
+          <div>{this.state.status}</div>
         </div>
       </div>
     </div>

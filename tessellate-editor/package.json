@@ -16,10 +16,11 @@
     "url": "https://github.bus.zalan.do/mfellner/tessellate.git"
   },
   "scripts": {
-    "dist-client": "NODE_ENV=production webpack --config webpack.client.js",
+    "dist-client": "NODE_ENV=production webpack --config webpack.client.js -p",
     "dist-server": "NODE_ENV=production webpack --config webpack.server.js",
-    "dist": "npm-run-all --parallel dist-client diest-server",
+    "dist": "npm-run-all --parallel dist-client dist-server",
     "start": "webpack-dev-server --inline --config webpack.client.js --content-base dist/",
+    "server": "DEBUG=tessellate-editor:* STATIC_DIR=dist/client ./bin/tessellate-editor",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest --coverage"
   },
@@ -55,6 +56,7 @@
     "html-webpack-plugin": "2.22.0",
     "jest": "16.0.1",
     "npm-run-all": "3.1.1",
+    "raw-loader": "0.5.1",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "supertest": "2.0.0",

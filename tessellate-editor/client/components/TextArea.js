@@ -10,7 +10,10 @@ export default class TextArea extends Component {
     return (
       <form>
         <div className="form-group">
-          <textarea ref="textarea" className="form-control" rows="12" value={this.props.value}/>
+          <textarea ref="textarea"
+            className="form-control"
+            rows="16"
+            value={this.props.value}/>
         </div>
       </form>
     )

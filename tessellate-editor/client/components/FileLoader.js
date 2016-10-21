@@ -23,7 +23,7 @@ export default class FileLoader extends Component {
       <form>
         <div className="form-group">
           <input type="file" className="form-control-file" id="exampleInputFile"
-            accept=".json" max="1" onChange={this.onFileChanged.bind(this)}/>
+            accept=".json,.yaml,.yml" max="1" onChange={this.onFileChanged.bind(this)}/>
         </div>
       </form>
     )

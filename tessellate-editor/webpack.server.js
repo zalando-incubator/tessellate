@@ -36,6 +36,6 @@ module.exports = {
   },
   externals: nodeModules(),
   node: {
-    __dirname: true
+    __dirname: false
   }
 }

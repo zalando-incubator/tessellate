@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './client/client.js',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist', 'client'),
     filename: 'client.js'
   },
   module: {
@@ -19,6 +19,9 @@ module.exports = {
           'transform-flow-strip-types'
         ]
       }
+    },
+    {
+      test: /\.ya?ml$/, exclude: /node_modules/, loader: 'raw'
     }]
   },
   plugins: [
