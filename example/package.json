@@ -7,12 +7,14 @@
     "bundler": "tessellate-bundler",
     "fragment": "tessellate-fragment",
     "viewer": "tessellate-viewer",
-    "all": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment viewer"
+    "editor": "tessellate-editor",
+    "all": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment viewer editor"
   },
   "dependencies": {
     "npm-run-all": "3.1.1",
-    "z-shop-ui": "https://mosaic01.ztat.net/npm/z-shop-ui.tgz",
+    "reflexbox": "2.2.2",
     "tessellate-bundler": "../tessellate-bundler",
+    "tessellate-editor": "../tessellate-editor",
     "tessellate-fragment": "../tessellate-fragment",
     "tessellate-viewer": "../tessellate-viewer"
   }
