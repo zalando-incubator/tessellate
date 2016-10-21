@@ -1,12 +1,14 @@
 {
-  "type": "z-shop-ui.Headline",
-  "style": "z-shop-ui/dist/z-shop-ui.css",
-  "props": {
-    "level": 1
-  },
-  "children": [{
-    "type": "div",
-    "props": null,
-    "children": ["Hello, World!"]
-  }]
+  "type": "div",
+  "props": null,
+  "children": [
+    {
+      "type": "mosaic-component-example.default",
+      "style": "mosaic-component-example/dist/styles.css",
+      "props": {
+        "level": 3
+      },
+      "children": ["Hello, World!"]
+    }
+  ]
 }

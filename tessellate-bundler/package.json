@@ -59,9 +59,9 @@
     "eslint-plugin-promise": "3.3.0",
     "eslint-plugin-react": "6.4.1",
     "jest": "16.0.1",
+    "mosaic-component-example": "1.0.2",
     "supertest": "2.0.0",
-    "supertest-as-promised": "4.0.0",
-    "z-shop-ui": "https://mosaic01.ztat.net/npm/z-shop-ui.tgz"
+    "supertest-as-promised": "4.0.0"
   },
   "jest": {
     "coverageReporters": [

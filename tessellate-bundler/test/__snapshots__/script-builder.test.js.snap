@@ -1,18 +1,18 @@
 exports[`script-builder should fragment script string from a content structure 1`] = `
 "import React, { Component } from \'react\'
 import ReactDOM from \'react-dom\'
-import zShopUi from \'z-shop-ui\'
-import Z_SHOP_UI_DIST_Z_SHOP_UI_CSS from \'z-shop-ui/dist/z-shop-ui.css\'
-const BUNDLED_PROPS = {\"1\":{\"level\":1},\"2\":null}
+import mosaicComponentExampleDistStylesCss from \'mosaic-component-example/dist/styles.css\'
+import mosaicComponentExample from \'mosaic-component-example\'
+const BUNDLED_PROPS = {\"1\":null,\"2\":{\"level\":3}}
 export class Fragment extends Component {
 render() {
 const props = Object.assign({}, BUNDLED_PROPS, this.props)
 return (<div id=\"3\" data-props={JSON.stringify(this.props)}>
 {React.createElement(
-zShopUi.Headline,
+\'div\',
 props[\"1\"] , 
 React.createElement(
-\'div\',
+mosaicComponentExample,
 props[\"2\"] , 
 \`Hello, World!\`
 )
