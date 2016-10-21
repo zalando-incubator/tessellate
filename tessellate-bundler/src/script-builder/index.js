@@ -2,7 +2,7 @@
 
 import uuid from 'uuid'
 import logger from '../logger'
-import { camelCase, constantCase } from 'change-case'
+import { camelCase } from 'change-case'
 import FragmentScript from './FragmentScript'
 import CreateElementScript from './CreateElementScript'
 import { Problem } from '../error'
@@ -77,14 +77,25 @@ function parseElementType(element: ElementType): {|className: string; imported?:
   if (moduleName && componentName) {
     // Module imports for this element.
     const imported = {}
+
+    // If a style attribute is present, add a module import for it.
+    const style: ?string = camelCase(element.style)
+    if (style) imported[style] = element.style
+
     // Add a module import based on the type.
     const importName: string = camelCase(moduleName)
     imported[importName] = moduleName
-    // If a style attribute is present, add a module import for it.
-    const style: ?string = constantCase(element.style)
-    if (style) imported[style] = element.style
+
+    let className
+    // The React class name is '<import-name>'
+    if (componentName === 'default') {
+      className = importName
+    }
     // The React class name is '<import-name>.<component-name>'
-    const className = `${importName}.${componentName}`
+    else {
+      className = `${importName}.${componentName}`
+    }
+
     return {className, imported}
   }
   // Type is a literal React component name (e.g. 'div')
