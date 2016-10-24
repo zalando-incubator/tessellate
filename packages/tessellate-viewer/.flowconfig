@@ -4,7 +4,7 @@
 [include]
 
 [libs]
-./../flow-typed/
+./../../flow-typed/
 
 [options]
 esproposal.class_static_fields=enable
