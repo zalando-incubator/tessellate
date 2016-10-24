@@ -16,10 +16,11 @@ addons:
 cache:
   directories:
     - node_modules
-before_script:
-  - npm install
-  # - npm install coveralls codeclimate-test-reporter
-  - ./node_modules/.bin/lerna bootstrap
+install:
+  - npm install -g lerna@prerelease
+  - lerna bootstrap
+# before_script:
+#   - npm install coveralls codeclimate-test-reporter
 script:
   - lerna run test
 # after_success:
