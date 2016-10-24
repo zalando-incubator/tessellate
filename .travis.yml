@@ -16,6 +16,10 @@ addons:
 cache:
   directories:
     - node_modules
+    - packages/tessellate-bundler/node_modules
+    - packages/tessellate-editor/node_modules
+    - packages/tessellate-fragment/node_modules
+    - packages/tessellate-viewer/node_modules
 install:
   - npm install -g lerna@prerelease
   - lerna bootstrap
