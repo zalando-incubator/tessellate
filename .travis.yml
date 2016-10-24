@@ -1,0 +1,32 @@
+sudo: false
+branches:
+  only:
+    - master
+language: node_js
+node_js:
+  - "6"
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+cache:
+  directories:
+    - node_modules
+    - packages/tessellate-bundler/node_modules
+    - packages/tessellate-editor/node_modules
+    - packages/tessellate-fragment/node_modules
+    - packages/tessellate-viewer/node_modules
+install:
+  - npm install -g lerna@prerelease
+  - lerna bootstrap
+# before_script:
+#   - npm install coveralls codeclimate-test-reporter
+script:
+  - lerna run test
+# after_success:
+#   - lerna run coveralls
+#   - lerna run codeclimate
