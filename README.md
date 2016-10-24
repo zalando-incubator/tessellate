@@ -1,6 +1,6 @@
 ![Tessellate](https://media.github.bus.zalan.do/user/115/files/7af8ba6e-91f8-11e6-854d-0e3ce4d4a3e0)
 
-Micro service stack for dynamic fragments.
+Micro service stack for dynamic fragments. [![Build Status](https://travis-ci.org/zalando-incubator/tessellate.svg?branch=master)](https://travis-ci.org/zalando-incubator/tessellate)
 
 ## What is Tessellate?
 
