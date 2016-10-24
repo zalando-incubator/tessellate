@@ -1,5 +1,5 @@
 {
-  "name": "Example",
+  "name": "tessellate-example-bundle",
   "version": "1.0.0",
   "main": "example.js",
   "private": true,
