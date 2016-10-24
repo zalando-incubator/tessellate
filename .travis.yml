@@ -1,4 +1,7 @@
 sudo: false
+branches:
+  only:
+    - master
 node_js:
   - "6"
 cache:
