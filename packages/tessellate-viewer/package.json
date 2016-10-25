@@ -57,6 +57,7 @@
   },
   "jest": {
     "coverageReporters": [
+      "json",
       "lcov",
       "html",
       "text"
