@@ -63,7 +63,7 @@ export default class Root extends Component {
     })
     .then(response => {
       console.debug(response)
-      this.setState({
+      return this.setState({
         status: `${response.status} - ${response.statusText}`
       })
     })

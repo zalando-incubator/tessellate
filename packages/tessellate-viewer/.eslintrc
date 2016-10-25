@@ -229,9 +229,9 @@ rules:
   require-yield: 0
 
   # Promise
-  promise/param-names: 2
   promise/always-return: 2
-  promise/always-catch: 2
+  promise/no-return-wrap: 2
+  promise/param-names: 2
   promise/catch-or-return: 2
   promise/no-native: 0
 
