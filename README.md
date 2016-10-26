@@ -6,10 +6,12 @@ Micro service stack for dynamic fragments. &nbsp;&nbsp; [![Build Status](https:/
 
 Tessellate is a collection of micro services built on top of the [Mosaic](https://www.mosaic9.org) architecture. It is comprised of the following parts:
 
-* **tessellate-editor** – Editor for composing reusable components.
-* **tessellate-bundler** – Builds portable ReactJS modules from abstract component structures.
-* **tessellate-fragment** – Agnostic fragment for rendering any ReactJS module.
-* **tessellate-viewer** – Simple layout service for composing fragments.
+|Package                                            |Description                                                        |Version|
+|:--------------------------------------------------|:------------------------------------------------------------------|:------|
+|[tessellate-editor](packages/tessellate-editor)    |Editor for composing reusable components.                          |[![npm version](https://badge.fury.io/js/tessellate-editor.svg)](https://badge.fury.io/js/tessellate-editor)|
+|[tessellate-bundler](packages/tessellate-bundler)  |Builds portable ReactJS modules from abstract component structures.|[![npm version](https://badge.fury.io/js/tessellate-bundler.svg)](https://badge.fury.io/js/tessellate-bundler)|
+|[tessellate-fragment](packages/tessellate-fragment)|Agnostic fragment for rendering any ReactJS module.                |[![npm version](https://badge.fury.io/js/tessellate-fragment.svg)](https://badge.fury.io/js/tessellate-fragment)|
+|[tessellate-viewer](packages/tessellate-viewer)    |Simple layout service for composing fragments.                     |[![npm version](https://badge.fury.io/js/tessellate-viewer.svg)](https://badge.fury.io/js/tessellate-viewer)|
 
 ## Dynamic fragments
 
