@@ -27,5 +27,6 @@ export default nconf.use('memory')
                       APP_PORT: 3004,
                       MORGAN_FORMAT: 'dev',
                       MORGAN_THRESHOLD: 0,
-                      BUNDLE_TARGET: 'http://localhost:3001/bundles'
+                      BUNDLE_TARGET: 'http://localhost:3001/bundles',
+                      STATIC_DIR: path.resolve(__dirname, 'client')
                     })

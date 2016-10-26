@@ -1,5 +1,11 @@
+const fs = require('fs')
 const path = require('path')
+const yaml = require('js-yaml')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const nconf = require('nconf')
+  .env()
+  .add('config', {type: 'literal', store: yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, 'config.yaml'), 'utf8'))})
 
 module.exports = {
   entry: './client/client.js',
@@ -19,16 +25,14 @@ module.exports = {
           'transform-flow-strip-types'
         ]
       }
-    },
-    {
-      test: /\.ya?ml$/, exclude: /node_modules/, loader: 'raw'
     }]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/index.ejs',
+      template: '!!ejs-compiled-loader!./client/index.ejs',
       inject: false,
-      production: process.env.NODE_ENV === 'production'
+      production: nconf.get('NODE_ENV') === 'production',
+      BUNDLE_TARGET: nconf.get('BUNDLE_TARGET')
     })
   ],
   externals: {

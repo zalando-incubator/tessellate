@@ -23,6 +23,8 @@ module.exports = {
   },
   module: {
     loaders: [{
+      test: /\.ejs$/, exclude: /node_modules/, loader: 'raw'
+    }, {
       test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
         presets: [
           'latest-minimal'

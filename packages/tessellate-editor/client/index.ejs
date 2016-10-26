@@ -21,7 +21,7 @@
         <% } %>
     </head>
     <body>
-      <main id="main"></main>
+      <main id="main" data-props="<%= JSON.stringify(htmlWebpackPlugin.options) %>"></main>
       <% htmlWebpackPlugin.files.js.map(function(script) { %>
       <script src="<%= script %>" defer></script>
       <% }) %>

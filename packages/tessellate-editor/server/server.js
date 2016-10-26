@@ -4,9 +4,10 @@ import path from 'path'
 import Koa from 'koa'
 import morgan from 'koa-morgan'
 import koaStatic from 'koa-static'
-import nconf from './nconf'
+import routes from './routes'
 import logger from './logger'
 import error from './error'
+import nconf from './nconf'
 
 const log = logger('server')
 
@@ -15,12 +16,13 @@ export function init(): Koa {
   const morganFormat = nconf.get('MORGAN_FORMAT')
   const morganSkip = (req, res) => res.statusCode < nconf.get('MORGAN_THRESHOLD')
 
-  const staticDir = nconf.get('STATIC_DIR') || path.resolve(__dirname, 'client')
+  const staticDir = nconf.get('STATIC_DIR')
   log.info('Serving files from %s', staticDir)
 
   return app
     .use(morgan(morganFormat, {skip: morganSkip}))
     .use(error)
+    .use(routes)
     .use(koaStatic(staticDir, {defer: false, gzip: true}))
 }
 
