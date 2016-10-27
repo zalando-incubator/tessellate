@@ -9,7 +9,9 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-  openssl aes-256-cbc -K $encrypted_987335dd518e_key -iv $encrypted_987335dd518e_iv -in deploy_key.enc -out deploy_key -d
+  openssl aes-256-cbc -K $encrypted_987335dd518e_key -iv $encrypted_987335dd518e_iv -in .travis/deploy_key.enc -out deploy_key -d
+  chmod 600 deploy_key
+  eval `ssh-agent -s`
   ssh-add deploy_key
 
   npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
