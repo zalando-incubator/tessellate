@@ -12,8 +12,8 @@ if [[ "$TRAVIS_BRANCH" == "master" ]]; then
   rm -rf .git
   git init
   git clean -dfx
+  git remote add origin git@github.com:$TRAVIS_REPO_SLUG.git
   git fetch origin
-  git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   git checkout $TRAVIS_BRANCH
 
   openssl aes-256-cbc -K $encrypted_987335dd518e_key -iv $encrypted_987335dd518e_iv -in .travis/deploy_key.enc -out deploy_key -d
