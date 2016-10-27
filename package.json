@@ -1,5 +1,15 @@
 {
+  "scripts": {
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
+  },
   "devDependencies": {
+    "commitizen": "2.8.6",
+    "cz-lerna-changelog": "0.3.0",
     "lerna": "2.0.0-beta.30"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
   }
 }
