@@ -23,13 +23,11 @@ cache:
 before_install:
   - .travis/before_install.sh
 install:
-  - npm install -g lerna@prerelease
-  - lerna bootstrap
-before_script:
-  - npm install istanbul-combine coveralls codeclimate-test-reporter
+  - npm install
 script:
-  - lerna run test
+  - npm test
 after_success:
+  - npm install istanbul-combine coveralls codeclimate-test-reporter
   - ./node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/tessellate-*/coverage/coverage*.json
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
   - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
