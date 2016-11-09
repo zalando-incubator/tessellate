@@ -29,6 +29,8 @@
     "koa-router": "7.0.1",
     "mz": "2.4.0",
     "nconf": "0.8.4",
+    "prom-client": "6.1.0",
+    "prometheus-gc-stats": "0.3.1",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "request": "2.75.0",
@@ -55,6 +57,7 @@
     "webpack": "2.1.0-beta.25"
   },
   "jest": {
+    "testEnvironment": "node",
     "coverageReporters": [
       "json",
       "lcov",
