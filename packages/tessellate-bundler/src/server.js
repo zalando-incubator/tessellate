@@ -6,6 +6,8 @@ import morgan from 'koa-morgan'
 import bodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
 import kcors from 'kcors'
+import prometheus from 'prom-client'
+import prometheusGCStats from 'prometheus-gc-stats'
 import logger from './logger'
 import routes from './routes'
 import error from './error'
@@ -37,6 +39,7 @@ export function init(): Koa {
 
 export function start(port: number | string = nconf.get('APP_PORT')) {
   init().listen(port)
+  prometheusGCStats()()
   log.info('listening on port %d', port)
 }
 

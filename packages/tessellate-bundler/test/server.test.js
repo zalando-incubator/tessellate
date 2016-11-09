@@ -57,4 +57,12 @@ describe('server', () => {
       expect(contentService.publish).toBeCalled()
     })
   })
+
+  describe('/metrics', () => {
+    it('should serve JSON metrics', async () => {
+      await request.get('/metrics')
+        .expect(200)
+        .expect('Content-Type', /json/)
+    })
+  })
 })
