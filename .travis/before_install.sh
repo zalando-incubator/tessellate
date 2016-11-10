@@ -9,15 +9,15 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  git config credential.helper store
+  echo "https://mfellner:$RELEASE_GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git" > ~/.git-credentials
+
   rm -rf .git
   git init
   git clean -dfx
   git remote add origin git@github.com:${TRAVIS_REPO_SLUG}.git
   git fetch origin
   git checkout ${TRAVIS_BRANCH}
-
-  git config credential.helper store
-  echo "https://mfellner:$RELEASE_GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git" > ~/.git-credentials
 
   npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN} -q
   npm prune
