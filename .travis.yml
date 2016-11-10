@@ -32,3 +32,5 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
   - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
   - .travis/after_success.sh
+git:
+  depth: 1
