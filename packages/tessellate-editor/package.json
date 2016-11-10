@@ -5,6 +5,9 @@
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
   "main": "dist/server.js",
+  "publishConfig": {
+    "tag": "next"
+  },
   "bin": {
     "tessellate-editor": "./bin/tessellate-editor"
   },
