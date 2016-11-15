@@ -27,6 +27,7 @@ install:
   - npm install istanbul-combine coveralls codeclimate-test-reporter
 script:
   - npm test
+  - npm run dist
 after_success:
   - ./node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/tessellate-*/coverage/coverage*.json
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

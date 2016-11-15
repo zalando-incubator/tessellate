@@ -2,6 +2,7 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "test": "lerna run test",
+    "dist": "lerna run dist",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "devDependencies": {
