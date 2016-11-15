@@ -4,7 +4,7 @@
   "main": "example.js",
   "private": true,
   "scripts": {
-    "dist": "webpack",
+    "webpack": "webpack",
     "start": "node upload.js"
   },
   "devDependencies": {
