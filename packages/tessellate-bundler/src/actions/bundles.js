@@ -15,16 +15,31 @@ class BundleProblem extends Problem {
   }
 }
 
+function parseOptions(): Object {
+  let packages = nconf.get('NPM_MODULES')
+  if (typeof packages === 'string') {
+    packages = JSON.parse(packages)
+  }
+
+  let externals = nconf.get('NPM_EXTERNALS')
+  if (typeof externals === 'string') {
+    externals = JSON.parse(externals)
+  }
+  externals = externals.reduce((exts, ext) => Object.assign(exts, {[ext]: ext}), {})
+
+  return {
+    cssSupport: true,
+    production: nconf.get('NODE_ENV') === 'production',
+    packages,
+    externals
+  }
+}
+
 export const CREATE_BUNDLE = Symbol('CREATE_BUNDLE')
 
 export const createBundle = register(CREATE_BUNDLE, async ({domain, name, element}) => {
   const source = scriptBuilder.build(element)
-  const bundle = await bundleService.make(source, {
-    cssSupport: true,
-    production: nconf.get('NODE_ENV') === 'production',
-    packages: nconf.get('NPM_MODULES'),
-    externals: nconf.get('NPM_EXTERNALS').reduce((exts, ext) => Object.assign(exts, {[ext]: ext}), {})
-  })
+  const bundle = await bundleService.make(source, parseOptions())
   return {bundle}
 })
 
