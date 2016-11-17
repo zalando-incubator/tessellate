@@ -34,7 +34,7 @@ type PublishResult = {
 
 class ContentProblem extends Problem {
   constructor(detail: string) {
-    super({title: 'Contet error.', detail, status: 400})
+    super({title: 'Content error.', detail, status: 400})
   }
 }
 
@@ -46,9 +46,14 @@ export async function publish(args: ExportArgs): Promise<PublishResult> {
   const target = url.parse(nconf.get('PUBLISH_TARGET'))
 
   if (target.protocol === 'file:') {
-    if (!target.hostname || !target.pathname)
+    let targetPath
+    if (target.hostname && target.pathname)
+      targetPath = path.join(target.hostname, target.pathname)
+    else if (target.pathname)
+      targetPath = target.pathname
+    else
       throw new ContentProblem('Undefined target path.')
-    return await publishToFileSystem(path.join(target.hostname, target.pathname), args)
+    return await publishToFileSystem(targetPath, args)
   }
   else if (target.protocol === 's3:')
     return await publishToS3(target.hostname, target.pathname)
