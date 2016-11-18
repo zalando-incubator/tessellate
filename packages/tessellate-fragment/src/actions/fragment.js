@@ -1,6 +1,5 @@
 // @flow
 
-import url from 'url'
 import path from 'path'
 import { register } from '../dispatch'
 import { Problem } from '../error'
@@ -40,11 +39,9 @@ export const renderBundle = register(RENDER_BUNDLE, async ({bundle, props}) => {
 
 function parseBundleName(skipper: SkipperArgs): string {
   if (!skipper.requestURI) throw new FragmentProblem('Request URI not present.')
+  if (!skipper.requestHost) throw new FragmentProblem('Request Host not present.')
 
-  const {hostname, pathname} = url.parse(skipper.requestURI)
-
-  if (hostname && pathname) return path.join(hostname.replace(/^www\./, ''), pathname)
-  else throw new FragmentProblem(`Illegal URI '${skipper.requestURI}'`)
+  return path.join(skipper.requestHost.replace(/^www\./, ''), skipper.requestURI)
 }
 
 function parseSkipperArgs(headers: Object): SkipperArgs {
