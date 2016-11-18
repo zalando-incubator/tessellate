@@ -29,7 +29,7 @@ export async function fetchBundle(name: string): Promise<Bundle> {
     const baseURL = url.format({
       protocol: uri.protocol,
       hostname: uri.hostname,
-      port: uri.port || 80,
+      port: uri.port,
       pathname: name
     })
     return await fetchBundleFromHTTPSource(baseURL)
