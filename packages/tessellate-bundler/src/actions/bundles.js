@@ -15,21 +15,26 @@ class BundleProblem extends Problem {
   }
 }
 
-function parseOptions(): Object {
-  let packages = nconf.get('NPM_MODULES')
-  if (typeof packages === 'string') {
-    packages = JSON.parse(packages)
+function parseConfigValue(value: mixed): mixed {
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value)
+    } catch(e) {
+      throw new BundleProblem(`Cannot parse illegal config value "${value}"`)
+    }
   }
+  return value
+}
 
-  let externals = nconf.get('NPM_EXTERNALS')
-  if (typeof externals === 'string') {
-    externals = JSON.parse(externals)
-  }
+function parseOptions(): Object {
+  const packages = parseConfigValue(nconf.get('NPM_MODULES'))
+  let externals = parseConfigValue(nconf.get('NPM_EXTERNALS'))
   externals = externals.reduce((exts, ext) => Object.assign(exts, {[ext]: ext}), {})
+  const production = nconf.get('NODE_ENV') === 'production'
 
   return {
     cssSupport: true,
-    production: nconf.get('NODE_ENV') === 'production',
+    production,
     packages,
     externals
   }
