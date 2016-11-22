@@ -1,0 +1,77 @@
+exports[`jsx-parser should parse a JSX file with custom classes 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "props": Object {
+                "alt": "Test",
+                "src": "test.png",
+              },
+              "type": "img",
+            },
+          ],
+          "props": Object {
+            "sm": 6,
+            "xs": 12,
+          },
+          "type": "my-prefix.Grid.Column",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "props": Object {
+                "args": Object {
+                  "bool": true,
+                  "foo": "bar",
+                },
+              },
+              "type": "my-prefix.Custom1",
+            },
+            Object {
+              "children": Array [],
+              "props": Object {
+                "args": Object {
+                  "test": 4.2,
+                },
+              },
+              "type": "my-prefix.Custom2",
+            },
+          ],
+          "props": Object {
+            "sm": 6,
+            "xs": 12,
+          },
+          "type": "my-prefix.Grid.Column",
+        },
+      ],
+      "props": null,
+      "type": "my-prefix.Grid.Row",
+    },
+  ],
+  "props": null,
+  "type": "my-prefix.Container",
+}
+`;
+
+exports[`jsx-parser should parse a simple JSX file 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        "Hello, world!",
+      ],
+      "props": null,
+      "type": "h1",
+    },
+  ],
+  "props": Object {
+    "id": "test",
+  },
+  "type": "div",
+}
+`;
