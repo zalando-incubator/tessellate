@@ -1,5 +1,10 @@
 // @flow
 
+import type { FileType } from '../'
+
+import createJSXParser from './jsx-parser'
+import createJSONParse from './json-parser'
+
 type JSONMap = {
   typeKeys: Array<string>;
   childrenKeys: Array<string>;
@@ -27,3 +32,16 @@ export type ParseCallbacks = {|
   onLeave: (node: ParseResult) => void;
   onLiteral: (literal: string) => void;
 |};
+
+export type Parser = (content: string, callbacks: ParseCallbacks) => void
+
+export default function createParser(type: FileType, opts: ParseOptions): Parser {
+  switch(type)  {
+    case '.jsx':
+      return createJSXParser(opts)
+    case '.json':
+      return createJSONParse(opts)
+    default:
+      throw new Error(`Unsupported type ${type}`)
+  }
+}

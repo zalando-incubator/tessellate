@@ -1,6 +1,7 @@
 // @flow
 
 import transform from './transform'
+import createParser from './parsers'
 
 import type { ParseOptions } from './parsers'
 
@@ -12,5 +13,5 @@ export type File = {|
 |};
 
 export default async function parse(file: File, opts: ParseOptions): Promise<*> {
-  return transform(file.extname, file.content, opts)
+  return transform(file.content, createParser(file.extname, opts))
 }
