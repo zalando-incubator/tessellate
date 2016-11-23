@@ -2,6 +2,8 @@
 
 const acorn = require('acorn-jsx')
 
+import type { ParseOptions, ParseResult } from './'
+
 type AST = {
   type: string;
   body: Array<ExpressionStatement>;
@@ -81,18 +83,8 @@ type JsonData = {
 type ProcessingOptions = {|
   onEnter: (element: Element) => void;
   onLeave: (element: Element) => void;
-  onLiteral: (literal: Object) => void;
+  onLiteral: (literal: Literal) => void;
 |};
-
-type ParseOptions = {
-  typePrefix?: string;
-}
-
-type ParseResult = {
-  type: string;
-  props: Object | null;
-  children: Array<ParseResult>;
-}
 
 function processAttribute(attribute: Attribute): {[key: string]: mixed} {
   const value = attribute.value
@@ -118,8 +110,6 @@ function processAttribute(attribute: Attribute): {[key: string]: mixed} {
       }
       break
     }
-    default:
-      result = null
   }
   return {[attribute.name.name]: result}
 }
@@ -145,50 +135,63 @@ function traverseAST(ast: AST, opts: ProcessingOptions) {
   }
 }
 
-export default function parse(jsx: string, opts: ParseOptions): ParseResult {
-  const typePrefix = opts.typePrefix ? `${opts.typePrefix}.` : ''
+export default function parse(jsx: string, opts: ParseOptions): * {
   const ast: AST = acorn.parse(jsx, {plugins: {jsx: true}})
-  let root = null
+
+  let root: ParseResult | null = null
   const nodes = []
+  const getLastNode = () => nodes[nodes.length - 1]
+  const typePrefix = opts.typePrefix ? `${opts.typePrefix}.` : ''
+
+  function parseElementType(element: Element): string {
+    if (element.name.type === 'JSXIdentifier') {
+      const name = element.name.name
+      const isCustomClassName = /^[A-Z]/.test(name)
+      return isCustomClassName ? `${typePrefix}${name}` : name
+    }
+    else if (element.name.type === 'JSXMemberExpression') {
+      return `${typePrefix}${element.name.object.name}.${element.name.property.name}`
+    }
+    else {
+      throw new Error(`Unsupported element name type ${element.name.type}`)
+    }
+  }
+
+  function parseElementAttrs(element: Element): { [key: string]: mixed } {
+    return element.attributes.reduce((attrs, attr) => Object.assign(attrs, processAttribute(attr)), {})
+  }
 
   traverseAST(ast, {
     onEnter: (element: Element) => {
-      let type
-      if (element.name.type === 'JSXIdentifier') {
-        const name = element.name.name
-        type = /^[A-Z]/.test(name) ? `${typePrefix}${name}` : name
-      } else {
-        type = `${typePrefix}${element.name.object.name}.${element.name.property.name}`
-      }
-
-      const props = element.attributes.reduce((attrs, attr) => Object.assign(attrs, processAttribute(attr)), {})
-      const jsonNode = {
+      const type = parseElementType(element)
+      const props = parseElementAttrs(element)
+      const jsonNode: ParseResult = {
         type,
         props: Object.keys(props).length > 0 ? props : null,
-        children: []
+        children: ([]: Array<ParseResult>)
       }
 
-      const lastNode = nodes[nodes.length - 1]
+      const lastNode = getLastNode()
 
-      if (lastNode) {
+      if (typeof lastNode === 'object') {
         lastNode.children.push(jsonNode)
       } else {
         root = jsonNode
       }
-
       nodes.push(jsonNode)
     },
     onLeave: (element: Element) => {
       nodes.pop()
     },
-    onLiteral: (literal: Object) => {
-      const lastNode = nodes[nodes.length - 1]
-      if (/\S+/.test(literal.raw)) {
+    onLiteral: (literal: Literal) => {
+      const lastNode = getLastNode()
+      const isNotJustWhitespace = /\S+/.test(literal.raw)
+      if (isNotJustWhitespace && typeof lastNode === 'object' && typeof literal.value === 'string') {
         lastNode.children.push(literal.value)
       }
     }
   })
 
-  if(!root) throw new Error('Could not parse JSX.')
+  if(!root || typeof root !== 'object') throw new Error('Could not parse JSX.')
   else return root
 }

@@ -3,9 +3,10 @@
 import path from 'path'
 import fs from 'mz/fs'
 import yargs from 'yargs'
-import { parse } from './'
+import parse from './'
 
-import type { File, ParseOptions } from './'
+import type { File } from './'
+import type { ParseOptions } from './parsers'
 
 type Options = {|
   file: File;
