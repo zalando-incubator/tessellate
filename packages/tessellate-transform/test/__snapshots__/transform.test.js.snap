@@ -58,6 +58,26 @@ Object {
 }
 `;
 
+exports[`transform should transform a simple JSON file 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        "Hello, world!",
+      ],
+      "props": Object {
+        "id": "heading",
+      },
+      "type": "h1",
+    },
+  ],
+  "props": Object {
+    "id": "test",
+  },
+  "type": "div",
+}
+`;
+
 exports[`transform should transform a simple JSX file 1`] = `
 Object {
   "children": Array [

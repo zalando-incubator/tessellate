@@ -2,10 +2,9 @@
 
 import createJSXParser from './parsers/jsx-parser'
 
-import type { FileType } from './'
-import type { ParseOptions, ParseResult } from './parsers'
+import type { Parser, ParseResult } from './parsers'
 
-export default function transform(type: FileType, jsx: string, opts: ParseOptions): * {
+export default function transform(content: string, parse: Parser): * {
   let root: ParseResult | null = null
   const nodes = []
   const getLastNode = () => nodes[nodes.length - 1]
@@ -32,13 +31,7 @@ export default function transform(type: FileType, jsx: string, opts: ParseOption
     }
   }
 
-  switch(type)  {
-    case '.jsx':
-      createJSXParser(opts)(jsx, callbacks)
-      break
-    default:
-      throw new Error(`Unsupported type ${type}`)
-  }
+  parse(content, callbacks)
 
   if(!root || typeof root !== 'object') throw new Error('Could not parse JSX.')
   else return root
