@@ -28,7 +28,8 @@ export async function fetchFragment(domain: string, name: string): Promise<Fragm
     url,
     method: 'GET',
     headers: {
-      'x-zalando-request-uri': `https://${domain}/${name}`
+      'x-zalando-request-uri': name,
+      'x-zalando-request-host': domain
     },
     resolveWithFullResponse: true
   })
