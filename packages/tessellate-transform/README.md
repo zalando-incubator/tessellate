@@ -5,12 +5,14 @@ Library to transform React components from JSX or JSON to JSON. The output forma
 ### Usage:
 
 ```javascript
+import transform from 'tessellate-transform'
+
 const file = {
   content: '<h1>Hello, world!</h1>',
   extname: '.jsx'
 }
 const options = {}
-const object = await parse(file, options)
+const object = await transform(file, options)
 ```
 
 ### Command line use:

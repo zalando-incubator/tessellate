@@ -1,19 +1,35 @@
 // @flow
 
-import fs from 'mz/fs'
-import path from 'path'
-import parse from '../lib/parsers/jsx-parser'
+import createParser from '../lib/parsers/jsx-parser'
 
 describe('jsx-parser', () => {
-  it('should parse a simple JSX file', async () => {
-    const buffer = await fs.readFile(path.resolve(__dirname, './fixtures/simple.jsx'))
-    const result = parse(buffer.toString(), {})
-    expect(result).toMatchSnapshot()
-  })
+  const parse = createParser()
+  const jsx = '<div><h1>Hello, world!</h1></div>'
 
-  it('should parse a JSX file with custom classes', async () => {
-    const buffer = await fs.readFile(path.resolve(__dirname, './fixtures/custom.jsx'))
-    const result = parse(buffer.toString(), {typePrefix: 'my-prefix'})
-    expect(result).toMatchSnapshot()
+  it('should traverse a JSX tree', () => {
+    const nodes = []
+    let entered = 0
+    let left = 0
+    let literals = 0
+
+    parse(jsx, {
+      onEnter: node => {
+        entered += 1
+        nodes.push(node)
+      },
+      onLeave: node => {
+        left += 1
+        expect(node).toBe(nodes.pop())
+      },
+      onLiteral: string => {
+        literals += 1
+        expect(string).toBe('Hello, world!')
+      }
+    })
+
+    expect(nodes.length).toEqual(0)
+    expect(entered).toEqual(2)
+    expect(left).toEqual(2)
+    expect(literals).toEqual(1)
   })
 })

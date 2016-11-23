@@ -1,19 +1,16 @@
 // @flow
 
-import parseJSX from './parsers/jsx-parser'
+import transform from './transform'
 
 import type { ParseOptions } from './parsers'
 
+export type FileType = '.jsx' | '.json' | '.yaml' | '.xml';
+
 export type File = {|
   content: string;
-  extname: '.jsx' | '.json' | '.yaml' | '.xml';
+  extname: FileType;
 |};
 
 export default async function parse(file: File, opts: ParseOptions): Promise<*> {
-  switch(file.extname) {
-    case '.jsx':
-      return parseJSX(file.content, opts)
-    default:
-      throw new Error(`Unsupported file type ${file.extname}`)
-  }
+  return transform(file.extname, file.content, opts)
 }

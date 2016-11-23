@@ -21,3 +21,9 @@ type ParseResultObject = {
 type ParseResultString = string;
 
 export type ParseResult = ParseResultObject | ParseResultString;
+
+export type ParseCallbacks = {|
+  onEnter: (node: ParseResult) => void;
+  onLeave: (node: ParseResult) => void;
+  onLiteral: (literal: string) => void;
+|};

@@ -1,4 +1,4 @@
-exports[`jsx-parser should parse a JSX file with custom classes 1`] = `
+exports[`transform should transform a JSX file with custom classes 1`] = `
 Object {
   "children": Array [
     Object {
@@ -58,7 +58,7 @@ Object {
 }
 `;
 
-exports[`jsx-parser should parse a simple JSX file 1`] = `
+exports[`transform should transform a simple JSX file 1`] = `
 Object {
   "children": Array [
     Object {
