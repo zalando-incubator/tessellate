@@ -4,7 +4,7 @@ import path from 'path'
 import { register } from '../dispatch'
 import { Problem } from '../error'
 import * as bundleService from '../bundle-service'
-import * as renderService from '../render-service'
+import * as renderService from 'tessellate-renderer'
 
 type SkipperArgs = {|
   language: string;

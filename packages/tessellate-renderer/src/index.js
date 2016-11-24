@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
 import SandboxVM from './SandboxVM'
-import logger from '../logger'
+import logger from './logger'
 
 const log = logger('render-service')
 // Hack: global.__REQUIRE_FN__ must be defined in webpack.config.

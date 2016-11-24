@@ -3,7 +3,7 @@
  */
 
 import supertest from 'supertest-as-promised'
-import * as renderService from '../src/render-service'
+import * as renderService from '../src'
 
 describe('render-service', () => {
 
