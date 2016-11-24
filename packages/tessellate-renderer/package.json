@@ -1,7 +1,7 @@
 {
   "name": "tessellate-renderer",
-  "version": "0.1.2",
-  "description": "Tessellate renderer library.",
+  "version": "0.1.0",
+  "description": "Tessellate render library.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
   "main": "dist/index.js",
