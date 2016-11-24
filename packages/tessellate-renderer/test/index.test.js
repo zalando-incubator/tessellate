@@ -2,7 +2,6 @@
  * @flow
  */
 
-import supertest from 'supertest-as-promised'
 import * as renderService from '../src'
 
 describe('render-service', () => {
