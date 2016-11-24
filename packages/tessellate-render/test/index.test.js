@@ -2,7 +2,7 @@
  * @flow
  */
 
-import * as renderService from '../src'
+import * as renderService from '../lib'
 
 describe('render-service', () => {
 

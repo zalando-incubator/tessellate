@@ -17,7 +17,7 @@ function nodeModules() {
 }
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './lib/index.js',
   target: 'node',
   output: {
     libraryTarget: 'commonjs2',
