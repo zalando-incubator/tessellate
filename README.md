@@ -12,6 +12,7 @@ Tessellate is a collection of micro services built on top of the [Mosaic](https:
 |[tessellate-bundler](packages/tessellate-bundler)  |Builds portable ReactJS modules from abstract component structures.|[![npm version](https://badge.fury.io/js/tessellate-bundler.svg)](https://badge.fury.io/js/tessellate-bundler)|
 |[tessellate-fragment](packages/tessellate-fragment)|Agnostic fragment for rendering any ReactJS module.                |[![npm version](https://badge.fury.io/js/tessellate-fragment.svg)](https://badge.fury.io/js/tessellate-fragment)|
 |[tessellate-viewer](packages/tessellate-viewer)    |Simple layout service for composing fragments.                     |[![npm version](https://badge.fury.io/js/tessellate-viewer.svg)](https://badge.fury.io/js/tessellate-viewer)|
+|[tessellate-transform](packages/tessellate-transform)|Transform content to JSON for tessellate-bundler.                |[![npm version](https://badge.fury.io/js/tessellate-transform.svg)](https://badge.fury.io/js/tessellate-transform)|
 
 ## Dynamic fragments
 
@@ -30,3 +31,23 @@ npm i --save tessellate-fragment
 ## Configuration
 
 Each micro service reads configuration from environment variables, command line arguments or a file. See each subproject for details.
+
+## Development
+
+Tessellate requires Node.js version 6+ and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
+
+```
+npm install   # Install dependencies and initialize packages.
+npm run dist  # Compile all packages.
+```
+
+We recommend using [Atom](https://atom.io) text editor together with the [Nuclide](https://nuclide.io) plugin and [Flow](https://flowtype.org) for static type checking.
+
+Here's how to install Nuclide (requires Atom) and Flow:
+
+```
+apm install nuclide
+npm install -g flow-bin
+```
+
+For details on pull requests, commit messages and contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
