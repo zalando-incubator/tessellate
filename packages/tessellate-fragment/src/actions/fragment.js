@@ -4,7 +4,7 @@ import path from 'path'
 import { register } from '../dispatch'
 import { Problem } from '../error'
 import * as bundleService from '../bundle-service'
-import * as renderService from 'tessellate-render'
+import renderToString from 'tessellate-render'
 
 type SkipperArgs = {|
   language: string;
@@ -33,7 +33,7 @@ export const fetchBundle = register(FETCH_BUNDLE, async ({headers, query}) => {
 export const RENDER_BUNDLE = Symbol('RENDER_BUNDLE')
 
 export const renderBundle = register(RENDER_BUNDLE, async ({bundle, props}) => {
-  const html = renderService.renderToStaticMarkup(bundle.source, props)
+  const html = renderToString(bundle.source, props)
   return {html}
 })
 

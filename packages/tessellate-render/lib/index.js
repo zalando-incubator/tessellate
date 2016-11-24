@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
 import SandboxVM from './SandboxVM'
 
@@ -9,7 +8,7 @@ import SandboxVM from './SandboxVM'
 const requireFn = global.__REQUIRE_FN__ || require
 const sandbox = new SandboxVM({require: requireFn})
 
-export function renderToStaticMarkup(source: string, props: Object = {}): string {
+export default function renderToString(source: string, props: Object = {}): string {
   const {Fragment} = sandbox.run(source)
   return ReactDOMServer.renderToString(<Fragment {...props}/>)
 }
