@@ -21,7 +21,6 @@
     "test": "NODE_ENV=test jest --coverage"
   },
   "dependencies": {
-    "debug": "2.3.2",
     "mz": "2.5.0",
     "nconf": "0.8.4",
     "prom-client": "6.1.1",
