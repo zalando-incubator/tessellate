@@ -1,5 +1,5 @@
 {
-  "name": "tessellate-renderer",
+  "name": "tessellate-render",
   "version": "0.1.0",
   "description": "Tessellate render library.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
