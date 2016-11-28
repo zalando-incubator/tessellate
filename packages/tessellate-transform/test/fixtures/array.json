@@ -1,0 +1,12 @@
+[
+  {
+    "type": "h1",
+    "id": "heading1",
+    "children": ["Hello, world!"]
+  },
+  {
+    "type": "h2",
+    "id": "heading2",
+    "children": ["Another heading."]
+  }
+]
