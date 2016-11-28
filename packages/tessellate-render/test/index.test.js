@@ -2,11 +2,9 @@
  * @flow
  */
 
-import supertest from 'supertest-as-promised'
-import * as renderService from '../src/render-service'
+import renderToString from '../lib'
 
-describe('render-service', () => {
-
+describe('renderToString', () => {
   // React component with UMD module definition (only supports CommonJS)
   const source = `
   (function (root, factory) {
@@ -24,10 +22,8 @@ describe('render-service', () => {
   }))
   `
 
-  describe('renderToStaticMarkup', () => {
-    it('should render a JavaScript component string to HTML', () => {
-      const html = renderService.renderToStaticMarkup(source, {text: 'This is only a test.'})
-      expect(html).toMatchSnapshot()
-    })
+  it('should render a JavaScript component string to HTML', () => {
+    const html = renderToString(source, {text: 'This is only a test.'})
+    expect(html).toMatchSnapshot()
   })
 })

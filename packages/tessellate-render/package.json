@@ -1,15 +1,12 @@
 {
-  "name": "tessellate-fragment",
-  "version": "0.1.2",
-  "description": "Tessellate fragment service.",
+  "name": "tessellate-render",
+  "version": "0.1.0",
+  "description": "Tessellate render library.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "publishConfig": {
     "tag": "next"
-  },
-  "bin": {
-    "tessellate-fragment": "./bin/tessellate-fragment"
   },
   "engines": {
     "node": ">=6"
@@ -20,23 +17,12 @@
   },
   "scripts": {
     "dist": "webpack",
-    "start": "DEBUG=tessellate-fragment:*,webpack-sandboxed:* babel-node src/server.js",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest --coverage"
   },
   "dependencies": {
-    "debug": "2.3.3",
-    "js-yaml": "3.7.0",
-    "koa": "2.0.0-alpha.7",
-    "koa-morgan": "1.0.1",
-    "koa-router": "7.0.1",
-    "mz": "2.6.0",
-    "nconf": "0.8.4",
-    "prom-client": "6.1.2",
-    "prometheus-gc-stats": "0.3.1",
-    "request": "2.79.0",
-    "request-promise-native": "1.0.3",
-    "tessellate-render": "0.1.0"
+    "react": "15.4.1",
+    "react-dom": "15.4.1"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
@@ -54,8 +40,6 @@
     "eslint-plugin-promise": "3.4.0",
     "eslint-plugin-react": "6.7.1",
     "jest": "17.0.3",
-    "supertest": "2.0.1",
-    "supertest-as-promised": "4.0.2",
     "webpack": "2.1.0-beta.25"
   },
   "jest": {

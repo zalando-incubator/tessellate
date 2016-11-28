@@ -1,0 +1,1 @@
+exports[`renderToString should render a JavaScript component string to HTML 1`] = `"<div data-reactroot=\"\" data-reactid=\"1\" data-react-checksum=\"-706139603\"><h1 data-reactid=\"2\">Hello, world!</h1><p data-reactid=\"3\">This is only a test.</p></div>"`;

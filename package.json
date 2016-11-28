@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "postinstall": "npm run bootstrap && npm run dist",
     "test": "lerna run test",
     "dist": "lerna run dist",
+    "bootstrap": "lerna bootstrap",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "devDependencies": {

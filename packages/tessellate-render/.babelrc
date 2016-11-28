@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "latest-minimal",
+    "react"
+  ],
+  "plugins": [
+    "syntax-flow",
+    "transform-flow-strip-types"
+  ]
+}
