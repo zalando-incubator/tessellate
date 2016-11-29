@@ -1,12 +1,9 @@
 // @flow
 
-import createJSXParser from './parsers/jsx-parser'
-
 import type { Parser, ParseResult } from './parsers'
 
-export default function transform(content: string, parse: Parser): * {
-  let root: ParseResult | null = null
-  const nodes = []
+export default function transform(content: string, parse: Parser<*>, root: ParseResult | null = null): ParseResult {
+  const nodes = root ? [root] : []
   const getLastNode = () => nodes[nodes.length - 1]
 
   const callbacks = {
@@ -33,6 +30,6 @@ export default function transform(content: string, parse: Parser): * {
 
   parse(content, callbacks)
 
-  if(!root || typeof root !== 'object') throw new Error('Could not parse JSX.')
-  else return root
+  if(root && typeof root === 'object') return root
+  else throw new Error('Could not transform content.')
 }

@@ -1,6 +1,6 @@
 // @flow
 
-import type { ParseOptions, ParseCallbacks, ParseResult } from './'
+import type { JSONMap, ParseOptions, ParseCallbacks, ParseResult, Parser } from './'
 
 type JSONObject = { [key: string]: number | string | boolean | null | JSONType };
 type JSONArray = Array<number | string | boolean | null | JSONObject>;
@@ -9,32 +9,38 @@ type JSONType = JSONObject | JSONArray;
 const defaultJsonMap = {
   typeKeys: ['type'],
   childrenKeys: ['children'],
-  literalKeys: [],
-  ignoreKeys: []
+  typeMap: {}
 }
 
-function findType(json: JSONObject, typeKeys: Array<string>): ?string {
-  for (let key of typeKeys) {
+function findType(json: JSONObject, jsonMap: JSONMap): ?string {
+  for (let key of jsonMap.typeKeys) {
     if (key in json && typeof json[key] === 'string') {
-      return json[key]
+      if (jsonMap.typeMap && json[key] in jsonMap.typeMap)
+        return jsonMap.typeMap[json[key]]
+      else
+        return json[key]
     }
   }
 }
 
+function parseType(json: JSONObject, jsonMap: JSONMap, prefix?: string): ?string {
+  const type = findType(json, jsonMap)
+  return type && prefix && /^[A-Z]/.test(type) ? `${prefix}${type}` : type
+}
+
 function processJSONObject(json: JSONObject, callbacks: ParseCallbacks, opts: ParseOptions) {
   const jsonMap = opts.jsonMap || defaultJsonMap
-  const type = findType(json, jsonMap.typeKeys)
+  const type = parseType(json, jsonMap, opts.typePrefix)
   const props = {}
   const childrenAndLiteralKeys = []
+  const literalKeys = jsonMap.literalKeys || []
+  const ignoreKeys = jsonMap.ignoreKeys || []
 
   for (let key of Object.keys(json)) {
-    if (jsonMap.childrenKeys.includes(key)) {
+    if (jsonMap.childrenKeys.includes(key) || literalKeys.includes(key)) {
       childrenAndLiteralKeys.push(key)
     }
-    else if (jsonMap.literalKeys.includes(key)) {
-      childrenAndLiteralKeys.push(key)
-    }
-    else if (!jsonMap.ignoreKeys.includes(key) && !jsonMap.typeKeys.includes(key)) {
+    else if (!ignoreKeys.includes(key) && !jsonMap.typeKeys.includes(key)) {
       props[key] = json[key]
     }
   }
@@ -55,7 +61,7 @@ function processJSONObject(json: JSONObject, callbacks: ParseCallbacks, opts: Pa
     if (jsonMap.childrenKeys.includes(key) && jsonNode && json[key] && typeof json[key] === 'object') {
       parseJSON(json[key], callbacks, opts)
     }
-    else if (jsonMap.literalKeys.includes(key) && typeof json[key] === 'string') {
+    else if (literalKeys.includes(key) && typeof json[key] === 'string') {
       callbacks.onLiteral(json[key])
     }
   }
@@ -78,7 +84,7 @@ function parseJSON(json: JSONType, callbacks: ParseCallbacks, opts: ParseOptions
   }
 }
 
-export default function createParser(opts: ParseOptions = {}) {
+export default function createParser(opts: ParseOptions = {}): Parser<string | JSONType> {
   return (json: string | JSONType, callbacks: ParseCallbacks) => {
     const object = typeof json === 'string' ? JSON.parse(json) : json
     return parseJSON(object, callbacks, opts)

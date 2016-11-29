@@ -5,11 +5,12 @@ import type { FileType } from '../'
 import createJSXParser from './jsx-parser'
 import createJSONParse from './json-parser'
 
-type JSONMap = {
+export type JSONMap = {
   typeKeys: Array<string>;
   childrenKeys: Array<string>;
-  literalKeys: Array<string>;
-  ignoreKeys: Array<string>;
+  literalKeys?: Array<string>;
+  ignoreKeys?: Array<string>;
+  typeMap?: { [key: string]: string };
 };
 
 export type ParseOptions = {
@@ -33,9 +34,9 @@ export type ParseCallbacks = {|
   onLiteral: (literal: string) => void;
 |};
 
-export type Parser = (content: string, callbacks: ParseCallbacks) => void
+export type Parser<T> = (content: T, callbacks: ParseCallbacks) => void
 
-export default function createParser(type: FileType, opts: ParseOptions): Parser {
+export default function createParser(type: FileType, opts: ParseOptions): Parser<*> {
   switch(type)  {
     case '.jsx':
       return createJSXParser(opts)

@@ -95,3 +95,30 @@ Object {
   "type": "div",
 }
 `;
+
+exports[`transform transform an array of elements 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        "Hello, world!",
+      ],
+      "props": Object {
+        "id": "heading1",
+      },
+      "type": "h1",
+    },
+    Object {
+      "children": Array [
+        "Another heading.",
+      ],
+      "props": Object {
+        "id": "heading2",
+      },
+      "type": "h2",
+    },
+  ],
+  "props": null,
+  "type": "myroot",
+}
+`;

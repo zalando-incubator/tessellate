@@ -2,7 +2,7 @@
 
 const acorn = require('acorn-jsx')
 
-import type { ParseOptions, ParseResult, ParseCallbacks } from './'
+import type { ParseOptions, ParseResult, ParseCallbacks, Parser } from './'
 
 type AST = {
   type: string;
@@ -202,6 +202,6 @@ function parseJSX(jsx: string, callbacks: ParseCallbacks, opts: ParseOptions) {
   })
 }
 
-export default function createParser(opts: ParseOptions = {}) {
+export default function createParser(opts: ParseOptions = {}): Parser<string> {
   return (jsx: string, callbacks: ParseCallbacks) => parseJSX(jsx, callbacks, opts)
 }
