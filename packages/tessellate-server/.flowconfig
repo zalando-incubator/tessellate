@@ -3,7 +3,7 @@
 [include]
 
 [libs]
-./../../flow-typed/
+./flow-typed/
 
 [options]
 esproposal.class_static_fields=enable
@@ -14,4 +14,4 @@ suppress_type=$FlowIssue
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
 
 [version]
-^0.34.0
+^0.36.0
