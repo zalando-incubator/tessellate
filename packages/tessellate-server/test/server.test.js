@@ -11,10 +11,15 @@ describe('server', () => {
   let app, request
 
   const server = new Server({
-    name: 'test',
     init: (routes => {
       routes.test.get(observable => observable.flatMap(({ctx, next}) => ctx.body = 'TEST'))
-    })
+    }),
+    routes: {
+      test: {
+        path: '/test',
+        methods: ['GET']
+      }
+    }
   })
 
   beforeEach(() => {

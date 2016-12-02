@@ -1,16 +1,13 @@
 // @flow
 
 import Router from 'koa-router'
-import nconf from './nconf'
 import { Observable, Subject } from 'rxjs'
 
-type RouteDefinitions = { [name: string]: {| path: string; methods: Array<string>; |}; }
-type RouteInitializerEntry<T> = {| name: string; method: string; initializer: RouteInitializer<T>; |}
-type RouteInitializer<T> = (init?: (observable: Observable<T>) => Observable<*>) => Observable<T>
-export type RouteInitializerIndex<T> = { [name: string]: { [method: string]: RouteInitializer<T>; }; }
-export type Context = { ctx: Object; next: () => Promise<any>; }
-
-const definitions: RouteDefinitions = nconf.get('ROUTES')
+export type RouteDefinitions = { [name: string]: {| path: string; methods: Array<string>; |}; };
+type RouteInitializerEntry<T> = {| name: string; method: string; initializer: RouteInitializer<T>; |};
+type RouteInitializer<T> = (init?: (observable: Observable<T>) => Observable<*>) => Observable<T>;
+export type RouteInitializerIndex<T> = { [name: string]: { [method: string]: RouteInitializer<T>; }; };
+export type Context = { ctx: Object; next: () => Promise<any>; };
 
 function toPromise(observable: Observable<*>): Promise<any> {
   return new Promise((resolve, reject) => observable.subscribe(resolve, reject))
@@ -31,6 +28,7 @@ function createRouteInitializer(router: Router, name: string, path: string, meth
     let connected = false
 
     router.register(path, [method], (ctx, next) => {
+      // Observable that is going to complete the request.
       const promise = toPromise(observable)
       if (!connected) {
         observable.connect()
@@ -68,4 +66,4 @@ function initializeRoutes(router: Router, definitions: RouteDefinitions): RouteI
 }
 
 export const router = new Router()
-export const routes = initializeRoutes(router, definitions)
+export const routes = (definitions: RouteDefinitions) => initializeRoutes(router, definitions)

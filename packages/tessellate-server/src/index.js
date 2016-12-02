@@ -6,23 +6,30 @@ import nconf from './nconf'
 import error from './error'
 import { router, routes } from './routes'
 
-import type { Context, RouteInitializerIndex } from './routes'
+import type { RouteDefinitions, Context, RouteInitializerIndex } from './routes'
 
 type Options = {
-  name: string;
+  name?: string;
   init: (routes: RouteInitializerIndex<Context>) => void;
-}
+  routes?: RouteDefinitions
+};
 
 export default class App {
   app: Koa;
+  routes: RouteInitializerIndex<Context>;
 
   constructor(options: Options) {
     this.app = new Koa()
-    const morganFormat = nconf.get('MORGAN_FORMAT')
-    const morganSkip = (req, res) => res.statusCode < nconf.get('MORGAN_THRESHOLD')
+    this.app.name = options.name
+
+    const morganFormat = String(nconf.get('MORGAN_FORMAT'))
+    const morganThresh = parseInt(nconf.get('MORGAN_THRESHOLD'))
+    const morganSkip = (req, res) => res.statusCode < morganThresh
 
     // Initialize route logic.
-    options.init(routes)
+    const routeDefinitions = options.routes ? options.routes : nconf.get('ROUTES')
+    this.routes = routes(routeDefinitions)
+    options.init(this.routes)
 
     this.app
       .use(morgan(morganFormat, {skip: morganSkip}))

@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const webpack = require('webpack')
 
 /**
  * Externalize node_modules.
@@ -18,23 +17,29 @@ module.exports = {
   entry: './src/index.js',
   target: 'node',
   output: {
-    libraryTarget: 'commonjs2',
     path: path.join(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: [{
-      test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
-        presets: [
-          'latest-minimal',
-          'react'
-        ],
-        plugins: [
-          'syntax-flow',
-          'transform-flow-strip-types'
-        ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            'latest-minimal',
+            'react'
+          ],
+          plugins: [
+            'syntax-flow',
+            'transform-flow-strip-types'
+          ],
+          babelrc: false
+        }
       }
-    }]
+    ]
   },
   externals: nodeModules(),
   node: {
