@@ -1,4 +1,0 @@
-test:
-  path: /test
-  methods:
-    - GET
