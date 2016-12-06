@@ -2,6 +2,7 @@
 /test
 /coverage
 /flow-typed
+/example
 .babelrc
 .eslintignore
 .eslintrc
