@@ -1,17 +1,13 @@
 // @flow
 
-jest.mock('request-promise-native', () => {
-  return jest.fn(() => {
-    return Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } })
-  });
-});
+jest.mock('request-promise-native')
 
 import {resolveSources} from '../../src/actions/sources-resolver'
 import nconf from '../../src/nconf'
 
 describe('sources-resolver', () => {
 
-  it('should use nconf sources', async() => {
+  it('should use nconf sources', async () => {
     nconf.set('sources:bundles:path', '/path/to/bundle')
 
     const resolved = await resolveSources({}, {})
@@ -19,7 +15,7 @@ describe('sources-resolver', () => {
     expect(resolved.sources.bundles.path).toBe('/path/to/bundle')
   })
 
-  it('should be possible to override nconf sources with headers', async() => {
+  it('should be possible to override nconf sources with headers', async () => {
     nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
 
@@ -28,7 +24,10 @@ describe('sources-resolver', () => {
     expect(resolved.sources.bundles.path).toBe('zalando.de/foo')
   })
 
-  it('should be possible to override nconf and header sources with remote sources file', async() => {
+  it('should be possible to override nconf and header sources with remote sources file', async () => {
+    require('request-promise-native').mockImplementation(() =>
+      Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } }))
+
     nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
     const query = { sources: 'https://cdn.com/sources.json' }
