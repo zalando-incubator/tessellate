@@ -4,11 +4,12 @@ import supertest from 'supertest-as-promised'
 import TessellateServer from '../src/TessellateServer'
 
 describe('TessellateServer', () => {
-  let server, request
+  let server, appRequest, metricsRequest
 
   beforeEach(async () => {
     server = await new TessellateServer().start(3001)
-    request = supertest.agent(server.server)
+    appRequest = supertest.agent(server.appServer)
+    metricsRequest = supertest.agent(server.metricsServer)
   })
 
   afterEach(() => server.stop())
@@ -16,8 +17,13 @@ describe('TessellateServer', () => {
   it('should support a simple route', async () => {
     server.router.get('/', observable => observable.mapTo('Hello, test!'))
 
-    await request.get('/')
+    await appRequest.get('/')
       .expect(200)
       .expect('Hello, test!')
+  })
+
+  it('should return metrics', async () => {
+    await metricsRequest.get('/metrics')
+      .expect(200)
   })
 })

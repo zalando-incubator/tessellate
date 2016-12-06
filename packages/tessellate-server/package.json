@@ -16,16 +16,17 @@
     "url": "https://github.com/zalando-incubator/tessellate.git"
   },
   "scripts": {
-    "postinstall": "flow-typed install",
+    "start": "babel-node example/server.js",
     "dist": "webpack",
     "test": "NODE_ENV=test jest --coverage",
-    "flow-check": "flow check"
+    "flow-check": "flow check",
+    "flow-typed-install": "flow-typed install"
   },
   "dependencies": {
     "js-yaml": "3.7.0",
     "koa": "2.0.0-alpha.7",
     "koa-morgan": "1.0.1",
-    "koa-router-rx": "0.1.1",
+    "koa-router-rx": "0.1.2",
     "mz": "2.6.0",
     "nconf": "0.8.4",
     "prom-client": "6.2.0",

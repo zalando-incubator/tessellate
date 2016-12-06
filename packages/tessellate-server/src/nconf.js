@@ -55,3 +55,7 @@ export default nconf.use('memory')
                     .argv()
                     .env()
                     .add('config', {type: 'literal', store: readConfigFile()})
+                    .defaults({
+                      MORGAN_FORMAT: 'common',
+                      MORGAN_THRESHOLD: 0
+                    })
