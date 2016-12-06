@@ -29,8 +29,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            'latest-minimal',
-            'react'
+            'latest-minimal'
           ],
           plugins: [
             'syntax-flow',
@@ -42,7 +41,4 @@ module.exports = {
     ]
   },
   externals: nodeModules(),
-  node: {
-    __dirname: true
-  }
 }

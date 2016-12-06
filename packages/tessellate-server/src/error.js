@@ -11,6 +11,10 @@ export class Problem extends Error {
     this.detail = args.detail
     this.status = args.status
   }
+
+  toString(): string {
+    return `${this.status || ''} ${this.title} ${this.detail || ''}`.trim()
+  }
 }
 
 export default async function error(ctx: Object, next: () => Promise<any>): Promise<any> {

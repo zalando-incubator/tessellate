@@ -49,11 +49,9 @@ function readYamlOrJSONFile(file: string): Object {
   }
 }
 
-const readRoutesFile = () => readYamlOrJSONFile(path.resolve(process.cwd(), 'routes'))
 const readConfigFile = () => readYamlOrJSONFile(path.resolve(process.cwd(), 'config'))
 
 export default nconf.use('memory')
                     .argv()
                     .env()
                     .add('config', {type: 'literal', store: readConfigFile()})
-                    .add('routes', {type: 'literal', store: {ROUTES: readRoutesFile()}})

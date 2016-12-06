@@ -1,7 +1,6 @@
 {
   "presets": [
-    "latest-minimal",
-    "react"
+    "latest-minimal"
   ],
   "plugins": [
     "syntax-flow",
