@@ -2,13 +2,15 @@
 
 import dispatch from '../dispatch'
 import { FETCH_BUNDLE, RENDER_BUNDLE } from '../actions/fragment'
+import { resolveSources } from '../actions/sources-resolver'
 
 import type Router from 'koa-router'
 import type Route from '.'
 
-export function health(router: Router): Route {
+export function fragment(router: Router): Route {
   return router.get('fragment', '/fragment', async (ctx) => {
     const {headers, query} = ctx.request
+    const sources = await resolveSources(headers, query)
     const {bundle, props} = await dispatch(FETCH_BUNDLE, {headers, query})
     const {html} = await dispatch(RENDER_BUNDLE, {bundle, props})
 
