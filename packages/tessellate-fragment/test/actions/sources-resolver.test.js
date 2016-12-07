@@ -10,31 +10,35 @@ describe('sources-resolver', () => {
   it('should use nconf sources', async () => {
     nconf.set('sources:bundles:path', '/path/to/bundle')
 
-    const resolved = await resolveSources({}, {})
+    const sources = await resolveSources({}, {})
 
-    expect(resolved.sources.bundles.path).toBe('/path/to/bundle')
+    expect(sources.bundles.path).toBe('/path/to/bundle')
   })
 
-  it('should be possible to override nconf sources with headers', async () => {
+  it('merges header properties with properties from nconf', async () => {
+    nconf.set('sources:bundles:src', 'http://localhost/bundles')
     nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
 
-    const resolved = await resolveSources(headers, {})
+    const sources = await resolveSources(headers, {})
 
-    expect(resolved.sources.bundles.path).toBe('zalando.de/foo')
+    expect(sources.bundles.src).toBe('http://localhost/bundles')
+    expect(sources.bundles.path).toBe('zalando.de/foo')
   })
 
-  it('should be possible to override nconf and header sources with remote sources file', async () => {
+  it('merges remote properties with properties from nconf and headers', async () => {
     require('request-promise-native').mockImplementation(() =>
       Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } }))
 
+    nconf.set('sources:bundles:src', 'http://localhost/bundles')
     nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
     const query = { sources: 'https://cdn.com/sources.json' }
 
-    const resolved = await resolveSources(headers, query)
+    const sources = await resolveSources(headers, query)
 
-    expect(resolved.sources.bundles.path).toBe('zalando.de/remote')
+    expect(sources.bundles.src).toBe('http://localhost/bundles')
+    expect(sources.bundles.path).toBe('zalando.de/remote')
   })
 
 })

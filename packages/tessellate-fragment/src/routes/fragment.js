@@ -11,7 +11,8 @@ export function fragment(router: Router): Route {
   return router.get('fragment', '/fragment', async (ctx) => {
     const {headers, query} = ctx.request
     const sources = await resolveSources(headers, query)
-    const {bundle, props} = await dispatch(FETCH_BUNDLE, {headers, query})
+    const {bundle, props} = await dispatch(FETCH_BUNDLE, {sources, headers})
+
     const {html} = await dispatch(RENDER_BUNDLE, {bundle, props})
 
     ctx.set({

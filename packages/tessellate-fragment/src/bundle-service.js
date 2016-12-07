@@ -22,15 +22,15 @@ class BundleProblem extends Problem {
   }
 }
 
-export async function fetchBundle(name: string): Promise<Bundle> {
-  const uri = url.parse(nconf.get('BUNDLE_SOURCE'))
+export async function fetchBundle(sources: Object): Promise<Bundle> {
+  const uri = url.parse(sources.bundles.src)
 
   if ((uri.protocol === 'http:' || uri.protocol === 'https:') && uri.hostname) {
     const baseURL = url.format({
       protocol: uri.protocol,
       hostname: uri.hostname,
       port: uri.port,
-      pathname: name
+      pathname: sources.bundles.path
     })
     return await fetchBundleFromHTTPSource(baseURL)
   } else {
