@@ -5,6 +5,13 @@ import request from 'request-promise-native'
 import path from 'path'
 import url from 'url'
 import merge from 'lodash.merge'
+import { Problem } from '../error'
+
+class SourcesProblem extends Problem {
+  constructor(detail: string) {
+    super({title: 'Sources generation error.', detail, status: 404})
+  }
+}
 
 const SOURCES_QUERY_PARAM = 'sources'
 const SOURCES_PROPERTY_BY_HEADER_KEY = {
@@ -20,17 +27,22 @@ const SOURCES_PROPERTY_BY_HEADER_KEY = {
 export async function resolveSources(headers, query) {
   const sources = {}
 
-  assignSourcePropertiesFromConf(sources);
+  assignSourcePropertiesFromConf(sources)
   assignSourcePropertiesFromHeaders(headers, sources)
-  assignSourcePropertiesFromQuery(query, sources);
+  await assignSourcePropertiesFromQuery(query, sources)
 
   return sources
 }
 
 async function assignSourcePropertiesFromQuery(query: Object, sources: Object) {
   if (SOURCES_QUERY_PARAM in query) {
-    const remoteSources = await request(query[SOURCES_QUERY_PARAM])
-    merge(sources, remoteSources.sources)
+    const sourcesUrl = query[SOURCES_QUERY_PARAM]
+    try {
+      const remoteSources = await request(sourcesUrl)
+      merge(sources, remoteSources.sources)
+    } catch(err) {
+      throw new SourcesProblem(`Unable to load properties from ${sourcesUrl}`)
+    }
   }
 }
 
@@ -46,14 +58,14 @@ function assignSourcePropertiesFromHeaders(headers: Object, sources: Object) {
       const keys = sourcesKey.split(':')
 
       while (keys.length > 1) {
-        const key = keys.shift();
+        const key = keys.shift()
         if(!(key in target)) {
-          target[key] = {};
+          target[key] = {}
         }
-        target = target[key];
+        target = target[key]
       }
-      const lastKey = keys.shift();
-      target[lastKey] = SOURCES_PROPERTY_BY_HEADER_KEY[headerName].transformValue(headers[headerName]);
+      const lastKey = keys.shift()
+      target[lastKey] = SOURCES_PROPERTY_BY_HEADER_KEY[headerName].transformValue(headers[headerName])
     }
   }
 }
