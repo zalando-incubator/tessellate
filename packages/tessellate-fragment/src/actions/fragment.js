@@ -23,10 +23,9 @@ class FragmentProblem extends Problem {
 
 export const FETCH_BUNDLE = Symbol('FETCH_BUNDLE')
 
-export const fetchBundle = register(FETCH_BUNDLE, async ({headers, query}) => {
+export const fetchBundle = register(FETCH_BUNDLE, async ({sources, headers}) => {
   const skipperArgs = parseSkipperArgs(headers)
-  const bundleName = parseBundleName(skipperArgs)
-  const bundle = await bundleService.fetchBundle(bundleName)
+  const bundle = await bundleService.fetchBundle(sources)
   return {bundle, props: skipperArgs}
 })
 
@@ -36,13 +35,6 @@ export const renderBundle = register(RENDER_BUNDLE, async ({bundle, props}) => {
   const html = renderToString(bundle.source, props)
   return {html}
 })
-
-function parseBundleName(skipper: SkipperArgs): string {
-  if (!skipper.requestURI) throw new FragmentProblem('Request URI not present.')
-  if (!skipper.requestHost) throw new FragmentProblem('Request Host not present.')
-
-  return path.join(skipper.requestHost.replace(/^www\./, ''), skipper.requestURI)
-}
 
 function parseSkipperArgs(headers: Object): SkipperArgs {
   return {

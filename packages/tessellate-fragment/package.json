@@ -30,6 +30,7 @@
     "koa": "2.0.0-alpha.7",
     "koa-morgan": "1.0.1",
     "koa-router": "7.0.1",
+    "lodash.merge": "4.6.0",
     "mz": "2.6.0",
     "nconf": "0.8.4",
     "prom-client": "6.1.2",

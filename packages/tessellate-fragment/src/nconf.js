@@ -26,6 +26,5 @@ export default nconf.use('memory')
                     .defaults({
                       APP_PORT: 3002,
                       MORGAN_FORMAT: 'dev',
-                      MORGAN_THRESHOLD: 0,
-                      BUNDLE_SOURCE: 'http://localhost:3001'
+                      MORGAN_THRESHOLD: 0
                     })
