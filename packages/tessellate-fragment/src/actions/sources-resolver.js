@@ -23,11 +23,11 @@ const SOURCES_PROPERTY_BY_HEADER_KEY = {
     }
   }
 }
+const DEFAULT_SOURCES = { bundles: { src: nconf.get('BUNDLES_SOURCE') } }
 
 export async function resolveSources(headers, query) {
-  const sources = {}
+  const sources = Object.assign({}, DEFAULT_SOURCES)
 
-  assignSourcePropertiesFromConf(sources)
   assignSourcePropertiesFromHeaders(headers, sources)
   await assignSourcePropertiesFromQuery(query, sources)
 
@@ -44,10 +44,6 @@ async function assignSourcePropertiesFromQuery(query: Object, sources: Object) {
       throw new SourcesProblem(`Unable to load properties from ${sourcesUrl}`)
     }
   }
-}
-
-function assignSourcePropertiesFromConf(sources: Object) {
-  Object.assign(sources, nconf.get('sources'))
 }
 
 function assignSourcePropertiesFromHeaders(headers: Object, sources: Object) {

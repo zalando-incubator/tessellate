@@ -3,26 +3,21 @@
 jest.mock('request-promise-native')
 
 import {resolveSources} from '../../src/actions/sources-resolver'
-import nconf from '../../src/nconf'
 
 describe('sources-resolver', () => {
 
-  it('should use nconf sources', async () => {
-    nconf.set('sources:bundles:path', '/path/to/bundle')
-
+  it('should use nconf bundles source', async () => {
     const sources = await resolveSources({}, {})
 
-    expect(sources.bundles.path).toBe('/path/to/bundle')
+    expect(sources.bundles.src).toBe('http://localhost:3001')
   })
 
   it('merges header properties with properties from nconf', async () => {
-    nconf.set('sources:bundles:src', 'http://localhost/bundles')
-    nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
 
     const sources = await resolveSources(headers, {})
 
-    expect(sources.bundles.src).toBe('http://localhost/bundles')
+    expect(sources.bundles.src).toBe('http://localhost:3001')
     expect(sources.bundles.path).toBe('zalando.de/foo')
   })
 
@@ -30,14 +25,12 @@ describe('sources-resolver', () => {
     require('request-promise-native').mockImplementation(() =>
       Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } }))
 
-    nconf.set('sources:bundles:src', 'http://localhost/bundles')
-    nconf.set('sources:bundles:path', '/path/to/bundle')
     const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
     const query = { sources: 'https://cdn.com/sources.json' }
 
     const sources = await resolveSources(headers, query)
 
-    expect(sources.bundles.src).toBe('http://localhost/bundles')
+    expect(sources.bundles.src).toBe('http://localhost:3001')
     expect(sources.bundles.path).toBe('zalando.de/remote')
   })
 
