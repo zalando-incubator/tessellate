@@ -22,7 +22,9 @@ export default class MetricsApp {
       .use(this.router.routes())
       .use(this.router.allowedMethods())
 
-    // Start collecting GC stats with prometheus.
+    // Start collecting stats with prometheus.
+    prometheus.register.clear()
+    prometheus.defaultMetrics()
     prometheusGCStats()()
   }
 }

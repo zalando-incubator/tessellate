@@ -25,5 +25,6 @@ describe('TessellateServer', () => {
   it('should return metrics', async () => {
     await metricsRequest.get('/metrics')
       .expect(200)
+      .expect('Content-Type', /^text\/plain/)
   })
 })

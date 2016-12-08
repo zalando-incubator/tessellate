@@ -18,7 +18,7 @@
   "scripts": {
     "start": "babel-node example/server.js",
     "dist": "webpack",
-    "test": "NODE_ENV=test jest --coverage",
+    "test": "NODE_ENV=test MORGAN_THRESHOLD=500 jest --coverage",
     "flow-check": "flow check",
     "flow-typed-install": "flow-typed install"
   },
