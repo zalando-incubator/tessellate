@@ -24,7 +24,7 @@ function readFile(file: string, parser: (s: string) => Object): Object {
   }
 }
 
-function readJSONFile(file: string): Object {
+function readJsonFile(file: string): Object {
   return readFile(file, JSON.parse)
 }
 
@@ -32,7 +32,7 @@ function readYamlFile(file: string): Object {
   return readFile(file, yaml.safeLoad)
 }
 
-function readYamlOrJSONFile(file: string): Object {
+function readYamlOrJsonFile(file: string): Object {
   const basePath = file.replace(path.extname(file), '')
   const jsonPath = basePath + '.json'
   const yamlPath = basePath + '.yaml'
@@ -41,7 +41,7 @@ function readYamlOrJSONFile(file: string): Object {
     return readYamlFile(yamlPath)
   }
   else if (fileExists(jsonPath)) {
-    return readJSONFile(jsonPath)
+    return readJsonFile(jsonPath)
   }
   else {
     console.warn(`No such file: ${file}`)
@@ -49,7 +49,7 @@ function readYamlOrJSONFile(file: string): Object {
   }
 }
 
-const readConfigFile = () => readYamlOrJSONFile(path.resolve(process.cwd(), 'config'))
+const readConfigFile = () => readYamlOrJsonFile(path.resolve(process.cwd(), 'config'))
 
 export default nconf.use('memory')
                     .argv()
