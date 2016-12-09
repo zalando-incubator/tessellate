@@ -1,0 +1,60 @@
+{
+  "name": "tessellate-server",
+  "version": "0.1.0",
+  "description": "Tessellate server runtime.",
+  "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zalando-incubator/tessellate.git"
+  },
+  "scripts": {
+    "start": "babel-node example/server.js",
+    "dist": "webpack",
+    "test": "NODE_ENV=test MORGAN_THRESHOLD=500 jest --coverage",
+    "flow-check": "flow check",
+    "flow-typed-install": "flow-typed install"
+  },
+  "dependencies": {
+    "js-yaml": "3.7.0",
+    "koa": "2.0.0-alpha.7",
+    "koa-morgan": "1.0.1",
+    "koa-router-rx": "0.1.2",
+    "mz": "2.6.0",
+    "nconf": "0.8.4",
+    "prom-client": "6.2.0",
+    "prometheus-gc-stats": "0.3.1",
+    "rxjs": "5.0.0-rc.4"
+  },
+  "devDependencies": {
+    "babel-cli": "6.18.0",
+    "babel-core": "6.18.2",
+    "babel-jest": "17.0.2",
+    "babel-loader": "6.2.8",
+    "babel-plugin-syntax-flow": "6.18.0",
+    "babel-plugin-transform-flow-strip-types": "6.18.0",
+    "babel-preset-latest-minimal": "1.1.2",
+    "flow-bin": "0.36.0",
+    "flow-typed": "2.0.0",
+    "jest": "17.0.3",
+    "supertest": "2.0.1",
+    "supertest-as-promised": "4.0.2",
+    "webpack": "2.1.0-beta.25"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "html",
+      "text"
+    ]
+  }
+}
