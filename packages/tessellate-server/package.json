@@ -1,6 +1,6 @@
 {
   "name": "tessellate-server",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tessellate server runtime.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
