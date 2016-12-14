@@ -1,0 +1,60 @@
+{
+  "name": "tessellate-request",
+  "version": "0.1.0",
+  "description": "Tessellate request library.",
+  "author": "Sebastian Monte <sebastian.monte@zalando.de>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zalando-incubator/tessellate.git"
+  },
+  "scripts": {
+    "dist": "webpack",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test jest --coverage",
+    "flow-check": "flow check",
+    "flow-typed-install": "flow-typed install"
+  },
+  "dependencies": {
+    "client-oauth2": "3.2.0",
+    "nconf": "0.8.4",
+    "request": "2.79.0",
+    "request-promise-native": "1.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "6.18.0",
+    "babel-core": "6.18.2",
+    "babel-eslint": "7.1.1",
+    "babel-jest": "17.0.2",
+    "babel-loader": "6.2.8",
+    "babel-plugin-syntax-flow": "6.18.0",
+    "babel-plugin-transform-flow-strip-types": "6.18.0",
+    "babel-preset-latest-minimal": "1.1.2",
+    "babel-preset-react": "6.16.0",
+    "eslint": "3.10.2",
+    "eslint-plugin-babel": "4.0.0",
+    "eslint-plugin-flowtype": "2.25.0",
+    "eslint-plugin-promise": "3.4.0",
+    "eslint-plugin-react": "6.7.1",
+    "flow-bin": "0.36.0",
+    "flow-typed": "2.0.0",
+    "jest": "17.0.3",
+    "webpack": "2.1.0-beta.25"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "html",
+      "text"
+    ]
+  }
+}
