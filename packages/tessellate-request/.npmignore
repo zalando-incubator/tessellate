@@ -1,0 +1,10 @@
+/src
+/test
+/coverage
+.babelrc
+.eslintignore
+.eslintrc
+.flowconfig
+.gitignore
+.npmignore
+webpack.config.js
