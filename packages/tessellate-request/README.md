@@ -29,6 +29,9 @@ sources:
 ```
 
 **type**: Currently `JSON_FILE_BACKED_USER_CREDENTIALS_PROVIDER` is supported.
+
 **credentials_directory**: Absolute path to the credentials directory
+
 **access_token_uri**: Where to get access tokens
+
 **scopes**: OAuth scopes, space-separated. For example `scope1 scope2`
