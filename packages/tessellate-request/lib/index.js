@@ -12,9 +12,9 @@ export default class Request {
 
   delegateRequest: SmartRequest
 
-  constructor(oAuthId?: string) {
-    if(oAuthId) {
-      this.delegateRequest = requestFactory.createOAuthRequestById(oAuthId)
+  constructor(authId?: string) {
+    if(authId) {
+      this.delegateRequest = requestFactory.createAuthRequestById(authId)
     } else {
       this.delegateRequest = requestFactory.createDefault()
     }

@@ -1,10 +1,11 @@
 # tessellate-request
 
-OAuth support can be enabled by supplying `OAUTH_CONFIGURATIONS_FILE` variable
+Auth support can be enabled by supplying `AUTH_CONFIGURATION` variable
 to [tessellate-fragment](https://github.com/zalando-incubator/tessellate/tree/master/packages/tessellate-fragment).
 upon startup.
 
-`OAUTH_CONFIGURATIONS_FILE` variable is an absolute path to an OAuth configuration file.
+`AUTH_CONFIGURATION` variable is an absolute path to an auth configuration file.
+Currently only `file://` protocol is supported.
 
 The configuration file must be of the following format:
 
@@ -20,7 +21,7 @@ The configuration file must be of the following format:
 ]
 ```
 
-**id**: OAuth configuration id. This must match with the id in sources configuration.
+**id**: Auth configuration id. This must match with the id in sources configuration.
 ```
 sources:
   properties:
@@ -28,7 +29,7 @@ sources:
       id: <id>
 ```
 
-**type**: Currently `JSON_FILE_BACKED_USER_CREDENTIALS_PROVIDER` is supported.
+**type**: Currently `OAUTH2_JSON_FILE_BACKED_USER_CREDENTIALS_PROVIDER` is supported.
 
 **credentials_directory**: Absolute path to the credentials directory
 

@@ -1,6 +1,4 @@
-// @flow
-
-export type OAuthConfig = {
+declare type AuthConfig = {
   id: string,
   type: string,
   credentials_directory: string,

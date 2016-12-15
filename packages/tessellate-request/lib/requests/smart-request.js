@@ -4,4 +4,4 @@ interface SmartRequest {
   get(url: string): Object
 }
 
-export type {SmartRequest}
+export type { SmartRequest }

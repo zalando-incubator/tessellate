@@ -1,7 +1,6 @@
 jest.mock('fs')
 
 import * as credentialsProvider from '../../lib/credentials/file-credentials-provider'
-import type {OAuthConfig} from '../../lib/configuration/oauth-configuration'
 import UserCredentials from '../../lib/credentials/user-credentials'
 import ClientCredentials from '../../lib/credentials/client-credentials'
 
