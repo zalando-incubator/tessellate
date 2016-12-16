@@ -4,6 +4,7 @@ import path from 'path'
 import { register } from '../dispatch'
 import { Problem } from '../error'
 import * as bundleService from '../bundle-service'
+import * as contentService from '../content/content-service'
 import renderToString from 'tessellate-render'
 
 type SkipperArgs = {|
@@ -34,6 +35,12 @@ export const RENDER_BUNDLE = Symbol('RENDER_BUNDLE')
 export const renderBundle = register(RENDER_BUNDLE, async ({bundle, props}) => {
   const html = renderToString(bundle.source, props)
   return {html}
+})
+
+export const FETCH_CONTENT = Symbol('FETCH_CONTENT')
+
+export const fetchContent = register(FETCH_CONTENT, async ({sources}) => {
+  return await contentService.fetchContent(sources)
 })
 
 function parseSkipperArgs(headers: Object): SkipperArgs {

@@ -37,7 +37,8 @@
     "prometheus-gc-stats": "0.3.1",
     "request": "2.79.0",
     "request-promise-native": "1.0.3",
-    "tessellate-render": "0.1.0"
+    "tessellate-render": "0.1.0",
+    "tessellate-request": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
