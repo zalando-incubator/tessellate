@@ -1,33 +1,22 @@
 // @flow
 
-import ClientOAuth2 from 'client-oauth2'
 import request from 'request-promise-native'
-import ClientCredentials from '../credentials/client-credentials'
-import UserCredentials from '../credentials/user-credentials'
-import * as fileCredentialsProvider from '../credentials/file-credentials-provider'
+import * as tokenStorage from '../configurations/token-storage'
 
 export default class JsonFileBackedOAuthRequest {
 
-  client: ClientOAuth2
-  userCredentials: UserCredentials
+  authId: string
 
-  constructor(config: AuthConfig) {
-    this.userCredentials = fileCredentialsProvider.getUserCredentials(config.credentials_directory)
-    const clientCredentials: ClientCredentials = fileCredentialsProvider.getClientCredentials(config.credentials_directory)
-
-    this.client = new ClientOAuth2({
-      clientId: clientCredentials.getClientId(),
-      clientSecret: clientCredentials.getClientSecret(),
-      accessTokenUri: config.access_token_uri,
-      scopes: config.scopes
-    })
+  constructor(authId: string) {
+    this.authId = authId
   }
 
   async get(url: string): Object {
-    const tokenResponse = await this.client.owner.getToken(this.userCredentials.getUsername(), this.userCredentials.getPassword())
-    const headers = {
-        'Authorization': `Bearer ${tokenResponse.accessToken}`
-    }
-    return await request({url: url, headers})
+    const token = await tokenStorage.getTokenById(this.authId)
+    return await request.get(url, {
+      auth: {
+        bearer: token
+      }
+    })
   }
 }

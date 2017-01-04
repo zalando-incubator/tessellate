@@ -1,8 +1,8 @@
 import nconf from 'nconf'
 nconf.use('memory')
 
-import * as configurationLoaderFactory from '../../lib/configuration/configuration-loader-factory'
-import { FileConfigurationLoader } from '../../lib/configuration/file-configuration-loader'
+import * as configurationLoaderFactory from '../../lib/configurations/configuration-loader-factory'
+import { FileConfigurationLoader } from '../../lib/configurations/file-configuration-loader'
 
 describe('configuration loader factory', () => {
 

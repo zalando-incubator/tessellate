@@ -1,7 +1,7 @@
-jest.mock('../../lib/configuration/configuration-loader-factory')
+jest.mock('../../lib/configurations/configuration-loader-factory')
 
-import * as configurationProvider from '../../lib/configuration/configuration-provider'
-import { FileConfigurationLoader } from '../../lib/configuration/file-configuration-loader'
+import * as configurationProvider from '../../lib/configurations/configuration-provider'
+import { FileConfigurationLoader } from '../../lib/configurations/file-configuration-loader'
 
 describe('get configuration by id', () => {
 
@@ -18,7 +18,7 @@ describe('get configuration by id', () => {
   }
 
   function mockFactoryWithLoader(loader) {
-    const mockLoaderFactory = require('../../lib/configuration/configuration-loader-factory')
+    const mockLoaderFactory = require('../../lib/configurations/configuration-loader-factory')
     mockLoaderFactory.create.mockImplementation(() => loader)
   }
 

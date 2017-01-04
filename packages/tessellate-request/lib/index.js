@@ -6,7 +6,7 @@ import path from 'path'
 import fs from 'fs'
 
 import type {SmartRequest} from './requests/smart-request'
-import * as requestFactory from './request-factory'
+import * as requestFactory from './requests/request-factory'
 
 export default class Request {
 
