@@ -2,52 +2,42 @@
 
 import path from 'path'
 import Koa from 'koa'
-import morgan from 'koa-morgan'
 import bodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
 import kcors from 'kcors'
-import prometheus from 'prom-client'
-import prometheusGCStats from 'prometheus-gc-stats'
 import logger from './logger'
-import routes from './routes'
-import error from './error'
+import bundleEpic from './epics/bundles'
+import { TessellateServer } from 'tessellate-server'
 import nconf, { getFileSystemPublishTarget } from './nconf'
-import './actions'
 
 const log = logger('server')
 
-export function init(): Koa {
-  const app = new Koa()
-  const morganFormat = nconf.get('MORGAN_FORMAT')
-  const morganSkip = (req, res) => res.statusCode < nconf.get('MORGAN_THRESHOLD')
+export function init(): TessellateServer {
+  const server = new TessellateServer()
 
-  app
-    .use(morgan(morganFormat, {skip: morganSkip}))
-    .use(error)
+  server
     .use(kcors())
     .use(bodyParser({enableTypes: ['json'], strict: true}))
-    .use(routes)
 
   const fileSystemPublishTarget = getFileSystemPublishTarget()
   if (fileSystemPublishTarget) {
     log.info('Serving files from %s', fileSystemPublishTarget)
-    app.use(koaStatic(fileSystemPublishTarget, {defer: true, gzip: true}))
+    server.app.use(koaStatic(fileSystemPublishTarget, {defer: true, gzip: true}))
   }
 
-  return app
+  server.router.get('/health', o => o.mapTo('OK'))
+  server.router.post('/bundles/:domain/:name', bundleEpic)
+
+  return server
 }
 
-export function start(port: number | string = nconf.get('APP_PORT')) {
-  init().listen(port)
-  prometheusGCStats()()
+export async function start(port: number | string = nconf.get('APP_PORT')): Promise<TessellateServer> {
+  const server = await init().start(parseInt(port))
   log.info('listening on port %d', port)
+  return server
 }
 
-// $FlowIssue https://github.com/facebook/flow/issues/1362
+// $FlowIgnore https://github.com/facebook/flow/issues/1362
 if (require.main === module) {
-  try {
-    start()
-  } catch(e) {
-    log.error(e)
-  }
+  start().catch(log.error)
 }

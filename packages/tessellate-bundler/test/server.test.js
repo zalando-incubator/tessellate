@@ -1,7 +1,5 @@
 /**
  * Server API integration tests.
- *
- * @flow
  */
 
 jest.mock('../src/content-service')
@@ -15,15 +13,15 @@ import * as server from '../src/server'
 describe('server', () => {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
 
-  let app, request
+  let serv, request
 
-  beforeEach(() => {
+  beforeEach(async () => {
     nconf.set('PUBLISH_TARGET', 'file://test/fixtures')
-    app = server.init().listen()
-    request = supertest.agent(app)
+    serv = await server.init().start()
+    request = supertest.agent(serv.app)
   })
 
-  afterEach(() => app.close())
+  afterEach(() => serv.stop())
 
   describe('/health', () => {
     it('should return OK', async () => {

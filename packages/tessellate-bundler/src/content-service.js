@@ -21,12 +21,6 @@ type FetchArgs = {|
   name: string;
 |}
 
-type ElementType = {
-  type: string;
-  props: { [key: string]: any };
-  children?: Array<ElementType>;
-}
-
 type PublishResult = {
   js: string;
   css?: string;
@@ -84,7 +78,7 @@ async function publishToS3(): Promise<PublishResult> {
   throw new Error('publishToS3 not implemented.')
 }
 
-export async function fetch(args: FetchArgs): Promise<ElementType> {
+export async function fetch(args: FetchArgs): Promise<TessellateElement> {
   log.debug('Fetch %s/%s', args.domain, args.name)
   throw new Error('fetch not implemented.')
 }

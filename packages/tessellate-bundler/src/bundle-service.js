@@ -5,17 +5,6 @@ import WebpackSandbox from 'webpack-sandboxed'
 import logger from './logger'
 import * as utils from './utils'
 
-export type BundleType = {
-  js: {
-    name: string;
-    source: string;
-  };
-  css?: {
-    name: string;
-    source: string;
-  };
-};
-
 type Options = {
   cssSupport?: boolean;
   production?: boolean;
@@ -82,7 +71,7 @@ async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox
 
 const createWebpackSandbox = utils.memoize(_createWebpackSandbox)
 
-export async function make(source: string, options: Options = {}): Promise<BundleType> {
+export async function make(source: string, options: Options = {}): Promise<TessellateBundle> {
   log.debug('Create WebpackSandbox with options %o', options)
   const sandbox = await createWebpackSandbox(options)
   log.debug('Compile bundle...')

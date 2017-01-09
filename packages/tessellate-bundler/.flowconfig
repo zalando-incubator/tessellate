@@ -3,15 +3,13 @@
 [include]
 
 [libs]
-./../../flow-typed/
+./flow-typed/
+./declarations/
 
 [options]
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
 experimental.strict_type_args=true
 
-suppress_type=$FlowIssue
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
-
-[version]
-^0.33.0
+suppress_type=$FlowIgnore
+suppress_comment=\\(.\\|\n\\)*\\$FlowIgnore
