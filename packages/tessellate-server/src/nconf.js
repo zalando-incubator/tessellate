@@ -51,11 +51,47 @@ function readYamlOrJsonFile(file: string): Object {
 
 const readConfigFile = () => readYamlOrJsonFile(path.resolve(process.cwd(), 'config'))
 
-export default nconf.use('memory')
-                    .argv()
-                    .env()
-                    .add('config', {type: 'literal', store: readConfigFile()})
-                    .defaults({
-                      MORGAN_FORMAT: 'common',
-                      MORGAN_THRESHOLD: 0
-                    })
+class IllegalTypeError extends Error {
+  constructor(message: string) {
+    super(message)
+  }
+}
+
+function parseConfigValue(value: mixed): Object {
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value)
+    } catch(e) {
+      throw new IllegalTypeError('Cannot parse: ' + value)
+    }
+  } else if (typeof value === 'object' && value) {
+    return value
+  } else {
+    throw new IllegalTypeError('Not a valid object: ' + JSON.stringify(value))
+  }
+}
+
+nconf
+  .use('memory')
+  .argv()
+  .env()
+  .add('config', {type: 'literal', store: readConfigFile()})
+  .defaults({
+    MORGAN_FORMAT: 'common',
+    MORGAN_THRESHOLD: 0
+  })
+
+export default {
+  set: (key: string, value: any) => nconf.set(key, value),
+  get: (key: string) => nconf.get(key),
+  getObject: (key: string) => parseConfigValue(nconf.get(key)),
+  getString: (key: string) => '' + nconf.get(key),
+  argv: function(args: Object) {
+    nconf.argv(args)
+    return this
+  },
+  defaults: function(defaults: Object) {
+    nconf.defaults(defaults)
+    return this
+  }
+}
