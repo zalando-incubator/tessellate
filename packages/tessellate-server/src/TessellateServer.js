@@ -2,6 +2,7 @@
 
 import Koa from 'koa'
 import http from 'http'
+import compose from 'koa-compose'
 import morgan from 'koa-morgan'
 import RxRouter from 'koa-router-rx'
 import MetricsApp from './MetricsApp'
@@ -13,6 +14,7 @@ import type { Server } from 'http'
 type Options = {
   name?: string;
 };
+type Middleware = (ctx: Object, next: () => Promise<any>) => Promise<any>;
 
 function startServer(listener: () => void, port: number): Promise<Server> {
   return new Promise((resolve, reject) => {
@@ -29,18 +31,31 @@ function stopServer(server: ?Server): Promise<void> {
   })
 }
 
+function additionalMiddleware(middleware: Array<Middleware>): Middleware {
+  let composed, length
+  return (ctx, next) => {
+    if (!composed || middleware.length !== length) {
+      composed = compose(middleware)
+      length = middleware.length
+    }
+    return composed(ctx, next)
+  }
+}
+
 export default class TessellateServer {
   app: Koa;
   metrics: Koa;
   router: RxRouter;
   appServer: ?Server;
   metricsServer: ?Server;
+  middleware: Array<Middleware>;
 
   constructor(options: Options = {}) {
     this.app = new Koa()
     this.app.name = options.name
     this.router = new RxRouter()
     this.metrics = new MetricsApp().app
+    this.middleware = []
 
     const morganFormat = String(nconf.get('MORGAN_FORMAT'))
     const morganThresh = parseInt(nconf.get('MORGAN_THRESHOLD'))
@@ -49,15 +64,29 @@ export default class TessellateServer {
     this.app
       .use(morgan(morganFormat, {skip: morganSkip}))
       .use(error)
+      .use(additionalMiddleware(this.middleware))
       .use(this.router.routes())
       .use(this.router.allowedMethods())
   }
 
-  async start(port: number, metricsPort: number = port + 1): Promise<TessellateServer> {
+  use(middleware: Middleware, defer: boolean = false): TessellateServer {
+    if (defer) {
+      this.middleware.push(async (ctx, next) => {
+        await next()
+        await middleware(ctx, next)
+      })
+    } else {
+      this.middleware.push(middleware)
+    }
+    return this
+  }
+
+  async start(port: number | string, metricsPort: ?number | ?string): Promise<TessellateServer> {
+    if (!port) throw new Error('No port specified!')
 
     const [appServer, metricsServer] = await Promise.all([
-      startServer(this.app.callback(), port),
-      startServer(this.metrics.callback(), metricsPort)
+      startServer(this.app.callback(), parseInt(port)),
+      startServer(this.metrics.callback(), parseInt(metricsPort) || parseInt(port) + 1)
     ])
 
     this.appServer = appServer
