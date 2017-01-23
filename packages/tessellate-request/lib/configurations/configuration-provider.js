@@ -19,7 +19,7 @@ export function getByType(type: string): Array<AuthConfig> {
   return getOrCreateConfigurationLoader().load().filter((element) => element.type === type)
 }
 
-function getOrCreateConfigurationLoader() {
+function getOrCreateConfigurationLoader(): ConfigurationLoader {
   if(configurationLoader === undefined) {
     configurationLoader = configurationLoaderFactory.create()
   }

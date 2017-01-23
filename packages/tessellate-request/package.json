@@ -1,6 +1,6 @@
 {
   "name": "tessellate-request",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Tessellate request library.",
   "author": "Sebastian Monte <sebastian.monte@zalando.de>",
   "license": "MIT",

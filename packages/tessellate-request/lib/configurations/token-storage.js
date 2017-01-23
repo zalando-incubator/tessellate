@@ -9,11 +9,11 @@ const GET_TOKEN_INTERVAL = 500 //ms
 
 let managedTokens;
 
-function startManagingTokens() {
+function startManagingTokens(): void {
   managedTokens = {}
   const configurations: Array<AuthConfig> = configurationProvider.getByType(OAUTH2_JSON_FILE_BACKED_USER_CREDENTIALS_PROVIDER)
 
-  configurations.forEach(configuration => {
+  for(const configuration: AuthConfig of configurations) {
     const token = {
       [configuration.id]: {
         scope: configuration.scopes.split(' ')
@@ -25,6 +25,13 @@ function startManagingTokens() {
       oauthTokenUrl: configuration.access_token_uri
     })
 
+    /*
+    * A token might not be available immediately after starting the
+    * managed tokens in node-tokens.
+    * Unfortunately node-tokens does not support retries when getting a token.
+    * Therefore, we have a custom function for getting a token that supports
+    * retries.
+    */
     managedToken.getToken = () => {
       return new Promise((resolve, reject) => {
         function getTokenWithRetries(retriesLeft) {
@@ -42,10 +49,10 @@ function startManagingTokens() {
         getTokenWithRetries(GET_TOKEN_RETRY_COUNT)
       })
     }
-  })
+  }
 }
 
-export async function getTokenById(id: string) {
+export async function getTokenById(id: string): Promise<string> {
   if(managedTokens === undefined) {
     startManagingTokens()
   }
