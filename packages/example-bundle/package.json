@@ -1,6 +1,6 @@
 {
   "name": "tessellate-example-bundle",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "main": "example.js",
   "private": true,
   "scripts": {
