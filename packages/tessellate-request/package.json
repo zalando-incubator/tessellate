@@ -25,6 +25,7 @@
   "dependencies": {
     "client-oauth2": "3.2.0",
     "nconf": "0.8.4",
+    "node-tokens": "0.0.9",
     "request": "2.79.0",
     "request-promise-native": "1.0.3"
   },

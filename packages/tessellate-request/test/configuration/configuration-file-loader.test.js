@@ -1,6 +1,6 @@
 jest.mock('fs')
 
-import { FileConfigurationLoader } from '../../lib/configuration/file-configuration-loader'
+import { FileConfigurationLoader } from '../../lib/configurations/file-configuration-loader'
 
 describe('get configuration from file', () => {
 
