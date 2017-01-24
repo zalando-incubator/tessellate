@@ -1,7 +1,7 @@
 // @flow
 
 import url from 'url'
-import createRequest from './content-request-factory'
+import Request from 'tessellate-request'
 
 export async function fetchContent(sources: Object): Promise<Object> {
   if(sources.properties && sources.properties.src) {
@@ -19,4 +19,9 @@ export async function fetchContent(sources: Object): Promise<Object> {
   }
 
   return await Promise.resolve({})
+}
+
+function createRequest(properties: Object): Request {
+  const authId = properties.auth ? properties.auth.id : undefined
+  return new Request(authId)
 }
