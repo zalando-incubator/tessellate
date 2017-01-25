@@ -16,11 +16,14 @@
     "url": "https://github.com/zalando-incubator/tessellate.git"
   },
   "scripts": {
+    "clean": "rm -rf dist/*",
+    "dist": "babel -d dist src",
     "start": "babel-node example/server.js",
-    "dist": "webpack",
     "test": "NODE_ENV=test MORGAN_THRESHOLD=500 jest --coverage",
     "flow-check": "flow check",
-    "flow-typed-install": "flow-typed install"
+    "flow-gen-files": "flow-copy-source -v src dist",
+    "flow-typed-install": "flow-typed install -o",
+    "prepublish": "npm run clean && npm run dist && npm run flow-gen-files"
   },
   "dependencies": {
     "js-yaml": "3.7.0",
@@ -37,15 +40,14 @@
     "babel-cli": "6.22.2",
     "babel-core": "6.22.1",
     "babel-jest": "18.0.0",
-    "babel-loader": "6.2.10",
     "babel-plugin-syntax-flow": "6.18.0",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-preset-latest-minimal": "1.1.2",
     "flow-bin": "0.38.0",
+    "flow-copy-source": "1.1.0",
     "flow-typed": "2.0.0",
     "jest": "18.1.0",
-    "supertest": "2.0.1",
-    "webpack": "2.1.0-beta.25"
+    "supertest": "2.0.1"
   },
   "jest": {
     "testEnvironment": "node",
