@@ -5,8 +5,6 @@ import RxRouter from 'koa-router-rx'
 import prometheus from 'prom-client'
 import prometheusGCStats from 'prometheus-gc-stats'
 
-import type { Epic } from 'koa-router-rx'
-
 export default class MetricsApp {
   app: Koa;
   router: RxRouter;

@@ -1,6 +1,6 @@
 // @flow
 
-import supertest from 'supertest-as-promised'
+import supertest from 'supertest'
 import TessellateServer from '../src/TessellateServer'
 
 describe('TessellateServer', () => {
