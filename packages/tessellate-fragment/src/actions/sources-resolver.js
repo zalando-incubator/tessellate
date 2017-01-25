@@ -17,9 +17,14 @@ const SOURCES_QUERY_PARAM = 'sources'
 const SOURCES_PROPERTY_BY_HEADER_KEY = {
   'x-zalando-request-uri': {
     key: 'bundles:path',
-    transformValue: (value) => {
-      const {hostname, pathname} = url.parse(value)
-      return path.join(hostname.replace(/^www\./, ''), pathname)
+    transformValue: (value, headers) => {
+      const { pathname } = url.parse(value)
+      const hostname = headers['x-zalando-request-host']
+      if (hostname) {
+        return path.join(hostname.replace(/^www\./, ''), pathname)
+      } else {
+        return pathname
+      }
     }
   }
 }
@@ -61,7 +66,7 @@ function assignSourcePropertiesFromHeaders(headers: Object, sources: Object) {
         target = target[key]
       }
       const lastKey = keys.shift()
-      target[lastKey] = SOURCES_PROPERTY_BY_HEADER_KEY[headerName].transformValue(headers[headerName])
+      target[lastKey] = SOURCES_PROPERTY_BY_HEADER_KEY[headerName].transformValue(headers[headerName], headers)
     }
   }
 }

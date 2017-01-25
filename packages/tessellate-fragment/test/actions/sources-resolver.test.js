@@ -12,8 +12,20 @@ describe('sources-resolver', () => {
     expect(sources.bundles.src).toBe('http://localhost:3001')
   })
 
-  it('merges header properties with properties from nconf', async () => {
-    const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
+  it('merges headers with request uri with properties from nconf', async () => {
+    const headers = { 'x-zalando-request-uri': '/foo?q=bar' }
+
+    const sources = await resolveSources(headers, {})
+
+    expect(sources.bundles.src).toBe('http://localhost:3001')
+    expect(sources.bundles.path).toBe('/foo')
+  })
+
+  it('merges headers with request uri and host with properties from nconf', async () => {
+    const headers = {
+      'x-zalando-request-uri': '/foo?q=bar',
+      'x-zalando-request-host': 'www.zalando.de'
+    }
 
     const sources = await resolveSources(headers, {})
 
@@ -25,7 +37,7 @@ describe('sources-resolver', () => {
     require('request-promise-native').mockImplementation(() =>
       Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } }))
 
-    const headers = { 'x-zalando-request-uri': 'https://www.zalando.de/foo' }
+    const headers = { 'x-zalando-request-uri': '/foo' }
     const query = { sources: 'https://cdn.com/sources.json' }
 
     const sources = await resolveSources(headers, query)
