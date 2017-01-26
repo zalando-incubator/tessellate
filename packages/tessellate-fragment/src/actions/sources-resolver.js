@@ -20,11 +20,7 @@ const SOURCES_PROPERTY_BY_HEADER_KEY = {
     transformValue: (value, headers) => {
       const { pathname } = url.parse(value)
       const hostname = headers['x-zalando-request-host']
-      if (hostname) {
-        return path.join(hostname.replace(/^www\./, ''), pathname)
-      } else {
-        return pathname
-      }
+      return path.join(hostname.replace(/^www\./, ''), pathname)
     }
   }
 }
