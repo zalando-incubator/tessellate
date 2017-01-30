@@ -6,7 +6,7 @@ jest.mock('../src/content-service')
 
 import path from 'path'
 import fs from 'mz/fs'
-import supertest from 'supertest-as-promised'
+import supertest from 'supertest'
 import nconf from '../src/nconf'
 import * as server from '../src/server'
 

@@ -37,7 +37,6 @@ export async function start(port: number | string = nconf.get('APP_PORT')): Prom
   return server
 }
 
-// $FlowIgnore https://github.com/facebook/flow/issues/1362
 if (require.main === module) {
   start().catch(log.error)
 }
