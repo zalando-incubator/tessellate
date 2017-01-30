@@ -1,6 +1,6 @@
 {
   "name": "tessellate-fragment",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Tessellate fragment service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
