@@ -13,19 +13,26 @@ import * as server from '../src/server'
 describe('server', () => {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
 
-  let serv, request
+  let _server
 
   beforeEach(async () => {
     nconf.set('PUBLISH_TARGET', 'file://test/fixtures')
-    serv = await server.init().start()
-    request = supertest.agent(serv.app)
   })
 
-  afterEach(() => serv.stop())
+  afterEach(async () => _server.stop())
+
+  async function startServer(): Promise<*> {
+    server = _server = await server.start(3001)
+    const appRequest = supertest.agent(server.appServer)
+    const metricsRequest = supertest.agent(server.metricsServer)
+    return {server, appRequest, metricsRequest}
+  }
 
   describe('/health', () => {
     it('should return OK', async () => {
-      await request.get('/health')
+      const {appRequest} = await startServer()
+
+      await appRequest.get('/health')
         .expect(200)
         .expect('OK')
     })
@@ -33,7 +40,9 @@ describe('server', () => {
 
   describe('/static', () => {
     it('should serve static files from PUBLISH_TARGET', async () => {
-      await request.get('/content.json')
+      const {appRequest} = await startServer()
+
+      await appRequest.get('/content.json')
         .expect(200)
         .expect('Content-Type', /json/)
     })
@@ -46,8 +55,9 @@ describe('server', () => {
     it('build a bundle from a JSON payload', async () => {
       const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'))
       const element = JSON.parse(json)
+      const {appRequest} = await startServer()
 
-      await request.post('/bundles/zalando.de/test')
+      await appRequest.post('/bundles/zalando.de/test')
         .send(element)
         .expect(201)
         .expect('Content-Type', /json/)
@@ -58,9 +68,11 @@ describe('server', () => {
 
   describe('/metrics', () => {
     it('should serve JSON metrics', async () => {
-      await request.get('/metrics')
+      const {metricsRequest} = await startServer()
+
+      await metricsRequest.get('/metrics')
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect('Content-Type', /^text\/plain/)
     })
   })
 })
