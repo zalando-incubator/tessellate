@@ -133,4 +133,21 @@ describe('TessellateServer', () => {
     expect(body.detail).toBe('This is a problem.')
     expect(body.status).toBe(502)
   })
+
+  it('should parse JSON request payloads', async () => {
+    const {server, appRequest} = await startServer(new TessellateServer())
+    const payload = {foo: 'bar'}
+    let body
+
+    server.router.post('/', observable => observable.map(ctx => {
+      body = ctx.request.body
+      return 'OK'
+    }))
+
+    await appRequest.post('/')
+      .send(payload)
+      .expect('OK')
+
+    expect(body).toEqual(payload)
+  })
 })

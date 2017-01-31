@@ -4,6 +4,7 @@ import Koa from 'koa'
 import http from 'http'
 import compose from 'koa-compose'
 import morgan from 'koa-morgan'
+import bodyParser from 'koa-bodyparser'
 import RxRouter from 'koa-router-rx'
 import MetricsApp from './MetricsApp'
 import nconf from './nconf'
@@ -65,6 +66,7 @@ export default class TessellateServer {
     this.app
       .use(morgan(morganFormat, {skip: morganSkip}))
       .use(error())
+      .use(bodyParser({enableTypes: ['json'], strict: true}))
       .use(additionalMiddleware(this.middleware))
       .use(this.router.routes())
       .use(this.router.allowedMethods())

@@ -28,6 +28,7 @@
   "dependencies": {
     "js-yaml": "3.7.0",
     "koa": "2.0.0",
+    "koa-bodyparser": "3.2.0",
     "koa-compose": "3.2.1",
     "koa-morgan": "1.0.1",
     "koa-router-rx": "0.3.3",
