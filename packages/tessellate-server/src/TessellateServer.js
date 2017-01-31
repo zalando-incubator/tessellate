@@ -9,14 +9,15 @@ import MetricsApp from './MetricsApp'
 import nconf from './nconf'
 import error from './error'
 
-import type { Server } from 'http'
+import type { Middleware } from 'koa'
+import type { Server, IncomingMessage, ServerResponse } from 'http'
 
 type Options = {
   name?: string;
 };
-type Middleware = (ctx: Object, next: () => Promise<any>) => Promise<any>;
+type Listener = (req: IncomingMessage, res: ServerResponse) => void;
 
-function startServer(listener: () => void, port: number): Promise<Server> {
+function startServer(listener: Listener, port: number): Promise<Server> {
   return new Promise((resolve, reject) => {
     let server = http
       .createServer(listener)
@@ -59,11 +60,11 @@ export default class TessellateServer {
 
     const morganFormat = String(nconf.get('MORGAN_FORMAT'))
     const morganThresh = parseInt(nconf.get('MORGAN_THRESHOLD'))
-    const morganSkip = (req, res) => res.statusCode < morganThresh
+    const morganSkip = (req: IncomingMessage, res: ServerResponse) => res.statusCode < morganThresh
 
     this.app
       .use(morgan(morganFormat, {skip: morganSkip}))
-      .use(error)
+      .use(error())
       .use(additionalMiddleware(this.middleware))
       .use(this.router.routes())
       .use(this.router.allowedMethods())

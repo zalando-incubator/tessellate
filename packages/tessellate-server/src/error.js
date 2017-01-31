@@ -1,5 +1,7 @@
 // @flow
 
+import type { Middleware } from 'koa'
+
 export class Problem extends Error {
   title: string;
   detail: ?string;
@@ -17,16 +19,13 @@ export class Problem extends Error {
   }
 }
 
-export default async function error(ctx: Object, next: () => Promise<any>): Promise<any> {
-  try {
-    return await next()
-  } catch (err) {
-    console.error(err)
+export default function middleware(): Middleware {
+  return async (ctx, next) => next().catch(err => {
     ctx.status = err.status || err.code || 500
     ctx.body = {
-      title: err.title || err.message,
-      detail: err.detail,
+      title: err.title || err.name,
+      detail: err.detail ||  err.message,
       status: ctx.status
     }
-  }
+  })
 }

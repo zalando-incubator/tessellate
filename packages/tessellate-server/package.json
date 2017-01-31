@@ -16,13 +16,13 @@
     "url": "https://github.com/zalando-incubator/tessellate.git"
   },
   "scripts": {
-    "clean": "rm -rf dist/*",
+    "clean": "rimraf dist/*",
     "dist": "babel -d dist src",
     "start": "babel-node example/server.js",
     "test": "NODE_ENV=test MORGAN_THRESHOLD=500 jest --coverage",
     "flow-check": "flow check",
     "flow-gen-files": "flow-copy-source -v src dist",
-    "flow-typed-install": "flow-typed install -o",
+    "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",
     "prepublish": "npm run clean && npm run dist && npm run flow-gen-files"
   },
   "dependencies": {
@@ -30,7 +30,7 @@
     "koa": "2.0.0",
     "koa-compose": "3.2.1",
     "koa-morgan": "1.0.1",
-    "koa-router-rx": "0.3.1",
+    "koa-router-rx": "0.3.3",
     "mz": "2.6.0",
     "nconf": "0.8.4",
     "prom-client": "7.0.1",
@@ -47,7 +47,8 @@
     "flow-copy-source": "1.1.0",
     "flow-typed": "2.0.0",
     "jest": "18.1.0",
-    "supertest": "2.0.1"
+    "rimraf": "2.5.4",
+    "supertest": "3.0.0"
   },
   "jest": {
     "testEnvironment": "node",
