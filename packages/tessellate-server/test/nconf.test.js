@@ -23,4 +23,10 @@ describe('nconf', () => {
     const value = nconf.get('NEW_VALUE')
     expect(value).toEqual(41)
   })
+
+  it('should use defaults', () => {
+    nconf.defaults({'SOME_DEFAULT': 'default'})
+    const value = nconf.get('SOME_DEFAULT')
+    expect(value).toEqual('default')
+  })
 })

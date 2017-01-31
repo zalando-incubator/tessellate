@@ -19,7 +19,7 @@
     "clean": "rimraf dist/*",
     "dist": "babel -d dist src",
     "start": "babel-node example/server.js",
-    "test": "NODE_ENV=test MORGAN_THRESHOLD=500 jest --coverage",
+    "test": "NODE_ENV=test MORGAN_THRESHOLD=999 jest --coverage",
     "flow-check": "flow check",
     "flow-gen-files": "flow-copy-source -v src dist",
     "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",

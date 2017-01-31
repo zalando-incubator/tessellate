@@ -2,6 +2,7 @@
 
 import supertest from 'supertest'
 import TessellateServer from '../src/TessellateServer'
+import { Problem } from '../src/error'
 
 describe('TessellateServer', () => {
   let _server
@@ -92,10 +93,44 @@ describe('TessellateServer', () => {
     const {server, appRequest} = await startServer(new TessellateServer())
     server.router.get('/', observable => observable.mapTo('NOPE :('))
 
-    server.use(async (ctx, next) => ctx.body = 'YAY :)', true)
+    server.use(async (ctx, next) => {ctx.body = 'YAY :)'}, true)
 
     await appRequest.get('/')
       .expect(200)
       .expect('YAY :)')
+  })
+
+  it('should handle Errors', async () => {
+    const {server, appRequest} = await startServer(new TessellateServer())
+
+    server.use(async (ctx, next) => { throw new Error('Oops!') })
+
+    const {body} = await appRequest.get('/')
+      .expect(500)
+      .expect('Content-Type', /^application\/json/)
+
+    expect(body.title).toBe('Error')
+    expect(body.detail).toBe('Oops!')
+    expect(body.status).toBe(500)
+  })
+
+  it('should handle Problems', async () => {
+    const {server, appRequest} = await startServer(new TessellateServer())
+
+    server.use(async (ctx, next) => {
+      throw new Problem({
+        title: 'A Problem',
+        detail: 'This is a problem.',
+        status: 502
+      })
+    })
+
+    const {body} = await appRequest.get('/')
+      .expect(502)
+      .expect('Content-Type', /^application\/json/)
+
+    expect(body.title).toBe('A Problem')
+    expect(body.detail).toBe('This is a problem.')
+    expect(body.status).toBe(502)
   })
 })
