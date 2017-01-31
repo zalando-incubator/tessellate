@@ -2,7 +2,6 @@
 
 import path from 'path'
 import Koa from 'koa'
-import bodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
 import kcors from 'kcors'
 import logger from './logger'
@@ -15,9 +14,7 @@ const log = logger('server')
 export function init(): TessellateServer {
   const server = new TessellateServer()
 
-  server
-    .use(kcors())
-    .use(bodyParser({enableTypes: ['json'], strict: true}))
+  server.use(kcors())
 
   const fileSystemPublishTarget = getFileSystemPublishTarget()
   if (fileSystemPublishTarget) {

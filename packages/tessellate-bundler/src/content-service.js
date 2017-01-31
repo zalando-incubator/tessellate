@@ -6,7 +6,7 @@ import fs from 'mz/fs'
 import thenify from 'thenify'
 import nconf from './nconf'
 import logger from './logger'
-import { Problem } from './error'
+import { Problem } from 'tessellate-server'
 
 import type { BundleType } from './bundle-service'
 

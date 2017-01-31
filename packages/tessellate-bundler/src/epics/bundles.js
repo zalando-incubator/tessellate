@@ -3,14 +3,17 @@
 import nconf from '../nconf'
 import { Observable } from 'rxjs'
 import { util } from 'koa-router-rx'
-import { Problem } from '../error'
+import { Problem } from 'tessellate-server'
 import * as scriptBuilder from '../script-builder'
 import * as bundleService from '../bundle-service'
 import * as contentService from '../content-service'
 
 import type { Epic } from 'koa-router-rx'
+import type { Context, Request } from 'koa'
 
-type Context = Object;
+type ParsedReq = {body: Object} & Request;
+type QueryParams = {[key: string]: string};
+type RoutedContext = {params: QueryParams; request: ParsedReq} & Context;
 type ParsedRequest = {domain: string; name: string; element: TessellateElement;};
 type CreatedBundle = {domain: string; name: string; bundle: TessellateBundle;};
 type ResponseBody = {js: string; css: ?string;};
@@ -36,7 +39,7 @@ function parseOptions(): Object {
   }
 }
 
-const parseRequest: Epic<Context, ParsedRequest> = o => o.map(ctx => {
+const parseRequest: Epic<RoutedContext, ParsedRequest> = o => o.map(ctx => {
   const {domain, name} = ctx.params
   const element = ctx.request.body
   return {domain, name, element}

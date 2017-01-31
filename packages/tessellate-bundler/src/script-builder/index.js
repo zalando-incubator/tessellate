@@ -5,7 +5,7 @@ import logger from '../logger'
 import { camelCase } from 'change-case'
 import FragmentScript from './FragmentScript'
 import CreateElementScript from './CreateElementScript'
-import { Problem } from '../error'
+import { Problem } from 'tessellate-server'
 
 const log = logger('script-builder')
 
