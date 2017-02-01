@@ -1,0 +1,5 @@
+# Example config file
+FOO: bar
+BAR:
+  what: is
+  code: 42
