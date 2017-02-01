@@ -19,11 +19,13 @@
     "url": "https://github.com/zalando-incubator/tessellate.git"
   },
   "scripts": {
-    "dist": "webpack",
+    "clean": "rimraf dist/*",
+    "dist": "babel -d dist src",
     "start": "DEBUG=tessellate-bundler:*,webpack-sandboxed:* babel-node src/server.js",
     "test": "NODE_ENV=test jest --coverage",
     "flow-check": "flow check",
-    "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o"
+    "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",
+    "prepublish": "npm run clean && npm run dist"
   },
   "dependencies": {
     "babel-core": "6.22.1",
