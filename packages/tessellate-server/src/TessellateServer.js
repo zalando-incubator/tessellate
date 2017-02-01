@@ -66,7 +66,7 @@ export default class TessellateServer {
     this.app
       .use(morgan(morganFormat, {skip: morganSkip}))
       .use(error())
-      .use(bodyParser({enableTypes: ['json'], strict: true}))
+      .use(bodyParser({enableTypes: ['json']}))
       .use(additionalMiddleware(this.middleware))
       .use(this.router.routes())
       .use(this.router.allowedMethods())
@@ -84,12 +84,15 @@ export default class TessellateServer {
     return this
   }
 
-  async start(port: number | string, metricsPort: ?number | ?string): Promise<TessellateServer> {
+  async start(port: number | string, metricsPort?: number | string): Promise<TessellateServer> {
     if (!port) throw new Error('No port specified!')
 
+    const portNumber = parseInt(port)
+    const metricsPortNumber = parseInt(metricsPort)
+
     const [appServer, metricsServer] = await Promise.all([
-      startServer(this.app.callback(), parseInt(port)),
-      startServer(this.metrics.callback(), parseInt(metricsPort) || parseInt(port) + 1)
+      startServer(this.app.callback(), portNumber),
+      startServer(this.metrics.callback(), metricsPortNumber || portNumber + 1)
     ])
 
     this.appServer = appServer
