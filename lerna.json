@@ -2,7 +2,12 @@
   "lerna": "2.0.0-beta.35",
   "commands": {
     "bootstrap": {
-      "ignore": "*example*"
+      "ignore": [
+        "*example*"
+      ],
+      "scope": [
+        "tessellate-*"
+      ]
     }
   },
   "version": "independent"

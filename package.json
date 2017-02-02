@@ -3,15 +3,15 @@
     "postinstall": "npm run bootstrap && npm run dist",
     "test": "lerna run test",
     "dist": "lerna run dist",
-    "bootstrap": "lerna exec --ignore *example* --concurrency=1 -- yarn install && lerna exec --ignore *example* --concurrency=99 -- linklocal",
+    "yarn-install": "lerna exec --ignore *example* --concurrency=1 -- yarn install",
+    "bootstrap": "npm run yarn-install && lerna bootstrap --ignore *example*",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "devDependencies": {
     "commitizen": "2.9.5",
     "cz-lerna-changelog": "1.1.0",
     "lerna": "2.0.0-beta.35",
-    "lerna-semantic-release": "9.0.4",
-    "linklocal": "2.8.0"
+    "lerna-semantic-release": "9.0.4"
   },
   "config": {
     "commitizen": {
