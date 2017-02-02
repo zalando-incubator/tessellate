@@ -1,7 +1,5 @@
 // @flow
 
-import path from 'path'
-import Koa from 'koa'
 import koaStatic from 'koa-static'
 import kcors from 'kcors'
 import logger from './logger'

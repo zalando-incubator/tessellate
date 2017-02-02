@@ -1,4 +1,4 @@
-// @flowimport path from 'path'
+// @flow
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import WebpackSandbox from 'webpack-sandboxed'
@@ -8,8 +8,8 @@ import * as utils from './utils'
 type Options = {
   cssSupport?: boolean;
   production?: boolean;
-  packages: ?Array<string>;
-  externals: ?{ [key: string]: string };
+  packages?: Array<string>;
+  externals?: { [key: string]: string };
 }
 
 const log = logger('bundle-service')

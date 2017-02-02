@@ -8,12 +8,10 @@ import nconf from './nconf'
 import logger from './logger'
 import { Problem } from 'tessellate-server'
 
-import type { BundleType } from './bundle-service'
-
 type ExportArgs = {|
   domain: string;
   name: string;
-  bundle: BundleType;
+  bundle: TessellateBundle;
 |}
 
 type FetchArgs = {|
@@ -66,8 +64,9 @@ async function publishToFileSystem(target: string, args: ExportArgs): Promise<Pu
   await mkdirp(basePath)
   await fs.writeFile(path.resolve(process.cwd(), jsPath), args.bundle.js.source)
 
-  if (args.bundle.css && args.bundle.css.source) {
-    await fs.writeFile(path.resolve(process.cwd(), cssPath), args.bundle.css.source)
+  if (typeof args.bundle.css === 'object' && typeof args.bundle.css.source === 'string') {
+    const cssSource = args.bundle.css.source
+    await fs.writeFile(path.resolve(process.cwd(), cssPath), cssSource)
     result.css = path.relative(target, cssPath)
   }
 

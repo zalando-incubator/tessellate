@@ -1,7 +1,6 @@
 // @flow
 
 import nconf from '../nconf'
-import { Observable } from 'rxjs'
 import { util } from 'koa-router-rx'
 import { Problem } from 'tessellate-server'
 import * as scriptBuilder from '../script-builder'
