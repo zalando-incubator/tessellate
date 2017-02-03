@@ -6,26 +6,18 @@ import fs from 'mz/fs'
 import thenify from 'thenify'
 import nconf from './nconf'
 import logger from './logger'
-import { Problem } from './error'
-
-import type { BundleType } from './bundle-service'
+import { Problem } from 'tessellate-server'
 
 type ExportArgs = {|
   domain: string;
   name: string;
-  bundle: BundleType;
+  bundle: TessellateBundle;
 |}
 
 type FetchArgs = {|
   domain: string;
   name: string;
 |}
-
-type ElementType = {
-  type: string;
-  props: { [key: string]: any };
-  children?: Array<ElementType>;
-}
 
 type PublishResult = {
   js: string;
@@ -72,8 +64,9 @@ async function publishToFileSystem(target: string, args: ExportArgs): Promise<Pu
   await mkdirp(basePath)
   await fs.writeFile(path.resolve(process.cwd(), jsPath), args.bundle.js.source)
 
-  if (args.bundle.css && args.bundle.css.source) {
-    await fs.writeFile(path.resolve(process.cwd(), cssPath), args.bundle.css.source)
+  if (typeof args.bundle.css === 'object' && typeof args.bundle.css.source === 'string') {
+    const cssSource = args.bundle.css.source
+    await fs.writeFile(path.resolve(process.cwd(), cssPath), cssSource)
     result.css = path.relative(target, cssPath)
   }
 
@@ -84,7 +77,7 @@ async function publishToS3(): Promise<PublishResult> {
   throw new Error('publishToS3 not implemented.')
 }
 
-export async function fetch(args: FetchArgs): Promise<ElementType> {
+export async function fetch(args: FetchArgs): Promise<TessellateElement> {
   log.debug('Fetch %s/%s', args.domain, args.name)
   throw new Error('fetch not implemented.')
 }

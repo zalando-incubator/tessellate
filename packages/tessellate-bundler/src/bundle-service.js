@@ -1,33 +1,22 @@
-// @flowimport path from 'path'
+// @flow
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import WebpackSandbox from 'webpack-sandboxed'
 import logger from './logger'
 import * as utils from './utils'
 
-export type BundleType = {
-  js: {
-    name: string;
-    source: string;
-  };
-  css?: {
-    name: string;
-    source: string;
-  };
-};
-
 type Options = {
   cssSupport?: boolean;
   production?: boolean;
-  packages: ?Array<string>;
-  externals: ?{ [key: string]: string };
+  packages?: Array<string>;
+  externals?: { [key: string]: string };
 }
 
 const log = logger('bundle-service')
 
 async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox> {
   let loaders = [{
-    test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
+    test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {
       presets: ['es2015', 'react']
     }
   }]
@@ -82,7 +71,7 @@ async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox
 
 const createWebpackSandbox = utils.memoize(_createWebpackSandbox)
 
-export async function make(source: string, options: Options = {}): Promise<BundleType> {
+export async function make(source: string, options: Options = {}): Promise<TessellateBundle> {
   log.debug('Create WebpackSandbox with options %o', options)
   const sandbox = await createWebpackSandbox(options)
   log.debug('Compile bundle...')

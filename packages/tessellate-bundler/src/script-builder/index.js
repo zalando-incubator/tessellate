@@ -5,16 +5,9 @@ import logger from '../logger'
 import { camelCase } from 'change-case'
 import FragmentScript from './FragmentScript'
 import CreateElementScript from './CreateElementScript'
-import { Problem } from '../error'
+import { Problem } from 'tessellate-server'
 
 const log = logger('script-builder')
-
-export type ElementType = {
-  type: string;
-  style?: string;
-  props: { [key: string]: any } | null;
-  children?: Array<ElementType | string>;
-}
 
 type ReactScript = {
   script: string;
@@ -27,17 +20,17 @@ type ImportsType = {[key: string]: Array<string> | string}
 
 class ElementProblem extends Problem {
   constructor(detail: string) {
-    super({title: 'Element error.', detail, status: 400})
+    super({title: 'TessellateElement error.', detail, status: 400})
   }
 }
 
-export function build(element: ElementType): string {
+export function build(element: TessellateElement): string {
   log.debug('Build fragment script...')
   const {script, props, imports} = toReactScript(element)
   return FragmentScript({reactElement: script, rootID: uuid.v4(), props, imports})
 }
 
-function toReactScript(element: ElementType | string, props: PropsType = {}, imports: ImportsType = {}): ReactScript {
+function toReactScript(element: TessellateElement | string, props: PropsType = {}, imports: ImportsType = {}): ReactScript {
   // Atomic element, e.g. string content of a headline.
   if (typeof element === 'string')
     return {script: `\`${element}\``, props, imports}
@@ -58,14 +51,14 @@ function toReactScript(element: ElementType | string, props: PropsType = {}, imp
   return {script, props: Object.assign(props, childProps), imports}
 }
 
-function toReactScripts(elements: ?Array<ElementType | string>, props: PropsType, imports: ImportsType): Array<ReactScript> {
+function toReactScripts(elements: ?Array<TessellateElement | string>, props: PropsType, imports: ImportsType): Array<ReactScript> {
   if (Array.isArray(elements))
     return elements.map(child => toReactScript(child, props, imports))
   else
     return []
 }
 
-function parseElementType(element: ElementType, imports: ImportsType): {|className: string; imports: ImportsType;|} {
+function parseElementType(element: TessellateElement, imports: ImportsType): {|className: string; imports: ImportsType;|} {
   if (!element.type)
     throw new ElementProblem('Missing element type on ' + JSON.stringify(element))
 

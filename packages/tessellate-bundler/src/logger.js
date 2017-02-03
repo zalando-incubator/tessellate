@@ -2,15 +2,13 @@
 
 import debug from 'debug'
 
-import type Debugger from 'debug'
-
 const PREFIX = 'tessellate-bundler'
 
 type Logger = {
-  debug: Debugger;
-  info: Debugger;
-  warn: Debugger;
-  error: Debugger;
+  debug: *;
+  info: *;
+  warn: *;
+  error: *;
 }
 
 export default function logger(name: string): Logger {

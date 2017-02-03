@@ -4,7 +4,7 @@ branches:
     - master
 language: node_js
 node_js:
-  - "6"
+  - "7"
 env:
   - CXX=g++-4.8
 addons:
@@ -20,6 +20,10 @@ cache:
     - packages/tessellate-bundler/node_modules
     - packages/tessellate-editor/node_modules
     - packages/tessellate-fragment/node_modules
+    - packages/tessellate-render/node_modules
+    - packages/tessellate-request/node_modules
+    - packages/tessellate-server/node_modules
+    - packages/tessellate-transform/node_modules
     - packages/tessellate-viewer/node_modules
 before_install:
   - .travis/before_install.sh
