@@ -1,7 +1,14 @@
 {
-  "lerna": "2.0.0-beta.30",
-  "bootstrapConfig": {
-    "ignore": "*example*"
+  "lerna": "2.0.0-beta.35",
+  "commands": {
+    "bootstrap": {
+      "ignore": [
+        "*example*"
+      ],
+      "scope": [
+        "tessellate-*"
+      ]
+    }
   },
   "version": "independent"
 }
