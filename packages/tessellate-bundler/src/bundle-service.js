@@ -16,7 +16,7 @@ const log = logger('bundle-service')
 
 async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox> {
   let loaders = [{
-    test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
+    test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {
       presets: ['es2015', 'react']
     }
   }]
