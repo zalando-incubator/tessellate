@@ -2,10 +2,10 @@
 /test
 /coverage
 /bundles
+/flow-typed
 .babelrc
 .eslintignore
 .eslintrc
 .flowconfig
 .gitignore
 .npmignore
-webpack.config.js
