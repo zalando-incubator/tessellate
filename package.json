@@ -3,7 +3,7 @@
     "postinstall": "npm run bootstrap && npm run dist",
     "test": "lerna run test",
     "dist": "lerna run dist",
-    "bootstrap": "lerna exec --ignore *example* -- npm install && lerna bootstrap --ignore *example*",
+    "bootstrap": "lerna exec -- npm install && lerna bootstrap",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "devDependencies": {
