@@ -19,10 +19,14 @@
     "url": "https://github.com/zalando-incubator/tessellate.git"
   },
   "scripts": {
-    "dist": "webpack",
+    "clean": "rimraf dist/*",
+    "dist": "babel -d dist src",
     "start": "DEBUG=tessellate-fragment:*,webpack-sandboxed:* babel-node src/server.js",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --coverage"
+    "test": "NODE_ENV=test jest --coverage",
+    "flow-check": "flow check",
+    "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",
+    "prepublishOnly": "npm run clean && npm run dist"
   },
   "dependencies": {
     "debug": "2.6.0",
@@ -45,7 +49,6 @@
     "babel-core": "6.22.1",
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
-    "babel-loader": "6.2.10",
     "babel-plugin-syntax-flow": "6.18.0",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-preset-latest-minimal": "1.1.2",
@@ -55,10 +58,12 @@
     "eslint-plugin-flowtype": "2.30.0",
     "eslint-plugin-promise": "3.4.0",
     "eslint-plugin-react": "6.9.0",
+    "flow-bin": "0.39.0",
+    "flow-typed": "2.0.0",
     "jest": "18.1.0",
+    "rimraf": "2.5.4",
     "supertest": "2.0.1",
-    "supertest-as-promised": "4.0.2",
-    "webpack": "2.1.0-beta.25"
+    "supertest-as-promised": "4.0.2"
   },
   "jest": {
     "testEnvironment": "node",

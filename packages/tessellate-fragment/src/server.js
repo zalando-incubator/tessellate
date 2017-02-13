@@ -22,16 +22,15 @@ export function init(): Koa {
     .use(routes)
 }
 
-function start(port: number | string = nconf.get('APP_PORT')) {
-  init().listen(port)
+export async function start(port: number | string = nconf.get('APP_PORT')) {
+  await init().listen(port)
   log.info('listening on port %d', port)
 }
 
-// $FlowIssue https://github.com/facebook/flow/issues/1362
+export function main() {
+  start().catch(log.error)
+}
+
 if (require.main === module) {
-  try {
-    start()
-  } catch(e) {
-    log.error(e)
-  }
+  start()
 }
