@@ -147,3 +147,5 @@ jspm_packages
 *.tgz
 
 /coverage
+# Remove when switching from lerna to yarn:
+yarn.lock
