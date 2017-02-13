@@ -4,30 +4,32 @@ tessellate-bundler:
     APP_PORT: 3001
   ports:
     - 3001:3001
+    - 3002:3002
 tessellate-fragment:
   build: packages/tessellate-fragment
   environment:
-    APP_PORT: 3002
+    APP_PORT: 3003
     BUNDLE_SOURCE: http://tessellate-bundler:3001
   ports:
-    - 3002:3002
+    - 3003:3003
+    - 3004:3004
   links:
     - tessellate-bundler
 tessellate-viewer:
   build: packages/tessellate-viewer
   environment:
-    APP_PORT: 3003
-    FRAGMENT_SOURCE: http://tessellate-fragment:3002/fragment
+    APP_PORT: 3005
+    FRAGMENT_SOURCE: http://tessellate-fragment:3003/fragment
   ports:
-    - 3003:3003
+    - 3005:3005
   links:
     - tessellate-fragment
 tessellate-editor:
   build: packages/tessellate-editor
   environment:
-    APP_PORT: 3004
+    APP_PORT: 3007
     BUNDLE_TARGET: http://localhost:3001/bundles
   ports:
-    - 3004:3004
+    - 3007:3007
   links:
     - tessellate-bundler
