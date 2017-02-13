@@ -1,6 +1,7 @@
 /src
 /test
 /coverage
+/flow-typed
 .babelrc
 .eslintignore
 .eslintrc
@@ -8,3 +9,4 @@
 .gitignore
 .npmignore
 webpack.config.js
+webpack.client.js

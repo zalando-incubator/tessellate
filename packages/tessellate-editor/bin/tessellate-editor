@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../dist/server.js')
+require('../dist/server/server.js').main()
