@@ -1,0 +1,22 @@
+{
+  "name": "tessellate-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "linklocal link",
+    "bundler": "tessellate-bundler --APP_PORT=3001",
+    "fragment": "tessellate-fragment --APP_PORT=3003",
+    "viewer": "tessellate-viewer --APP_PORT=3005",
+    "editor": "tessellate-editor --APP_PORT=3007",
+    "all": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment viewer editor"
+  },
+  "dependencies": {
+    "linklocal": "2.8.0",
+    "npm-run-all": "4.0.1",
+    "reflexbox": "2.2.3",
+    "tessellate-bundler": "file:../packages/tessellate-bundler",
+    "tessellate-editor": "file:../packages/tessellate-editor",
+    "tessellate-fragment": "file:../packages/tessellate-fragment",
+    "tessellate-viewer": "file:../packages/tessellate-viewer"
+  }
+}
