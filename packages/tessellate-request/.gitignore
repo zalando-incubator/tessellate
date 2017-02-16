@@ -1,3 +1,2 @@
 /dist
-test/__snapshots__
-/flow-typed
+/flow-typed/npm
