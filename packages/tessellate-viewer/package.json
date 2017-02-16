@@ -24,8 +24,7 @@
     "start": "DEBUG=tessellate-viewer:* babel-node src/server.js",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest --coverage",
-    "flow-check": "flow check",
-    "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",
+    "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
     "prepublishOnly": "npm run clean && npm run dist"
   },
   "dependencies": {
