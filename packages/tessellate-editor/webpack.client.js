@@ -8,21 +8,23 @@ module.exports = {
     filename: 'client.js'
   },
   module: {
-    loaders: [{
-      test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
-        presets: [
-          'es2015',
-          'react'
-        ],
-        plugins: [
-          'syntax-flow',
-          'transform-flow-strip-types'
-        ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['es2015', 'react'],
+          plugins: ['syntax-flow', 'transform-flow-strip-types'],
+          babelrc: false
+        }
+      },
+      {
+        test: /\.ya?ml$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
       }
-    },
-    {
-      test: /\.ya?ml$/, exclude: /node_modules/, loader: 'raw'
-    }]
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({

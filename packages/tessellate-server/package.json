@@ -23,7 +23,7 @@
     "flow-check": "flow check",
     "flow-gen-files": "flow-copy-source -v src dist",
     "flow-typed-install": "rimraf flow-typed/npm/*_vx.x.x.js && flow-typed install -o",
-    "prepublish": "npm run clean && npm run dist && npm run flow-gen-files"
+    "prepublishOnly": "npm run clean && npm run dist && npm run flow-gen-files"
   },
   "dependencies": {
     "js-yaml": "3.7.0",

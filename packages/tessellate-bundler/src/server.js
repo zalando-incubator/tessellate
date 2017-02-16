@@ -35,3 +35,7 @@ export async function start(port: number | string = nconf.get('APP_PORT')): Prom
 export function main() {
   start().catch(log.error)
 }
+
+if (require.main === module) {
+  main()
+}

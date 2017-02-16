@@ -53,8 +53,7 @@ async function main(args: Object): Promise<void> {
   console.log(JSON.stringify(result))
 }
 
-// $FlowIssue https://github.com/facebook/flow/issues/1362
-if (require.main === module) {
+export function cli() {
   const argv = yargs
     .usage('tessellate-transform [OPTIONS] FILE')
     .option('type-prefix', {

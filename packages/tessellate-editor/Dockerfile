@@ -18,10 +18,10 @@ COPY dist/ dist/
 ENV NODE_ENV production
 ENV MORGAN_FORMAT common
 ENV APP_PORT 3002
-ENV DEBUG tessellate-fragment:*
+ENV DEBUG tessellate-editor:*
 
 # HEALTHCHECK CMD ["curl",  "localhost:3002/health"]
 
 EXPOSE 3001
 
-CMD ["bin/tessellate-fragment"]
+CMD ["bin/tessellate-editor"]

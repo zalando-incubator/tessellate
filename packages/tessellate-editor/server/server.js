@@ -15,7 +15,7 @@ export function init(): Koa {
   const morganFormat = nconf.get('MORGAN_FORMAT')
   const morganSkip = (req, res) => res.statusCode < nconf.get('MORGAN_THRESHOLD')
 
-  const staticDir = nconf.get('STATIC_DIR') || path.resolve(__dirname, 'client')
+  const staticDir = nconf.get('STATIC_DIR') || path.resolve(__dirname, '../client')
   log.info('Serving files from %s', staticDir)
 
   return app
@@ -24,16 +24,15 @@ export function init(): Koa {
     .use(koaStatic(staticDir, {defer: false, gzip: true}))
 }
 
-function start(port: number | string = nconf.get('APP_PORT')) {
+async function start(port: number | string = nconf.get('APP_PORT')) {
   init().listen(port)
   log.info('listening on port %d', port)
 }
 
-// $FlowIssue https://github.com/facebook/flow/issues/1362
+export function main() {
+  start().catch(log.error)
+}
+
 if (require.main === module) {
-  try {
-    start()
-  } catch(e) {
-    log.error(e)
-  }
+  start()
 }
