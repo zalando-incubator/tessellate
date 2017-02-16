@@ -7,6 +7,13 @@ import url from 'url'
 import merge from 'lodash.merge'
 import { Problem } from '../error'
 
+type Sources = {
+  bundles: {
+    src: string;
+    path?: string;
+  }
+};
+
 class SourcesProblem extends Problem {
   constructor(detail: string) {
     super({title: 'Sources generation error.', detail, status: 404})
@@ -20,13 +27,17 @@ const SOURCES_PROPERTY_BY_HEADER_KEY = {
     transformValue: (value, headers) => {
       const { pathname } = url.parse(value)
       const hostname = headers['x-zalando-request-host']
-      return path.join(hostname.replace(/^www\./, ''), pathname)
+      if (pathname) {
+        return path.join(hostname.replace(/^www\./, ''), pathname)
+      } else {
+        return value.replace(/^https?:\/\//, '').replace(/^www\./, '')
+      }
     }
   }
 }
-const DEFAULT_SOURCES = { bundles: { src: nconf.get('BUNDLES_SOURCE') } }
+const DEFAULT_SOURCES: Sources = { bundles: { src: nconf.get('BUNDLES_SOURCE') } }
 
-export async function resolveSources(headers, query) {
+export async function resolveSources(headers: Object, query: Object): Promise<Sources> {
   const sources = Object.assign({}, DEFAULT_SOURCES)
 
   assignSourcePropertiesFromHeaders(headers, sources)
