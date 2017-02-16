@@ -15,44 +15,48 @@ type Options = {
 const log = logger('bundle-service')
 
 async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox> {
-  let loaders = [{
-    test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {
-      presets: ['es2015', 'react']
+  const loaders = [{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+    options: {
+      presets: [['es2015', {modules: false}], 'react'],
+      babelrc: false
     }
   }]
-  let plugins = [
+  const plugins = [
     new webpack.DefinePlugin({process: {env: {NODE_ENV: '"production"'}}})
   ]
   const externals = Object.assign({}, args.externals, {
     'react': 'react',
     'react-dom': 'react-dom'
   })
-  let packages = args.packages || []
+  const packages = args.packages || []
 
   if (args.cssSupport) {
-    loaders = loaders.concat({
+    loaders.push({
       test: /\.css$/, loader: ExtractTextPlugin.extract({
         fallbackLoader: 'style-loader',
         loader: 'css-loader'
       })
     })
-    plugins = plugins.concat(
+    plugins.push(
       new ExtractTextPlugin('[name]-[hash].min.css')
     )
-    packages = packages.concat([
+    packages.push(
       'style-loader',
       'css-loader'
-    ])
+    )
   }
 
   if (args.production) {
-    plugins = plugins.concat([
+    plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.DedupePlugin()
-    ])
+    )
   }
 
-  const sandbox = await WebpackSandbox.createInstance({
+  return WebpackSandbox.createInstance({
     config: {
       target: 'web',
       module: {
@@ -66,7 +70,6 @@ async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox
     },
     packages
   })
-  return sandbox
 }
 
 const createWebpackSandbox = utils.memoize(_createWebpackSandbox)

@@ -1,19 +1,38 @@
 {
   "scripts": {
     "postinstall": "npm run bootstrap && npm run dist",
+    "lint": "lerna run lint",
     "test": "lerna run test",
     "clean": "lerna run clean",
     "dist": "lerna run dist",
     "flow-check": "lerna run flow-check",
     "flow-typed-install": "lerna run flow-typed-install",
-    "bootstrap": "lerna exec -- npm install && lerna bootstrap",
+    "bootstrap": "lerna bootstrap --scope=tessellate-* --include-filtered-dependencies --hoist --nohoist=tessellate-*",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "devDependencies": {
+    "babel-cli": "6.23.0",
+    "babel-core": "6.23.1",
+    "babel-eslint": "7.1.1",
+    "babel-jest": "18.0.0",
+    "babel-plugin-syntax-flow": "6.18.0",
+    "babel-plugin-transform-flow-strip-types": "6.22.0",
+    "babel-preset-latest-minimal": "1.1.2",
+    "babel-preset-react": "6.23.0",
     "commitizen": "2.9.5",
     "cz-lerna-changelog": "1.1.0",
-    "lerna": "2.0.0-beta.35",
-    "lerna-semantic-release": "9.0.4"
+    "eslint": "3.15.0",
+    "eslint-plugin-babel": "4.0.1",
+    "eslint-plugin-flowtype": "2.30.0",
+    "eslint-plugin-promise": "3.4.1",
+    "eslint-plugin-react": "6.10.0",
+    "flow-bin": "0.39.0",
+    "flow-typed": "2.0.0",
+    "jest": "18.1.0",
+    "lerna": "2.0.0-beta.37",
+    "lerna-semantic-release": "9.0.6",
+    "rimraf": "2.5.4",
+    "supertest": "3.0.0"
   },
   "config": {
     "commitizen": {

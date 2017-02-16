@@ -30,23 +30,13 @@
   },
   "dependencies": {
     "acorn-jsx": "3.0.1",
-    "js-yaml": "3.7.0",
+    "js-yaml": "3.8.1",
     "mz": "2.6.0",
-    "yargs": "6.4.0"
+    "yargs": "6.6.0"
   },
   "devDependencies": {
-    "babel-cli": "6.22.2",
-    "babel-core": "6.22.1",
-    "babel-eslint": "7.1.1",
-    "babel-jest": "18.0.0",
-    "babel-plugin-syntax-flow": "6.18.0",
-    "babel-plugin-transform-flow-strip-types": "6.22.0",
-    "babel-preset-latest-minimal": "1.1.2",
-    "eslint": "3.11.1",
-    "eslint-plugin-babel": "4.0.0",
-    "eslint-plugin-flowtype": "2.28.2",
-    "eslint-plugin-promise": "3.4.0",
-    "eslint-plugin-react": "6.7.1",
+    "babel-cli": "6.23.0",
+    "eslint": "3.15.0",
     "flow-bin": "0.39.0",
     "flow-typed": "2.0.0",
     "jest": "18.1.0",
