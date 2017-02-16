@@ -4,7 +4,7 @@
  * @flow
  */
 
-import supertest from 'supertest-as-promised'
+import supertest from 'supertest'
 import * as server from '../src/server'
 
 describe('server', () => {
