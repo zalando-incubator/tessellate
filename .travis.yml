@@ -30,7 +30,6 @@ before_install:
 install:
   - npm install
   - npm install istanbul-combine coveralls codeclimate-test-reporter
-  - npm run flow-typed-install
 script:
   - npm run run flow-check
   - npm test

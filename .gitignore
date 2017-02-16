@@ -147,6 +147,5 @@ jspm_packages
 *.tgz
 
 /coverage
-/flow-typed
 # Remove when switching from lerna to yarn:
 yarn.lock
