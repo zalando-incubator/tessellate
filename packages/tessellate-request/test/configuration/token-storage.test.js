@@ -37,8 +37,8 @@ describe('managed tokens', () => {
 
   it('throws an error when managed token does not contain an access token', async () => {
     try {
-      const token = await tokenStorage.getTokenById('broken-id')
-      fail('Did not throw an expection')
+      await tokenStorage.getTokenById('broken-id')
+      expect('Did not throw').toBe(false)
     } catch(err) {
       expect(err.message).toEqual('Could not get managed token with id "broken-id".')
     }
@@ -47,18 +47,16 @@ describe('managed tokens', () => {
   it('throws an error when token configuration is not found', async () => {
     try {
       await tokenStorage.getTokenById('unknown-id')
-      fail('Did not throw an expection')
+      expect('Did not throw').toBe(false)
     } catch(err) {
       expect(err.message).toEqual('Token with id "unknown-id" has no configuration')
     }
   })
 
   it('returns a token', async () => {
-    require('node-tokens').mockImplementation(() => {
-      return {
-        get: id => 'abcd'
-      }
-    })
+    require('node-tokens').mockImplementation(() => ({
+      get: () => 'abcd'
+    }))
 
     const token = await tokenStorage.getTokenById('id')
     expect(token).toEqual('abcd')

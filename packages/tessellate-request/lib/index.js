@@ -1,11 +1,6 @@
 // @flow
 
-import requestPromiseNative from 'request-promise-native'
-import nconf from 'nconf'
-import path from 'path'
-import fs from 'fs'
-
-import type {SmartRequest} from './requests/smart-request'
+import type { SmartRequest } from './requests/smart-request'
 import * as requestFactory from './requests/request-factory'
 
 export default class Request {
@@ -23,5 +18,4 @@ export default class Request {
   async get(url: string): Object {
     return await this.delegateRequest.get(url)
   }
-
 }
