@@ -2,7 +2,6 @@
 
 import path from 'path'
 import ejs from 'ejs'
-import fs from 'mz/fs'
 import thenify from 'thenify'
 import logger from './logger'
 
@@ -16,11 +15,11 @@ type FragmentType = {|
 const renderFile = thenify(ejs.renderFile.bind(ejs))
 const log = logger('template-service')
 
-async function loadTemplateFile() {
-  // path.resolve(__dirname, '../static/template.ejs')
-  // log.debug('Using template file %s', templateFile)
-  // return require('../static/template.ejs')
-}
+// async function loadTemplateFile() {
+//   path.resolve(__dirname, '../static/template.ejs')
+//   log.debug('Using template file %s', templateFile)
+//   return require('../static/template.ejs')
+// }
 
 export async function renderView(fragment: FragmentType): Promise<string> {
   log.debug('Render view...')
