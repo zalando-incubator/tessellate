@@ -1,6 +1,5 @@
 // @flow
 
-import path from 'path'
 import Koa from 'koa'
 import morgan from 'koa-morgan'
 import nconf from './nconf'

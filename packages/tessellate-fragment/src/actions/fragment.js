@@ -1,8 +1,6 @@
 // @flow
 
-import path from 'path'
 import { register } from '../dispatch'
-import { Problem } from '../error'
 import * as bundleService from '../bundle-service'
 import * as contentService from '../content/content-service'
 import renderToString from 'tessellate-render'
@@ -15,12 +13,6 @@ type SkipperArgs = {|
   requestHost: string;
   customer: string;
 |}
-
-class FragmentProblem extends Problem {
-  constructor(detail: string) {
-    super({title: 'Fragment Error.', detail, status: 404})
-  }
-}
 
 export const FETCH_BUNDLE = Symbol('FETCH_BUNDLE')
 

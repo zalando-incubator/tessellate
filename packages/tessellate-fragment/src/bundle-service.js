@@ -2,7 +2,6 @@
 
 import url from 'url'
 import request from 'request-promise-native'
-import nconf from './nconf'
 import logger from './logger'
 import { Problem } from './error'
 
