@@ -1,6 +1,5 @@
-/**
- * Server API integration tests.
- */
+/* Server API integration tests. */
+/* global jasmine */
 
 jest.mock('../src/content-service')
 

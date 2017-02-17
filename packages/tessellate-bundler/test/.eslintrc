@@ -1,0 +1,11 @@
+plugins:
+  - jest
+
+env:
+  jest: true
+
+# http://eslint.org/docs/rules
+rules:
+  # Jest
+  jest/no-exclusive-tests: 2
+  jest/no-identical-title: 2

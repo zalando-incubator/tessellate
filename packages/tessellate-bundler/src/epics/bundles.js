@@ -2,7 +2,6 @@
 
 import nconf from '../nconf'
 import { util } from 'koa-router-rx'
-import { Problem } from 'tessellate-server'
 import * as scriptBuilder from '../script-builder'
 import * as bundleService from '../bundle-service'
 import * as contentService from '../content-service'
@@ -17,12 +16,6 @@ type ParsedRequest = {domain: string; name: string; element: TessellateElement;}
 type CreatedBundle = {domain: string; name: string; bundle: TessellateBundle;};
 type ResponseBody = {js: string; css: ?string;};
 type CreatedResponse = {body: ResponseBody; status: number;};
-
-class BundleProblem extends Problem {
-  constructor(detail: string) {
-    super({title: 'Bundle Error.', detail, status: 500})
-  }
-}
 
 function parseOptions(): Object {
   const packages = nconf.getObject('NPM_MODULES')

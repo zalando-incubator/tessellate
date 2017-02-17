@@ -3,8 +3,8 @@
 import uuid from 'uuid'
 import logger from '../logger'
 import { camelCase } from 'change-case'
-import FragmentScript from './FragmentScript'
-import CreateElementScript from './CreateElementScript'
+import fragmentScript from './FragmentScript'
+import createElementScript from './CreateElementScript'
 import { Problem } from 'tessellate-server'
 
 const log = logger('script-builder')
@@ -27,7 +27,7 @@ class ElementProblem extends Problem {
 export function build(element: TessellateElement): string {
   log.debug('Build fragment script...')
   const {script, props, imports} = toReactScript(element)
-  return FragmentScript({reactElement: script, rootID: uuid.v4(), props, imports})
+  return fragmentScript({reactElement: script, rootID: uuid.v4(), props, imports})
 }
 
 function toReactScript(element: TessellateElement | string, props: PropsType = {}, imports: ImportsType = {}): ReactScript {
@@ -46,7 +46,7 @@ function toReactScript(element: TessellateElement | string, props: PropsType = {
     childProps: Object.assign(childProps, props)
   }), {childScripts: [], childProps: {}})
 
-  const script = CreateElementScript({className, propsId: id, children: childScripts})
+  const script = createElementScript({className, propsId: id, children: childScripts})
 
   return {script, props: Object.assign(props, childProps), imports}
 }
@@ -63,7 +63,7 @@ function parseElementType(element: TessellateElement, imports: ImportsType): {|c
     throw new ElementProblem('Missing element type on ' + JSON.stringify(element))
 
   // Try to match '<node-module-name>.<component-name>'
-  const [_, moduleName, componentName] = element.type.match(/^([^\.]+)\.?(.+)?/) || []
+  const [moduleName, componentName] = (element.type.match(/^([^\.]+)\.?(.+)?/) || []).slice(1)
 
   if (moduleName && componentName) {
     // If a style attribute is present, add a module import for it.
@@ -81,7 +81,7 @@ function parseElementType(element: TessellateElement, imports: ImportsType): {|c
     // The import is 'import { <component-name> } from '<node-module-name>'
     else {
       className = componentName
-      const [_, importName, rest] = componentName.match(/^([^\.]+)\.?(.+)?/) || []
+      const [importName] = (componentName.match(/^([^\.]+)\.?(.+)?/) || []).slice(1)
       if (Array.isArray(imports[moduleName])) {
         if (!imports[moduleName].includes(importName)) {
           imports[moduleName] = imports[moduleName].concat(importName)
@@ -96,7 +96,6 @@ function parseElementType(element: TessellateElement, imports: ImportsType): {|c
   // Type is a literal React component name (e.g. 'div')
   else if (moduleName) {
     const name: string = camelCase(moduleName)
-    const module = moduleName
     const className = `'${name}'`
     return  {className, imports}
   }

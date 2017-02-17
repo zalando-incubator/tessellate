@@ -7,7 +7,7 @@ type FragmentArgs = {|
   imports: { [key: string]: string };
 |}
 
-function ImportScript(module: string, imported: Array<string> | string): string {
+function importScript(module: string, imported: Array<string> | string): string {
   if (Array.isArray(imported)) {
     return `import { ${imported.join(', ')} } from '${module}'`
   } else {
@@ -15,11 +15,11 @@ function ImportScript(module: string, imported: Array<string> | string): string 
   }
 }
 
-export default function FragmentScript(args: FragmentArgs): string {
+export default function fragmentScript(args: FragmentArgs): string {
   return `
   import React, { Component } from 'react'
   import ReactDOM from 'react-dom'
-  ${Object.keys(args.imports).map(name => ImportScript(name, args.imports[name])).join('\n')}
+  ${Object.keys(args.imports).map(name => importScript(name, args.imports[name])).join('\n')}
 
   const BUNDLED_PROPS = ${JSON.stringify(args.props)}
 
