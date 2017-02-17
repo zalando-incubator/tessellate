@@ -31,6 +31,7 @@ install:
   - npm install
   - npm install istanbul-combine coveralls codeclimate-test-reporter
 script:
+  - npm run flow-check
   - npm test
   - npm run dist
 after_success:

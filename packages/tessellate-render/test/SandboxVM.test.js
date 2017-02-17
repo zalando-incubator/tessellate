@@ -7,6 +7,7 @@ describe('SandboxVM', () => {
     const sandbox = new SandboxVM()
     const result = sandbox.run('exports = () => 42')
     expect(typeof result).toBe('function')
+    // $FlowIgnore
     expect(result()).toBe(42)
   })
 

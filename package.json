@@ -5,7 +5,7 @@
     "test": "lerna run test",
     "clean": "lerna run clean",
     "dist": "lerna run dist",
-    "flow-check": "lerna run flow-check",
+    "flow-check": "flow check",
     "flow-typed-install": "lerna run flow-typed-install",
     "bootstrap": "lerna bootstrap --scope=tessellate-* --include-filtered-dependencies --hoist --nohoist=tessellate-*",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"

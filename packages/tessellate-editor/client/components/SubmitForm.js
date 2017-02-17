@@ -21,21 +21,21 @@ export default class SubmitForm extends Component {
     }
   }
 
-  onDomainInputChanged(e: Event) {
+  onDomainInputChanged(e: SyntheticInputEvent) {
     e.preventDefault()
     this.setState({
       domain: e.target.value
     })
   }
 
-  onKeyInputChanged(e: Event) {
+  onKeyInputChanged(e: SyntheticInputEvent) {
     e.preventDefault()
     this.setState({
       key: e.target.value
     })
   }
 
-  onSubmit(e: Event) {
+  onSubmit(e: SyntheticInputEvent) {
     e.preventDefault()
     this.props.onSubmit({
       domain: this.state.domain,

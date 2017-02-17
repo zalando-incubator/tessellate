@@ -30,6 +30,7 @@ describe('server', () => {
   describe('/:domain/:name', () => {
     it('should return HTML', async () => {
       const fragmentService = require('../src/fragment-service')
+      // $FlowIgnore
       fragmentService.fetchFragment.mockImplementation(() => Promise.resolve({
         html: '<h1>Hello, test!</h1>',
         link: {
