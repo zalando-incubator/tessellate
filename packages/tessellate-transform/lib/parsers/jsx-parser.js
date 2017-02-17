@@ -38,7 +38,7 @@ type Attribute = {
 
 type JSXExpressionContainer = {
   type: 'JSXExpressionContainer';
-  expression: ObjectExpression| Literal;
+  expression: ObjectExpression | Literal;
 }
 
 type Literal = {
@@ -192,7 +192,7 @@ function parseJSX(jsx: string, callbacks: ParseCallbacks, opts: ParseOptions) {
     onEnter: (element: Element) => {
       callbacks.onEnter(cache.push(parseElement(element, typePrefix)))
     },
-    onLeave: (element: Element) => {
+    onLeave: () => {
       callbacks.onLeave(cache.pop())
     },
     onLiteral: (literal: Literal) => {

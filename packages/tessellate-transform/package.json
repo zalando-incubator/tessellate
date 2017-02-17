@@ -22,8 +22,8 @@
     "clean": "rimraf dist/*",
     "dist": "babel -d dist lib",
     "start": "babel-node lib/cli.js",
-    "lint": "eslint .",
-    "test": "NODE_ENV=test jest --coverage",
+    "lint": "eslint lib test",
+    "test": "npm run lint && NODE_ENV=test jest --coverage",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
     "prepublishOnly": "npm run clean && npm run dist"
   },

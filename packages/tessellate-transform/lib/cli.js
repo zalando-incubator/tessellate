@@ -50,7 +50,7 @@ async function main(args: Object): Promise<void> {
   const options = await parseArgs(args)
   const transformOptions = Object.assign({}, options.parser, options.transform)
   const result = await transform(options.file, transformOptions)
-  console.log(JSON.stringify(result))
+  process.stdout.write(JSON.stringify(result))
 }
 
 export function cli() {
@@ -70,5 +70,5 @@ export function cli() {
     })
     .demand(1)
     .argv
-  main(argv).catch(console.error)
+  main(argv).catch(e => process.stderr.write('' + e))
 }
