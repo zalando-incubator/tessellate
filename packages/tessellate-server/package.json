@@ -19,8 +19,8 @@
     "clean": "rimraf dist/*",
     "dist": "babel -d dist src",
     "start": "babel-node example/server.js",
-    "lint": "eslint .",
-    "test": "NODE_ENV=test MORGAN_THRESHOLD=999 jest --coverage",
+    "lint": "eslint src test",
+    "test": "npm run lint && NODE_ENV=test MORGAN_THRESHOLD=999 jest --coverage",
     "flow-gen-files": "flow-copy-source -v src dist",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
     "prepublishOnly": "npm run clean && npm run dist && npm run flow-gen-files"

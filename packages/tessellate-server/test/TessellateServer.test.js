@@ -26,15 +26,7 @@ describe('TessellateServer', () => {
   })
 
   it('should return metrics', async () => {
-    const {server, metricsRequest} = await startServer(new TessellateServer())
-
-    await metricsRequest.get('/metrics')
-      .expect(200)
-      .expect('Content-Type', /^text\/plain/)
-  })
-
-  it('should return metrics', async () => {
-    const {server, metricsRequest} = await startServer(new TessellateServer())
+    const {metricsRequest} = await startServer(new TessellateServer())
 
     await metricsRequest.get('/metrics')
       .expect(200)
@@ -93,7 +85,7 @@ describe('TessellateServer', () => {
     const {server, appRequest} = await startServer(new TessellateServer())
     server.router.get('/', observable => observable.mapTo('NOPE :('))
 
-    server.use(async (ctx, next) => {ctx.body = 'YAY :)'}, true)
+    server.use(async ctx => {ctx.body = 'YAY :)'}, true)
 
     await appRequest.get('/')
       .expect(200)
@@ -103,7 +95,7 @@ describe('TessellateServer', () => {
   it('should handle Errors', async () => {
     const {server, appRequest} = await startServer(new TessellateServer())
 
-    server.use(async (ctx, next) => { throw new Error('Oops!') })
+    server.use(async () => { throw new Error('Oops!') })
 
     const {body} = await appRequest.get('/')
       .expect(500)
@@ -117,7 +109,7 @@ describe('TessellateServer', () => {
   it('should handle Problems', async () => {
     const {server, appRequest} = await startServer(new TessellateServer())
 
-    server.use(async (ctx, next) => {
+    server.use(async () => {
       throw new Problem({
         title: 'A Problem',
         detail: 'This is a problem.',

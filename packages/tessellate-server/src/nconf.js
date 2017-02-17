@@ -19,7 +19,7 @@ function readFile(file: string, parser: (s: string) => Object): Object {
   try {
     return parser(fs.readFileSync(file, 'utf8'))
   } catch (e) {
-    console.error(`Unable to read ${file}`)
+    process.stderr.write(`Unable to read ${file}`)
     return {}
   }
 }
@@ -44,7 +44,7 @@ function readYamlOrJsonFile(file: string): Object {
     return readJsonFile(jsonPath)
   }
   else {
-    console.warn(`No such file: ${file}`)
+    process.stderr.write(`No such file: ${file}`)
     return {}
   }
 }
