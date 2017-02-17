@@ -45,7 +45,9 @@ export default class Root extends Component {
       currentFile: file,
       fileContent: e.target.result
     })
-    reader.onerror = e => console.error(e)
+    reader.onerror = e => this.setState({
+      status: `Error: ${e}`
+    })
     reader.readAsText(file)
   }
 
@@ -62,13 +64,11 @@ export default class Root extends Component {
       body: this.parseFileContent(this.state.currentFile, this.state.fileContent)
     })
     .then(response => {
-      console.debug(response)
       return this.setState({
         status: `${response.status} - ${response.statusText}`
       })
     })
     .catch(error => {
-      console.error(error)
       this.setState({
         status: `Error: ${error.message}`
       })
@@ -76,8 +76,6 @@ export default class Root extends Component {
   }
 
   render() {
-    const publishDisabled = !this.state.fileContent
-
     return <div className="container" style={{padding: '1em 0'}}>
       <div className="row">
         <div className="col-md-8">
