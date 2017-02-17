@@ -16,9 +16,6 @@ export default class FileLoader extends Component {
   }
 
   render() {
-    const {currentFile} = this.props
-    const fileContent = currentFile ? 'content!' : ''
-
     return (
       <form>
         <div className="form-group">

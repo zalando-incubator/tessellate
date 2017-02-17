@@ -1,7 +1,1 @@
-**/*{.,-}min.js
-webpack.config.js
-/flowtype
-/coverage
-/bundles
-/dist
 /test/fixtures

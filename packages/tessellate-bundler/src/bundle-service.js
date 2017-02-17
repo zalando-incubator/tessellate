@@ -78,7 +78,7 @@ export async function make(source: string, options: Options = {}): Promise<Tesse
   log.debug('Create WebpackSandbox with options %o', options)
   const sandbox = await createWebpackSandbox(options)
   log.debug('Compile bundle...')
-  const [bundle, stats] = await sandbox.run(source)
+  const [bundle] = await sandbox.run(source)
 
   const files = Object.keys(bundle)
   log.debug('Made bundle %o', files)

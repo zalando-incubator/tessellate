@@ -17,7 +17,7 @@ export default function transform(content: string, parse: Parser<*>, root: Parse
       }
       nodes.push(node)
     },
-    onLeave: (node: ParseResult) => {
+    onLeave: () => {
       nodes.pop()
     },
     onLiteral: (literal: string) => {

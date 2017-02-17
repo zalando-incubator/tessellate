@@ -1,7 +1,6 @@
 jest.mock('../../lib/configurations/configuration-loader-factory')
 
 import * as configurationProvider from '../../lib/configurations/configuration-provider'
-import { FileConfigurationLoader } from '../../lib/configurations/file-configuration-loader'
 
 describe('get configuration by id', () => {
 

@@ -6,7 +6,7 @@ type CreateElementArgs = {|
   children: Array<string>;
 |}
 
-export default function CreateElementScript(args: CreateElementArgs): string {
+export default function createElementScript(args: CreateElementArgs): string {
   return `
   React.createElement(
     ${args.className},

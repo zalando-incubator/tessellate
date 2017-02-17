@@ -26,8 +26,8 @@
     "start-client": "webpack-dev-server --inline --config webpack.client.js --content-base dist/client",
     "start-server": "DEBUG=tessellate-editor:* STATIC_DIR=dist/client babel-node server/server.js",
     "start": "concurrently \"npm run start-client\" \"npm run start-server\"",
-    "lint": "eslint .",
-    "test": "NODE_ENV=test jest --coverage",
+    "lint": "eslint client server",
+    "test": "npm run lint && NODE_ENV=test jest --coverage",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
     "prepublishOnly": "npm run clean && npm run dist"
   },

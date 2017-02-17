@@ -22,8 +22,8 @@
     "clean": "rimraf dist/*",
     "dist": "babel -d dist src",
     "start": "DEBUG=tessellate-bundler:*,webpack-sandboxed:* babel-node src/server.js",
-    "lint": "eslint .",
-    "test": "NODE_ENV=test jest --coverage",
+    "lint": "eslint src test",
+    "test": "npm run lint && NODE_ENV=test jest --coverage",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
     "prepublishOnly": "npm run clean && npm run dist"
   },
