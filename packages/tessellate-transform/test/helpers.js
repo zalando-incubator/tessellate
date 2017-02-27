@@ -1,5 +1,3 @@
-// @flow
-
 import type { Parser } from '../lib/parsers'
 
 export function traverse<T>(parse: Parser<T>, content: T): * {

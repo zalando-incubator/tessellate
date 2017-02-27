@@ -1,5 +1,3 @@
-// @flow
-
 import createParser from '../lib/parsers/jsx-parser'
 import { traverse } from './helpers'
 

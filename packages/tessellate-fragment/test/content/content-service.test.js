@@ -1,5 +1,3 @@
-// @flow
-
 jest.mock('tessellate-request')
 
 import * as contentService from '../../src/content/content-service'

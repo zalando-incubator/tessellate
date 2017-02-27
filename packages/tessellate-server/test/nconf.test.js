@@ -1,5 +1,3 @@
-// @flow
-
 import nconf from '../src/nconf'
 
 describe('nconf', () => {

@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`transform should transform a JSX file with custom classes 1`] = `
 Object {
   "children": Array [
