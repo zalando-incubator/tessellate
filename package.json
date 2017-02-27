@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=v7.6.0"
+  },
   "scripts": {
     "postinstall": "npm run bootstrap && npm run dist",
     "lint": "lerna run lint",

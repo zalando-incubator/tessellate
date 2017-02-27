@@ -12,7 +12,7 @@
     "tessellate-editor": "./bin/tessellate-editor"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=v7.6.0"
   },
   "repository": {
     "type": "git",

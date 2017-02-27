@@ -12,7 +12,7 @@
     "tessellate-transform": "./bin/tessellate-transform"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=v7.6.0"
   },
   "repository": {
     "type": "git",
