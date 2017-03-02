@@ -1,4 +1,4 @@
-// flow-typed signature: 114657c435e89386030859c35b8e56c0
+// flow-typed signature: 826eaccbe66f14ee5dbf1a668673fa35
 // flow-typed version: <<STUB>>/webpack-dev-server_v2.4.1/flow_v0.40.0
 
 /**
@@ -82,6 +82,14 @@ declare module 'webpack-dev-server/lib/Server' {
   declare module.exports: any;
 }
 
+declare module 'webpack-dev-server/lib/util/addDevServerEntrypoints' {
+  declare module.exports: any;
+}
+
+declare module 'webpack-dev-server/lib/util/createDomain' {
+  declare module.exports: any;
+}
+
 // Filename aliases
 declare module 'webpack-dev-server/bin/webpack-dev-server.js' {
   declare module.exports: $Exports<'webpack-dev-server/bin/webpack-dev-server'>;
@@ -127,4 +135,10 @@ declare module 'webpack-dev-server/lib/OptionsValidationError.js' {
 }
 declare module 'webpack-dev-server/lib/Server.js' {
   declare module.exports: $Exports<'webpack-dev-server/lib/Server'>;
+}
+declare module 'webpack-dev-server/lib/util/addDevServerEntrypoints.js' {
+  declare module.exports: $Exports<'webpack-dev-server/lib/util/addDevServerEntrypoints'>;
+}
+declare module 'webpack-dev-server/lib/util/createDomain.js' {
+  declare module.exports: $Exports<'webpack-dev-server/lib/util/createDomain'>;
 }
