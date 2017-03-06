@@ -27,6 +27,7 @@ cache:
     - packages/tessellate-viewer/node_modules
 before_install:
   - .travis/before_install.sh
+  - npm install -g npm@latest
 install:
   - npm install
   - npm install istanbul-combine coveralls codeclimate-test-reporter
