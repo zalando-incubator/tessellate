@@ -1,6 +1,7 @@
 {
   "engines": {
-    "node": ">=v7.6.0"
+    "node": ">=v7.6.0",
+    "npm" : ">=4.3.0"
   },
   "scripts": {
     "postinstall": "npm run bootstrap && npm run dist",
