@@ -30,14 +30,14 @@
   },
   "dependencies": {
     "acorn-jsx": "3.0.1",
-    "js-yaml": "3.8.1",
+    "js-yaml": "3.8.2",
     "mz": "2.6.0",
-    "yargs": "6.6.0"
+    "yargs": "7.0.1"
   },
   "devDependencies": {
     "babel-cli": "6.23.0",
-    "eslint": "3.16.1",
-    "flow-bin": "0.40.0",
+    "eslint": "3.17.0",
+    "flow-bin": "0.41.0",
     "flow-typed": "2.0.0",
     "jest": "19.0.2",
     "npm-check-updates": "2.10.3",
