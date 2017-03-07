@@ -1,27 +1,27 @@
 // @flow
 
-import type { ConfigurationLoader } from './configuration-loader'
-import * as configurationLoaderFactory from './configuration-loader-factory'
+import type { ConfigurationLoader } from './configuration-loader';
+import * as configurationLoaderFactory from './configuration-loader-factory';
 
-let configurationLoader: ConfigurationLoader
+let configurationLoader: ConfigurationLoader;
 
 export function getById(id: string): AuthConfig {
-  const config = getOrCreateConfigurationLoader().load().find((element) => element.id === id)
+  const config = getOrCreateConfigurationLoader().load().find(element => element.id === id);
 
-  if(config === undefined) {
-    throw new Error(`auth configuration with id "${id}" not found`)
+  if (config === undefined) {
+    throw new Error(`auth configuration with id "${id}" not found`);
   }
 
-  return config
+  return config;
 }
 
 export function getByType(type: string): Array<AuthConfig> {
-  return getOrCreateConfigurationLoader().load().filter((element) => element.type === type)
+  return getOrCreateConfigurationLoader().load().filter(element => element.type === type);
 }
 
 function getOrCreateConfigurationLoader(): ConfigurationLoader {
-  if(configurationLoader === undefined) {
-    configurationLoader = configurationLoaderFactory.create()
+  if (configurationLoader === undefined) {
+    configurationLoader = configurationLoaderFactory.create();
   }
-  return configurationLoader
+  return configurationLoader;
 }

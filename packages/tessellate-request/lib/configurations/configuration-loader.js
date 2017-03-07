@@ -1,9 +1,9 @@
 // @flow
 
 interface ConfigurationLoader {
-  location: string;
+  location: string,
 
   load(): Array<Object>
 }
 
-export type { ConfigurationLoader }
+export type { ConfigurationLoader };

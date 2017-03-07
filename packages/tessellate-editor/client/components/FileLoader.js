@@ -1,28 +1,32 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class FileLoader extends Component {
   props: {|
-    currentFile?: File;
-    onFileChanged: (file?: File) => void;
+    currentFile?: File,
+    onFileChanged: (file?: File) => void
   |};
 
   onFileChanged(e: Event) {
-    e.preventDefault()
-    if (e.target.files instanceof FileList)
-      this.props.onFileChanged(e.target.files[0])
-    else
-      this.props.onFileChanged()
+    e.preventDefault();
+    if (e.target.files instanceof FileList) this.props.onFileChanged(e.target.files[0]);
+    else this.props.onFileChanged();
   }
 
   render() {
     return (
       <form>
         <div className="form-group">
-          <input type="file" className="form-control-file" id="exampleInputFile"
-            accept=".json,.yaml,.yml" max="1" onChange={this.onFileChanged.bind(this)}/>
+          <input
+            type="file"
+            className="form-control-file"
+            id="exampleInputFile"
+            accept=".json,.yaml,.yml"
+            max="1"
+            onChange={this.onFileChanged.bind(this)}
+          />
         </div>
       </form>
-    )
+    );
   }
 }
