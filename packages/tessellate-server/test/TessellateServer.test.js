@@ -1,5 +1,3 @@
-// @flow
-
 import supertest from 'supertest'
 import TessellateServer from '../src/TessellateServer'
 import { Problem } from '../src/error'

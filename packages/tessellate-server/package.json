@@ -9,7 +9,7 @@
     "tag": "next"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=v7.6.0"
   },
   "repository": {
     "type": "git",
@@ -23,28 +23,30 @@
     "test": "npm run lint && NODE_ENV=test MORGAN_THRESHOLD=999 jest --coverage",
     "flow-gen-files": "flow-copy-source -v src dist",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
-    "prepublishOnly": "npm run clean && npm run dist && npm run flow-gen-files"
+    "prepublishOnly": "npm run clean && npm run dist && npm run flow-gen-files",
+    "upgrade-dependencies": "ncu -u"
   },
   "dependencies": {
-    "js-yaml": "3.8.1",
-    "koa": "2.0.0",
-    "koa-bodyparser": "3.2.0",
+    "js-yaml": "3.8.2",
+    "koa": "2.0.1",
+    "koa-bodyparser": "4.1.0",
     "koa-compose": "3.2.1",
     "koa-morgan": "1.0.1",
     "koa-router-rx": "0.4.0",
     "mz": "2.6.0",
     "nconf": "0.8.4",
-    "prom-client": "7.0.1",
+    "prom-client": "7.1.0",
     "prometheus-gc-stats": "0.3.2"
   },
   "devDependencies": {
     "babel-cli": "6.23.0",
-    "eslint": "3.15.0",
-    "flow-bin": "0.39.0",
+    "eslint": "3.17.1",
+    "flow-bin": "0.41.0",
     "flow-copy-source": "1.1.0",
     "flow-typed": "2.0.0",
-    "jest": "18.1.0",
-    "rimraf": "2.5.4"
+    "jest": "19.0.2",
+    "npm-check-updates": "2.10.3",
+    "rimraf": "2.6.1"
   },
   "jest": {
     "testEnvironment": "node",

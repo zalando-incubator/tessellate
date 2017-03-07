@@ -1,10 +1,10 @@
 /**
  * Server API integration tests.
- *
- * @flow
  */
 
-jest.mock('../src/fragment-service')
+jest.mock('../src/fragment-service', () => ({
+  fetchFragment: jest.fn()
+}))
 
 import supertest from 'supertest'
 import * as server from '../src/server'
@@ -30,7 +30,6 @@ describe('server', () => {
   describe('/:domain/:name', () => {
     it('should return HTML', async () => {
       const fragmentService = require('../src/fragment-service')
-      // $FlowIgnore
       fragmentService.fetchFragment.mockImplementation(() => Promise.resolve({
         html: '<h1>Hello, test!</h1>',
         link: {

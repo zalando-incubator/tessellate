@@ -1,5 +1,3 @@
-// @flow
-
 jest.mock('request-promise-native')
 
 import {resolveSources} from '../../src/actions/sources-resolver'

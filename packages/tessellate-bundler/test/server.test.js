@@ -1,7 +1,9 @@
 /* Server API integration tests. */
 /* global jasmine */
 
-jest.mock('../src/content-service')
+jest.mock('../src/content-service', () => ({
+  publish: jest.fn()
+}))
 
 import path from 'path'
 import fs from 'mz/fs'

@@ -1,7 +1,5 @@
 /**
  * Server API integration tests.
- *
- * @flow
  */
 
 import supertest from 'supertest'

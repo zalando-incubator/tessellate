@@ -7,5 +7,6 @@ env:
 # http://eslint.org/docs/rules
 rules:
   # Jest
-  jest/no-exclusive-tests: 2
+  jest/no-disabled-tests: 1
+  jest/no-focused-tests: 1
   jest/no-identical-title: 2
