@@ -4,6 +4,7 @@ plugins:
   - babel
   - promise
   - flowtype
+  - prettier
 
 extends:
   - eslint:recommended
@@ -38,4 +39,10 @@ rules:
   babel/new-cap: 1
   babel/object-curly-spacing: 0
   babel/no-invalid-this: 1
-  babel/semi: 0
+  babel/semi: 1
+
+  # Prettier
+  prettier/prettier:
+    - 2
+    - printWidth: 100
+      singleQuote: true
