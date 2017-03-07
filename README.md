@@ -34,7 +34,7 @@ Each micro service reads configuration from environment variables, command line 
 
 ## Development
 
-Tessellate requires Node.js version 6+ and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
+Tessellate requires Node.js version 7+ and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
 
 ```
 npm install   # Install dependencies and initialize packages.
