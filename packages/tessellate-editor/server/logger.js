@@ -1,17 +1,17 @@
 // @flow
 
-import debug from 'debug'
+import debug from 'debug';
 
-import type Debugger from 'debug'
+import type Debugger from 'debug';
 
-const PREFIX = 'tessellate-editor'
+const PREFIX = 'tessellate-editor';
 
 type Logger = {
-  debug: Debugger;
-  info: Debugger;
-  warn: Debugger;
-  error: Debugger;
-}
+  debug: Debugger,
+  info: Debugger,
+  warn: Debugger,
+  error: Debugger
+};
 
 export default function logger(name: string): Logger {
   return {
@@ -19,5 +19,5 @@ export default function logger(name: string): Logger {
     info: debug(`${PREFIX}:info:${name}`),
     warn: debug(`${PREFIX}:warn:${name}`),
     error: debug(`${PREFIX}:error:${name}`)
-  }
+  };
 }

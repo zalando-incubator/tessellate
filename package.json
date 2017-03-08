@@ -1,7 +1,7 @@
 {
   "engines": {
     "node": ">=v7.6.0",
-    "npm" : ">=4.3.0"
+    "npm": ">=4.3.0"
   },
   "scripts": {
     "postinstall": "npm run bootstrap && npm run dist",
@@ -13,7 +13,8 @@
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o && lerna run flow-typed-install",
     "bootstrap": "lerna bootstrap --scope=tessellate-* --include-filtered-dependencies --hoist --nohoist=tessellate-*",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
-    "upgrade-dependencies": "ncu -u && lerna exec -- ./node_modules/.bin/ncu -u && npm run bootstrap"
+    "upgrade-dependencies": "ncu -u && lerna exec -- ./node_modules/.bin/ncu -u && npm run bootstrap",
+    "prettier": "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.js\""
   },
   "devDependencies": {
     "babel-cli": "6.23.0",
@@ -30,6 +31,7 @@
     "eslint-plugin-babel": "4.1.1",
     "eslint-plugin-flowtype": "2.30.2",
     "eslint-plugin-jest": "19.0.1",
+    "eslint-plugin-prettier": "2.0.1",
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-react": "6.10.0",
     "flow-bin": "0.41.0",
@@ -38,6 +40,7 @@
     "lerna": "2.0.0-beta.38",
     "lerna-semantic-release": "9.0.7",
     "npm-check-updates": "2.10.3",
+    "prettier": "0.21.0",
     "rimraf": "2.6.1",
     "supertest": "3.0.0"
   },

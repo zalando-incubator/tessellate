@@ -47,6 +47,15 @@ Now you can use `git cz` instead of `git commit`.
 
 When creating a pull request, its comment should reference the corresponding issue id.
 
+### Before you commit
+
+Be sure that the code passes all tests before submitting your pull request:
+
+* Formatting. Run `npm run prettier`.
+* Linting. Run `npm run lint`.
+* Tests. Run `npm test`.
+* Static checking. Run `npm run flow-check`.
+
 ### Creating releases
 
 Tessellate uses [lerna-semantic-release](https://github.com/atlassian/lerna-semantic-release)

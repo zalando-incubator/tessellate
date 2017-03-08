@@ -1,4 +1,4 @@
-import renderToString from '../lib'
+import renderToString from '../lib';
 
 describe('renderToString', () => {
   // React component with UMD module definition (only supports CommonJS)
@@ -16,10 +16,10 @@ describe('renderToString', () => {
        }
     })
   }))
-  `
+  `;
 
   it('should render a JavaScript component string to HTML', () => {
-    const html = renderToString(source, {text: 'This is only a test.'})
-    expect(html).toMatchSnapshot()
-  })
-})
+    const html = renderToString(source, { text: 'This is only a test.' });
+    expect(html).toMatchSnapshot();
+  });
+});

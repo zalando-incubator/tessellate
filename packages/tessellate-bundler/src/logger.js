@@ -1,15 +1,15 @@
 // @flow
 
-import debug from 'debug'
+import debug from 'debug';
 
-const PREFIX = 'tessellate-bundler'
+const PREFIX = 'tessellate-bundler';
 
 type Logger = {
-  debug: *;
-  info: *;
-  warn: *;
-  error: *;
-}
+  debug: *,
+  info: *,
+  warn: *,
+  error: *
+};
 
 export default function logger(name: string): Logger {
   return {
@@ -17,5 +17,5 @@ export default function logger(name: string): Logger {
     info: debug(`${PREFIX}:info:${name}`),
     warn: debug(`${PREFIX}:warn:${name}`),
     error: debug(`${PREFIX}:error:${name}`)
-  }
+  };
 }

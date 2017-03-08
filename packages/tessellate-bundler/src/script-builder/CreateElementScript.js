@@ -1,10 +1,10 @@
 // @flow
 
 type CreateElementArgs = {|
-  className: string;
-  propsId: string;
-  children: Array<string>;
-|}
+  className: string,
+  propsId: string,
+  children: Array<string>
+|};
 
 export default function createElementScript(args: CreateElementArgs): string {
   return `
@@ -13,5 +13,7 @@ export default function createElementScript(args: CreateElementArgs): string {
     props["${args.propsId}"] ${args.children.length ? ', ' : ''}
     ${args.children.join(', ')}
   )
-  `.trim().replace(/^\s+/gm, '')
+  `
+    .trim()
+    .replace(/^\s+/gm, '');
 }

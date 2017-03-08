@@ -1,17 +1,17 @@
 // @flow
 
 type FragmentArgs = {|
-  reactElement: string;
-  rootID: string;
-  props: { [key: string]: any };
-  imports: { [key: string]: string };
-|}
+  reactElement: string,
+  rootID: string,
+  props: { [key: string]: any },
+  imports: { [key: string]: string }
+|};
 
 function importScript(module: string, imported: Array<string> | string): string {
   if (Array.isArray(imported)) {
-    return `import { ${imported.join(', ')} } from '${module}'`
+    return `import { ${imported.join(', ')} } from '${module}'`;
   } else {
-    return `import ${imported} from '${module}'`
+    return `import ${imported} from '${module}'`;
   }
 }
 
@@ -37,5 +37,7 @@ export default function fragmentScript(args: FragmentArgs): string {
     const props = JSON.parse(fragmentRoot.getAttribute('data-props'))
     ReactDOM.render(<Fragment {...props}/>, element)
   }
-  `.trim().replace(/^\s+/gm, '')
+  `
+    .trim()
+    .replace(/^\s+/gm, '');
 }
