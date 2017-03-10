@@ -50,7 +50,11 @@ async function assignSourcePropertiesFromQuery(query: Object, sources: Object) {
   if (SOURCES_QUERY_PARAM in query) {
     const sourcesUrl = query[SOURCES_QUERY_PARAM];
     try {
-      const remoteSources = await request({ url: sourcesUrl, json: true });
+      const remoteSources = await request({
+        url: sourcesUrl,
+        json: true,
+        gzip: true
+      });
       merge(sources, remoteSources.sources);
     } catch (err) {
       throw new SourcesProblem(`Unable to load properties from ${sourcesUrl}`);
