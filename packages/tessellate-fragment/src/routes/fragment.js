@@ -10,10 +10,14 @@ import type Route from '.';
 export function fragment(router: Router): Route {
   return router.get('fragment', '/fragment', async ctx => {
     const { headers, query } = ctx.request;
-    const sources = await resolveSources(headers, query);
-    const { bundle, props } = await dispatch(FETCH_BUNDLE, { sources, headers });
 
-    const content = await dispatch(FETCH_CONTENT, { sources });
+    const sources = await resolveSources(headers, query);
+
+    const [{ bundle, props }, content] = await Promise.all([
+      dispatch(FETCH_BUNDLE, { sources, headers }),
+      dispatch(FETCH_CONTENT, { sources })
+    ]);
+
     props.content = content;
 
     const { html } = await dispatch(RENDER_BUNDLE, { bundle, props });
