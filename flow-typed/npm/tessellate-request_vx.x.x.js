@@ -1,4 +1,4 @@
-// flow-typed signature: 64fc7c1d9c13975347dd259f232832e4
+// flow-typed signature: d3e5c8c0f45e9ac51805a4389b1568df
 // flow-typed version: <<STUB>>/tessellate-request_v1.1.0/flow_v0.41.0
 
 /**
@@ -22,67 +22,11 @@ declare module 'tessellate-request' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'tessellate-request/coverage/lcov-report/prettify' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/coverage/lcov-report/sorter' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/coverage/prettify' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/coverage/sorter' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/configuration-loader-factory' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/configuration-loader' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/configuration-provider' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/configuration-type' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/file-configuration-loader' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/configurations/token-storage' {
-  declare module.exports: any;
-}
-
 declare module 'tessellate-request/dist/index' {
   declare module.exports: any;
 }
 
-declare module 'tessellate-request/dist/requests/default-request' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/requests/file-backed-oauth-request' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/requests/request-factory' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/dist/requests/smart-request' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/flow-typed/auth-configuration' {
+declare module 'tessellate-request/flow/auth-configuration' {
   declare module.exports: any;
 }
 
@@ -130,78 +74,12 @@ declare module 'tessellate-request/lib/requests/smart-request' {
   declare module.exports: any;
 }
 
-declare module 'tessellate-request/test/configuration/configuration-file-loader.test' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/test/configuration/configuration-loader-factory.test' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/test/configuration/configuration-provider.test' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/test/configuration/token-storage.test' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/test/requests/request-factory.test' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-request/webpack.config' {
-  declare module.exports: any;
-}
-
 // Filename aliases
-declare module 'tessellate-request/coverage/lcov-report/prettify.js' {
-  declare module.exports: $Exports<'tessellate-request/coverage/lcov-report/prettify'>;
-}
-declare module 'tessellate-request/coverage/lcov-report/sorter.js' {
-  declare module.exports: $Exports<'tessellate-request/coverage/lcov-report/sorter'>;
-}
-declare module 'tessellate-request/coverage/prettify.js' {
-  declare module.exports: $Exports<'tessellate-request/coverage/prettify'>;
-}
-declare module 'tessellate-request/coverage/sorter.js' {
-  declare module.exports: $Exports<'tessellate-request/coverage/sorter'>;
-}
-declare module 'tessellate-request/dist/configurations/configuration-loader-factory.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/configuration-loader-factory'>;
-}
-declare module 'tessellate-request/dist/configurations/configuration-loader.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/configuration-loader'>;
-}
-declare module 'tessellate-request/dist/configurations/configuration-provider.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/configuration-provider'>;
-}
-declare module 'tessellate-request/dist/configurations/configuration-type.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/configuration-type'>;
-}
-declare module 'tessellate-request/dist/configurations/file-configuration-loader.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/file-configuration-loader'>;
-}
-declare module 'tessellate-request/dist/configurations/token-storage.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/configurations/token-storage'>;
-}
 declare module 'tessellate-request/dist/index.js' {
   declare module.exports: $Exports<'tessellate-request/dist/index'>;
 }
-declare module 'tessellate-request/dist/requests/default-request.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/requests/default-request'>;
-}
-declare module 'tessellate-request/dist/requests/file-backed-oauth-request.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/requests/file-backed-oauth-request'>;
-}
-declare module 'tessellate-request/dist/requests/request-factory.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/requests/request-factory'>;
-}
-declare module 'tessellate-request/dist/requests/smart-request.js' {
-  declare module.exports: $Exports<'tessellate-request/dist/requests/smart-request'>;
-}
-declare module 'tessellate-request/flow-typed/auth-configuration.js' {
-  declare module.exports: $Exports<'tessellate-request/flow-typed/auth-configuration'>;
+declare module 'tessellate-request/flow/auth-configuration.js' {
+  declare module.exports: $Exports<'tessellate-request/flow/auth-configuration'>;
 }
 declare module 'tessellate-request/lib/configurations/configuration-loader-factory.js' {
   declare module.exports: $Exports<'tessellate-request/lib/configurations/configuration-loader-factory'>;
@@ -235,22 +113,4 @@ declare module 'tessellate-request/lib/requests/request-factory.js' {
 }
 declare module 'tessellate-request/lib/requests/smart-request.js' {
   declare module.exports: $Exports<'tessellate-request/lib/requests/smart-request'>;
-}
-declare module 'tessellate-request/test/configuration/configuration-file-loader.test.js' {
-  declare module.exports: $Exports<'tessellate-request/test/configuration/configuration-file-loader.test'>;
-}
-declare module 'tessellate-request/test/configuration/configuration-loader-factory.test.js' {
-  declare module.exports: $Exports<'tessellate-request/test/configuration/configuration-loader-factory.test'>;
-}
-declare module 'tessellate-request/test/configuration/configuration-provider.test.js' {
-  declare module.exports: $Exports<'tessellate-request/test/configuration/configuration-provider.test'>;
-}
-declare module 'tessellate-request/test/configuration/token-storage.test.js' {
-  declare module.exports: $Exports<'tessellate-request/test/configuration/token-storage.test'>;
-}
-declare module 'tessellate-request/test/requests/request-factory.test.js' {
-  declare module.exports: $Exports<'tessellate-request/test/requests/request-factory.test'>;
-}
-declare module 'tessellate-request/webpack.config.js' {
-  declare module.exports: $Exports<'tessellate-request/webpack.config'>;
 }

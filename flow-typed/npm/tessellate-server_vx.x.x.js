@@ -1,4 +1,4 @@
-// flow-typed signature: 03a4d8dd417e5345336e6e65c08b2267
+// flow-typed signature: 3b4533f88b8a750acf79d9645528a725
 // flow-typed version: <<STUB>>/tessellate-server_v1.1.0/flow_v0.41.0
 
 /**
@@ -22,22 +22,6 @@ declare module 'tessellate-server' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'tessellate-server/coverage/lcov-report/prettify' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-server/coverage/lcov-report/sorter' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-server/coverage/prettify' {
-  declare module.exports: any;
-}
-
-declare module 'tessellate-server/coverage/sorter' {
-  declare module.exports: any;
-}
-
 declare module 'tessellate-server/dist/error' {
   declare module.exports: any;
 }
@@ -91,18 +75,6 @@ declare module 'tessellate-server/test/TessellateServer.test' {
 }
 
 // Filename aliases
-declare module 'tessellate-server/coverage/lcov-report/prettify.js' {
-  declare module.exports: $Exports<'tessellate-server/coverage/lcov-report/prettify'>;
-}
-declare module 'tessellate-server/coverage/lcov-report/sorter.js' {
-  declare module.exports: $Exports<'tessellate-server/coverage/lcov-report/sorter'>;
-}
-declare module 'tessellate-server/coverage/prettify.js' {
-  declare module.exports: $Exports<'tessellate-server/coverage/prettify'>;
-}
-declare module 'tessellate-server/coverage/sorter.js' {
-  declare module.exports: $Exports<'tessellate-server/coverage/sorter'>;
-}
 declare module 'tessellate-server/dist/error.js' {
   declare module.exports: $Exports<'tessellate-server/dist/error'>;
 }
