@@ -15,7 +15,8 @@ export default class JsonFileBackedOAuthRequest {
     return await request.get(url, {
       auth: {
         bearer: token
-      }
+      },
+      gzip: true
     });
   }
 }
