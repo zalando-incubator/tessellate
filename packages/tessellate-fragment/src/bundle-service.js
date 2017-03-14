@@ -42,6 +42,8 @@ async function fetchBundleFromHTTPSource(baseURL: string): Promise<Bundle> {
   const cssURL = `${baseURL}/index.css`;
 
   log.debug('Fetch bundle %s', jsURL);
-  const source = await request(jsURL);
+  const source = await request(jsURL, {
+    gzip: true
+  });
   return { source, links: { js: jsURL, css: cssURL } };
 }
