@@ -187,6 +187,100 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="tessellate-bundler">tessellate-bundler</h1>
+<p>Tessellate bundler is a web service that compiles abstract JSON definitions of nested React components into universal JavaScript bundles. This is accomplished by generating code which is then executed inside a <a href="https://webpack.js.org" target="_blank">webpack</a> sandbox.</p>
+<h2 id="api">API</h2>
+<p>The REST API of tessellate-bundler has only one endpoint and method to create new bundles.</p>
+<p><strong>POST</strong> <code>/bundles/{domain}/{name}</code></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>domain &#x2013; target domain of the bundle, e.g. zalando.de</li>
+<li>name &#x2013; target name of the bundle, e.g. my-page</li>
+<li>body &#x2013; application/json (see <a href="#tessellate-json">Tessellate JSON</a>)</li>
+</ul>
+<p><strong>Responses:</strong></p>
+<ul>
+<li>201 created &#x2013; a new bundle was compiled</li>
+<li>400 bad request &#x2013; illegal request payload</li>
+</ul>
+<h2 id="tessellate-json">Tessellate JSON</h2>
+<p>tessellate-bundler creates universal JavaScript bundles which can be rendered by <strong>React</strong> on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: <strong>type</strong>, <strong>props</strong> and <strong>children</strong>. These attributes correspond exactly to the arguments the the <a href="https://facebook.github.io/react/docs/react-api.html#createelement" target="_blank">React.createElement()</a> function. Here&apos;s an example of a simple component hierarchy:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">type:</span> div
+<span class="hljs-attr">props:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">children:</span>
+<span class="hljs-attr">- type:</span> h1
+<span class="hljs-attr">  props:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">  children:</span>
+<span class="hljs-bullet">  -</span> Hello, World!
+<span class="hljs-attr">- type:</span> a
+<span class="hljs-attr">  props:</span>
+<span class="hljs-attr">    href:</span> https://tech.zalando.com
+<span class="hljs-attr">  children:</span>
+<span class="hljs-bullet">  -</span> Zalando Technology
+</code></pre>
+<h3 id="type-string">type: <code>string</code></h3>
+<p>The type of element. It can either be the name of a standard HTML element (<code>div</code>, <code>span</code>, etc.) or the name of a <a href="https://facebook.github.io/react/docs/components-and-props.html" target="_blank">React component</a> type that can be <a href="https://nodejs.org/api/globals.html#globals_require" target="_blank">required</a> in the Node execution context of the tessellate-bundler process. In the second case tessellate-bundler is going to generate code with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">ES2015 module import</a> syntax from the given type. The following schema applies:</p>
+<p><code>[node-module-name].[component-name]</code></p>
+<ul>
+<li><code>node-module-name</code> must be the name of an installed node module.</li>
+<li><code>component-name</code> must be the name of an exported member in the node module or <code>default</code>.</li>
+</ul>
+<p>As a result the following two kinds of import statements can be generated a type string:</p>
+<ul>
+<li><code>import { component-name } from &apos;node-module-name&apos;</code></li>
+<li><code>import nodeModuleName from &apos;node-module-name&apos;</code> if type is <code>[node-module-name].default</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>import</th>
+<th>React</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&apos;div&apos;</code></td>
+<td><em>none</em></td>
+<td><code>React.createElement(&apos;div&apos;)</code></td>
+</tr>
+<tr>
+<td><code>&apos;my-lib.link&apos;</code></td>
+<td><code>import { link } from &apos;my-lib&apos;</code></td>
+<td><code>React.createElement(link)</code></td>
+</tr>
+<tr>
+<td><code>&apos;my-lib.default&apos;</code></td>
+<td><code>import MyLib from &apos;my-lib&apos;</code></td>
+<td><code>React.createElement(MyLib)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="props-object--null">props: <code>object | null</code></h3>
+<p>&#x1F6A7;</p>
+<h3 id="children-arraytessellateelement--string">children: <code>Array&lt;TessellateElement | string&gt;</code></h3>
+<p>&#x1F6A7;</p>
+<h3 id="tessellate-json-schema">Tessellate JSON schema</h3>
+<pre><code class="lang-yaml"><span class="hljs-attr">type:</span> object
+<span class="hljs-attr">properties:</span>
+<span class="hljs-attr">  type:</span>
+<span class="hljs-attr">    type:</span> string
+<span class="hljs-attr">    pattern:</span> <span class="hljs-string">&quot;^[a-zA-Z0-9-\\.]+$&quot;</span>
+<span class="hljs-attr">  props:</span>
+<span class="hljs-attr">    oneOf:</span>
+<span class="hljs-attr">    - type:</span> object
+<span class="hljs-attr">    - type:</span> <span class="hljs-string">&apos;null&apos;</span>
+<span class="hljs-attr">  children:</span>
+<span class="hljs-attr">    type:</span> array
+<span class="hljs-attr">    items:</span>
+<span class="hljs-attr">      anyOf:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&quot;$ref&quot;</span>: <span class="hljs-string">&quot;#&quot;</span>
+<span class="hljs-attr">      - type:</span> string
+<span class="hljs-attr">required:</span>
+<span class="hljs-bullet">-</span> type
+<span class="hljs-bullet">-</span> props
+<span class="hljs-bullet">-</span> children
+</code></pre>
 <p>Under construction &#x1F3D7;&#xFE0F; &#x1F6A7; &#x1F477;</p>
 
                                 
@@ -231,7 +325,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Bundler","level":"1.3","depth":1,"next":{"title":"Fragment","level":"1.4","depth":1,"path":"Fragment.md","ref":"Fragment.md","articles":[]},"previous":{"title":"Architecture","level":"1.2","depth":1,"path":"Architecture.md","ref":"Architecture.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-23T12:05:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-23T12:11:37.144Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Bundler","level":"1.3","depth":1,"next":{"title":"Fragment","level":"1.4","depth":1,"path":"Fragment.md","ref":"Fragment.md","articles":[]},"previous":{"title":"Architecture","level":"1.2","depth":1,"path":"Architecture.md","ref":"Architecture.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-23T18:02:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-23T18:12:46.539Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
