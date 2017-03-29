@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Architecture · GitBook</title>
+        <title>Configuration · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Tessellate architecture overview.">
+        <meta name="description" content="Configuration of Tessellate services.">
         <meta name="generator" content="GitBook 3.2.2">
         
         
@@ -67,10 +67,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Architecture.html" />
+    <link rel="next" href="Configuration.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="Fragment.html" />
     
 
     </head>
@@ -112,7 +112,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="Architecture.html">
+        <li class="chapter " data-level="1.2" data-path="Architecture.html">
             
                 <a href="Architecture.html">
             
@@ -241,7 +241,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="Configuration.html">
+        <li class="chapter active" data-level="1.5" data-path="Configuration.html">
             
                 <a href="Configuration.html">
             
@@ -316,7 +316,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Architecture</a>
+        <a href="." >Configuration</a>
     </h1>
 </div>
 
@@ -331,29 +331,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="architecture"><a name="architecture" class="plugin-anchor" href="#architecture"><i class="fa fa-link" aria-hidden="true"></i></a>Architecture</h1>
-<p>Tessellate consists of two major components: the bundler and the fragment. Together they make it possible to dynamically render HTML based on an abstract JSON definition. This section gives an overview of the two components and how they integrate with the <a href="GLOSSARY.html#mosaic-project" class="glossary-term" title="Mosaic is a set of services for complex and modular websites. It includes Fragments, a layout service and a router. See https://www.mosaic9.org.">Mosaic project</a>.</p>
+                                <h1 id="configuration"><a name="configuration" class="plugin-anchor" href="#configuration"><i class="fa fa-link" aria-hidden="true"></i></a>Configuration</h1>
+<p>This section contains information for configuring Tessellate services in production. Each service follows the twelve-factor principle and relies on <a href="https://12factor.net/config" target="_blank">configuration in environment variables</a>. We use the <a href="https://www.npmjs.com/package/nconf" target="_blank">nconf</a> library to achieve a hierarchical configuration model. You can read the <code>config.yaml</code> file of each service to discover the respective default values.</p>
 <h2 id="tessellate-bundler"><a name="tessellate-bundler" class="plugin-anchor" href="#tessellate-bundler"><i class="fa fa-link" aria-hidden="true"></i></a>tessellate-bundler</h2>
-<p>The job of the <strong>bundler</strong> is to prepare JavaScript bundles that the fragment can render to static HTML. Bundles are UMD (universal module definition) modules which export the root component of a React component tree.</p>
-<p><div class="image-wrapper"><img src="images/tessellate-bundler.png" alt="tessellate-bundler"></div></p>
-<p>The compiled bundles are exported to a configurable location, e.g. a CDN server. A bundle may consist of multiple JavaScript files and additional assets, like CSS and images.</p>
-<h2 id="tessellate-fragment"><a name="tessellate-fragment" class="plugin-anchor" href="#tessellate-fragment"><i class="fa fa-link" aria-hidden="true"></i></a>tessellate-fragment</h2>
-<p>The <strong>fragment</strong> is responsible for rendering the prepared JavaScript bundles into static HTML using React&apos;s server side rendering capabilities. Upon receiving a request, the fragment determines which bundle it needs to fetch and render. Then it responds with static HTML and links to the JavaScript and CSS files of the bundle inside a response header, as defined by the <a href="GLOSSARY.html#fragment-api" class="glossary-term" title="A Mosaic fragment is a microservice which renders some partial HTML of a larger composition, i.e. a website. It also returns an HTTP header with links to additional CSS and JavaScript files. Fragments are composed by the Tailor layout service.">Fragment API</a>.</p>
-<p><div class="image-wrapper"><img src="images/tessellate-fragment.png" alt="tessellate-fragment"></div></p>
-<p>In addition to the JavaScript bundle a fragment may fetch more data from other sources that can be injected into the rendering process, e.g. properties for the React components or data that React components load themselves upon rendering based on their internal logic.</p>
-<h2 id="mosaic-integration"><a name="mosaic-integration" class="plugin-anchor" href="#mosaic-integration"><i class="fa fa-link" aria-hidden="true"></i></a>Mosaic integration</h2>
-<p>Mosaic is an architecture to enable microservices in the frontend. That is, modular websites composed of smaller, independent parts &#x2013; Fragments. Tessellate provides a generic solution for <em>dynamic Fragments</em> which can render any content based on an abstract JSON definition. A typical setup includes the following components:</p>
 <ul>
-<li>Tessellate bundler &#x2013; compiles JavaScript bundles from JSON.</li>
-<li>Tessellate fragment &#x2013; renders bundles into static HTML.</li>
-<li>Tailor layout service &#x2013; composes multiple fragments Together.</li>
-<li>Skipper router &#x2013; routes requests to different layouts.</li>
+<li><code>APP_PORT</code> &#x2013; Port on which the service listens.</li>
+<li><code>MORGAN_FORMAT</code> &#x2013; <a href="https://github.com/expressjs/morgan#predefined-formats" target="_blank">Format</a> for the <a href="https://github.com/expressjs/morgan" target="_blank">morgan</a> HTTP request logger.</li>
+<li><code>MORGAN_THRESHOLD</code> &#x2013; Do not log HTTP requests with status code values below this number.</li>
+<li><code>PUBLISH_TARGET</code> &#x2013; Path under which to publish compiled bundles. Must start with <code>protocol://</code> where <em>protocol</em> can be one of the following:<ul>
+<li><code>file</code> &#x2013; Local file system path.</li>
+<li><code>s3</code> &#x2013; AWS S3 path. <strong>Not implemented (<a href="https://github.com/zalando-incubator/tessellate/issues/7" target="_blank">#7</a>)</strong></li>
 </ul>
-<p>Please take a look at the <a href="https://www.mosaic9.org" target="_blank">Mosaic documentation</a> for more details.</p>
-<p><div class="image-wrapper"><img src="images/tessellate-mosaic.png" alt="tessellate-mosaic"></div></p>
-<p>Mosaic does not dictate which frontend technologies to use, however Tessellate requires that the rendered HTML is based on <strong>React components</strong>. For this reason tessellate-bundler must be able to require the necessary npm modules for the components that are declared inside the abstract JSON definition. The compiled bundles are placed in a public location (e.g. a CDN server) where they can be retrieved from by both the fragment and the browser (for dynamic components). The fragment may also access other additional web services based on the context of each request. For example, the property data to hydrate the React components may be loaded from another service.</p>
-<p>Because of its modularity, Mosaic allows composing many different Fragments, not only Tessellate. Although a single Tessellate Fragment could in theory render a complete page, it is more common compose pages of more than one Fragment inside a Tailor layout. See the <a href="https://github.com/zalando/tailor/blob/master/README.md" target="_blank">Tailor documentation</a> for more details.</p>
-<p>Next, read more about <a href="Bundler.html">tessellate-bundler</a> and <a href="Fragment.html">tessellate-fragment</a>!</p>
+</li>
+<li><code>NPM_MODULES</code> &#x2013; List of additional npm modules which are required to compile bundles. Also see <a href="https://github.com/mfellner/webpack-sandboxed" target="_blank">webpack-sandboxed</a>.</li>
+<li><code>NPM_EXTERNALS</code> &#x2013; List of npm modules which should be excluded from compiled bundles. Also see <a href="https://webpack.js.org/configuration/externals" target="_blank">webpack externals</a>.</li>
+</ul>
+<h2 id="tessellate-fragment"><a name="tessellate-fragment" class="plugin-anchor" href="#tessellate-fragment"><i class="fa fa-link" aria-hidden="true"></i></a>tessellate-fragment</h2>
+<p>Under construction &#x1F3D7;&#xFE0F; &#x1F6A7; &#x1F477;</p>
 
                                 
                                 </section>
@@ -381,12 +375,12 @@
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Home">
+                <a href="Fragment.html" class="navigation navigation-prev " aria-label="Previous page: Fragment">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Architecture.html#tessellate-bundler" class="navigation navigation-next " aria-label="Next page: Tessellate Bundler">
+                <a href="Configuration.html#tessellate-bundler" class="navigation navigation-next " aria-label="Next page: Tesselate Bundler">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -397,7 +391,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Tessellate architecture overview.","title":"Architecture","level":"1.2","depth":1,"next":{"title":"Tessellate Bundler","level":"1.2.1","depth":2,"anchor":"#tessellate-bundler","path":"Architecture.md","ref":"Architecture.md#tessellate-bundler","articles":[]},"previous":{"title":"Home","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Architecture.md","mtime":"2017-03-28T12:56:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-29T16:12:14.573Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Configuration of Tessellate services.","title":"Configuration","level":"1.5","depth":1,"next":{"title":"Tesselate Bundler","level":"1.5.1","depth":2,"anchor":"#tessellate-bundler","path":"Configuration.md","ref":"Configuration.md#tessellate-bundler","articles":[]},"previous":{"title":"Fragment","level":"1.4","depth":1,"path":"Fragment.md","ref":"Fragment.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Configuration.md","mtime":"2017-03-29T16:05:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-29T16:12:14.573Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
