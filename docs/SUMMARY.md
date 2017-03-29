@@ -10,3 +10,6 @@
     * [Tessellate JSON](Bundler.md#tessellate-json)
     * [Tessellate bundles](Bundler.md#tessellate-bundles)
 * [Fragment](Fragment.md)
+* [Configuration](Configuration.md)
+    * [Tesselate Bundler](Configuration.md#tessellate-bundler)
+    * [Tessellate Fragment](Configuration.md#tessellate-fragment)

@@ -113,4 +113,8 @@ This function simply calls `ReactDOM.render()` to render the React component hie
 
 The root component of the hierarchy declared in Tessellate JSON. Any properties applied to this component are injected into the `data-props` attribute of the root node in this component. This mechanism is necessary to add additional properties to the component hierarchy at render time in tessellate-fragment.
 
-See all the details in the [code](https://github.com/zalando-incubator/tessellate/blob/master/packages/tessellate-bundler/src/script-builder/FragmentScript.js) of the JavaScript template.
+## Further information
+
+* Look at [script-builder.js](https://github.com/zalando-incubator/tessellate/blob/master/packages/tessellate-bundler/src/script-builder/index.js) to see how Tessellate JSON is parsed.
+* Read [FragmentScript.js](https://github.com/zalando-incubator/tessellate/blob/master/packages/tessellate-bundler/src/script-builder/FragmentScript.js) to better understand how JavaScript bundles look like.
+* See [Configuration](Configuration.md#tessellate-bundler) for details on how to configure tessellate-bundler.
