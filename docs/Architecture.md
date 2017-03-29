@@ -1,3 +1,7 @@
+---
+description: Tessellate architecture overview.
+---
+
 # Architecture
 
 Tessellate consists of two major components: the bundler and the fragment. Together they make it possible to dynamically render HTML based on an abstract JSON definition. This section gives an overview of the two components and how they integrate with the Mosaic project.

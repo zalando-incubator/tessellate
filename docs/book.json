@@ -1,3 +1,15 @@
 {
-  "gitbook": "^3.2.2"
+  "gitbook": "^3.2.2",
+  "plugins": [
+    "anchors",
+    "github",
+    "image-wrapper",
+    "toggle-chapters",
+    "-sharing"
+  ],
+  "pluginsConfig": {
+    "github": {
+      "url": "https://github.com/zalando-incubator/tessellate"
+    }
+  }
 }

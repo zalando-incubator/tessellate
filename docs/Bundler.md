@@ -1,3 +1,7 @@
+---
+description: Documentation of tessellate-bundler.
+---
+
 # tessellate-bundler
 
 Tessellate bundler is a web service that compiles abstract JSON definitions of nested React components into universal JavaScript bundles. This is accomplished by generating code which is then executed inside a [webpack](https://webpack.js.org) sandbox.
@@ -62,13 +66,15 @@ As a result the following two kinds of import statements can be generated a type
 
 ### props: `object | null`
 
-🚧
+Properties for a React component. These properties are going to be **inlined** into the compiled JavaScript bundle as JSON and are applied to each respective component upon rendering. However because tessellate-fragment can load and inject properties at render time, it may not be necessary or desired to define all properties in Tessellate JSON.
 
 ### children: `Array<TessellateElement | string>`
 
-🚧
+A list of [child components](https://facebook.github.io/react/docs/jsx-in-depth.html#children-in-jsx) which can either be other Tessellate elements or literal strings.
 
 ### Tessellate JSON schema
+
+Tessellate JSON is also defined in terms of a simple, recursive schema. The schema is strict, meaning that all properties are required but they have alternative "empty" values. `props` may be `null` and `children` may be an empty array.
 
 ```yaml
 type: object
@@ -92,4 +98,19 @@ required:
 - children
 ```
 
-Under construction 🏗️ 🚧 👷
+## Tessellate bundles
+
+tessellate-bundler compiles [Tessellate JSON](Bundler.md#tessellate-json) into JavaScript bundles which can be rendered with React in both the browser and on the server. The bundle implements the Mosaic [specification](https://github.com/zalando/tailor/blob/master/README.md#fragment-server) for Fragment JavaScript which is *"an AMD module, that exports an `init` function, that will be called with DOM element of the fragment as an argument"*. In fact, tessellate-bundler creates a UMD (universal module definition) module which exports a function that mounts a hierarchy of React components on the given DOM element.
+
+### `export default function render(element)`
+
+* `element: HTMLElement` – DOM node of the fragment.
+* returns `void`
+
+This function simply calls `ReactDOM.render()` to render the React component hierarchy on the given DOM node with the inlined properties that are defined in Tessellate JSON and any additional properties injected by tessellate-fragment.
+
+### `export class Fragment extends React.Component`
+
+The root component of the hierarchy declared in Tessellate JSON. Any properties applied to this component are injected into the `data-props` attribute of the root node in this component. This mechanism is necessary to add additional properties to the component hierarchy at render time in tessellate-fragment.
+
+See all the details in the [code](https://github.com/zalando-incubator/tessellate/blob/master/packages/tessellate-bundler/src/script-builder/FragmentScript.js) of the JavaScript template.
