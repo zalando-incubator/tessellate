@@ -6,7 +6,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <title>Bundler · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="">
+        <meta name="description" content="Documentation of tessellate-bundler.">
         <meta name="generator" content="GitBook 3.2.2">
         
         
@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="gitbook/style.css">
 
     
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
             
                 
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
@@ -33,6 +41,8 @@
     
 
     
+        
+        <link rel="stylesheet" href="styles/website.css">
         
     
         
@@ -57,7 +67,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Fragment.html" />
+    <link rel="next" href="Bundler.html" />
     
     
     <link rel="prev" href="Architecture.html" />
@@ -113,6 +123,51 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Architecture.html">
+            
+                <a href="Architecture.html#tessellate-bundler">
+            
+                    
+                    Tessellate Bundler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Architecture.html">
+            
+                <a href="Architecture.html#tessellate-fragment">
+            
+                    
+                    Tessellate Fragment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Architecture.html">
+            
+                <a href="Architecture.html#mosaic-integration">
+            
+                    
+                    Mosaic integration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter active" data-level="1.3" data-path="Bundler.html">
@@ -125,6 +180,51 @@
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Bundler.html">
+            
+                <a href="Bundler.html#api">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="Bundler.html">
+            
+                <a href="Bundler.html#tessellate-json">
+            
+                    
+                    Tessellate JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="Bundler.html">
+            
+                <a href="Bundler.html#tessellate-bundles">
+            
+                    
+                    Tessellate bundles
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -186,9 +286,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="tessellate-bundler">tessellate-bundler</h1>
+                                <h1 id="tessellate-bundler"><a name="tessellate-bundler" class="plugin-anchor" href="#tessellate-bundler"><i class="fa fa-link" aria-hidden="true"></i></a>tessellate-bundler</h1>
 <p>Tessellate bundler is a web service that compiles abstract JSON definitions of nested React components into universal JavaScript bundles. This is accomplished by generating code which is then executed inside a <a href="https://webpack.js.org" target="_blank">webpack</a> sandbox.</p>
-<h2 id="api">API</h2>
+<h2 id="api"><a name="api" class="plugin-anchor" href="#api"><i class="fa fa-link" aria-hidden="true"></i></a>API</h2>
 <p>The REST API of tessellate-bundler has only one endpoint and method to create new bundles.</p>
 <p><strong>POST</strong> <code>/bundles/{domain}/{name}</code></p>
 <p><strong>Parameters:</strong></p>
@@ -202,7 +302,7 @@
 <li>201 created &#x2013; a new bundle was compiled</li>
 <li>400 bad request &#x2013; illegal request payload</li>
 </ul>
-<h2 id="tessellate-json">Tessellate JSON</h2>
+<h2 id="tessellate-json"><a name="tessellate-json" class="plugin-anchor" href="#tessellate-json"><i class="fa fa-link" aria-hidden="true"></i></a>Tessellate JSON</h2>
 <p>tessellate-bundler creates universal JavaScript bundles which can be rendered by <strong>React</strong> on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: <strong>type</strong>, <strong>props</strong> and <strong>children</strong>. These attributes correspond exactly to the arguments the the <a href="https://facebook.github.io/react/docs/react-api.html#createelement" target="_blank">React.createElement()</a> function. Here&apos;s an example of a simple component hierarchy:</p>
 <pre><code class="lang-yaml"><span class="hljs-attr">type:</span> div
 <span class="hljs-attr">props:</span> <span class="hljs-literal">null</span>
@@ -217,7 +317,7 @@
 <span class="hljs-attr">  children:</span>
 <span class="hljs-bullet">  -</span> Zalando Technology
 </code></pre>
-<h3 id="type-string">type: <code>string</code></h3>
+<h3 id="type-string"><a name="type-string" class="plugin-anchor" href="#type-string"><i class="fa fa-link" aria-hidden="true"></i></a>type: <code>string</code></h3>
 <p>The type of element. It can either be the name of a standard HTML element (<code>div</code>, <code>span</code>, etc.) or the name of a <a href="https://facebook.github.io/react/docs/components-and-props.html" target="_blank">React component</a> type that can be <a href="https://nodejs.org/api/globals.html#globals_require" target="_blank">required</a> in the Node execution context of the tessellate-bundler process. In the second case tessellate-bundler is going to generate code with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">ES2015 module import</a> syntax from the given type. The following schema applies:</p>
 <p><code>[node-module-name].[component-name]</code></p>
 <ul>
@@ -256,11 +356,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="props-object--null">props: <code>object | null</code></h3>
-<p>&#x1F6A7;</p>
-<h3 id="children-arraytessellateelement--string">children: <code>Array&lt;TessellateElement | string&gt;</code></h3>
-<p>&#x1F6A7;</p>
-<h3 id="tessellate-json-schema">Tessellate JSON schema</h3>
+<h3 id="props-object--null"><a name="props-object--null" class="plugin-anchor" href="#props-object--null"><i class="fa fa-link" aria-hidden="true"></i></a>props: <code>object | null</code></h3>
+<p>Properties for a React component. These properties are going to be <strong>inlined</strong> into the compiled JavaScript bundle as JSON and are applied to each respective component upon rendering. However because tessellate-fragment can load and inject properties at render time, it may not be necessary or desired to define all properties in Tessellate JSON.</p>
+<h3 id="children-arraytessellateelement--string"><a name="children-arraytessellateelement--string" class="plugin-anchor" href="#children-arraytessellateelement--string"><i class="fa fa-link" aria-hidden="true"></i></a>children: <code>Array&lt;TessellateElement | string&gt;</code></h3>
+<p>A list of <a href="https://facebook.github.io/react/docs/jsx-in-depth.html#children-in-jsx" target="_blank">child components</a> which can either be other Tessellate elements or literal strings.</p>
+<h3 id="tessellate-json-schema"><a name="tessellate-json-schema" class="plugin-anchor" href="#tessellate-json-schema"><i class="fa fa-link" aria-hidden="true"></i></a>Tessellate JSON schema</h3>
+<p>Tessellate JSON is also defined in terms of a simple, recursive schema. The schema is strict, meaning that all properties are required but they have alternative &quot;empty&quot; values. <code>props</code> may be <code>null</code> and <code>children</code> may be an empty array.</p>
 <pre><code class="lang-yaml"><span class="hljs-attr">type:</span> object
 <span class="hljs-attr">properties:</span>
 <span class="hljs-attr">  type:</span>
@@ -281,7 +382,17 @@
 <span class="hljs-bullet">-</span> props
 <span class="hljs-bullet">-</span> children
 </code></pre>
-<p>Under construction &#x1F3D7;&#xFE0F; &#x1F6A7; &#x1F477;</p>
+<h2 id="tessellate-bundles"><a name="tessellate-bundles" class="plugin-anchor" href="#tessellate-bundles"><i class="fa fa-link" aria-hidden="true"></i></a>Tessellate bundles</h2>
+<p>tessellate-bundler compiles <a href="Bundler.html#tessellate-json">Tessellate JSON</a> into JavaScript bundles which can be rendered with React in both the browser and on the server. The bundle implements the Mosaic <a href="https://github.com/zalando/tailor/blob/master/README.md#fragment-server" target="_blank">specification</a> for Fragment JavaScript which is <em>&quot;an AMD module, that exports an <code>init</code> function, that will be called with DOM element of the fragment as an argument&quot;</em>. In fact, tessellate-bundler creates a UMD (universal module definition) module which exports a function that mounts a hierarchy of React components on the given DOM element.</p>
+<h3 id="export-default-function-renderelement"><a name="export-default-function-renderelement" class="plugin-anchor" href="#export-default-function-renderelement"><i class="fa fa-link" aria-hidden="true"></i></a><code>export default function render(element)</code></h3>
+<ul>
+<li><code>element: HTMLElement</code> &#x2013; DOM node of the fragment.</li>
+<li>returns <code>void</code></li>
+</ul>
+<p>This function simply calls <code>ReactDOM.render()</code> to render the React component hierarchy on the given DOM node with the inlined properties that are defined in Tessellate JSON and any additional properties injected by tessellate-fragment.</p>
+<h3 id="export-class-fragment-extends-reactcomponent"><a name="export-class-fragment-extends-reactcomponent" class="plugin-anchor" href="#export-class-fragment-extends-reactcomponent"><i class="fa fa-link" aria-hidden="true"></i></a><code>export class Fragment extends React.Component</code></h3>
+<p>The root component of the hierarchy declared in Tessellate JSON. Any properties applied to this component are injected into the <code>data-props</code> attribute of the root node in this component. This mechanism is necessary to add additional properties to the component hierarchy at render time in tessellate-fragment.</p>
+<p>See all the details in the <a href="https://github.com/zalando-incubator/tessellate/blob/master/packages/tessellate-bundler/src/script-builder/FragmentScript.js" target="_blank">code</a> of the JavaScript template.</p>
 
                                 
                                 </section>
@@ -309,12 +420,12 @@
 
             
                 
-                <a href="Architecture.html" class="navigation navigation-prev " aria-label="Previous page: Architecture">
+                <a href="Architecture.html#mosaic-integration" class="navigation navigation-prev " aria-label="Previous page: Mosaic integration">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Fragment.html" class="navigation navigation-next " aria-label="Next page: Fragment">
+                <a href="Bundler.html#api" class="navigation navigation-next " aria-label="Next page: API">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -325,7 +436,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Bundler","level":"1.3","depth":1,"next":{"title":"Fragment","level":"1.4","depth":1,"path":"Fragment.md","ref":"Fragment.md","articles":[]},"previous":{"title":"Architecture","level":"1.2","depth":1,"path":"Architecture.md","ref":"Architecture.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-23T18:02:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-23T18:12:46.539Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Documentation of tessellate-bundler.","title":"Bundler","level":"1.3","depth":1,"next":{"title":"API","level":"1.3.1","depth":2,"anchor":"#api","path":"Bundler.md","ref":"Bundler.md#api","articles":[]},"previous":{"title":"Mosaic integration","level":"1.2.3","depth":2,"anchor":"#mosaic-integration","path":"Architecture.md","ref":"Architecture.md#mosaic-integration","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-29T14:40:21.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-29T14:46:34.182Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -333,6 +444,14 @@
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
@@ -348,10 +467,6 @@
     
         
         <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
-        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

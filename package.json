@@ -12,5 +12,11 @@
   "dependencies": {
     "gh-pages": "0.12.0",
     "gitbook-cli": "2.3.0"
+  },
+  "devDependencies": {
+    "gitbook-plugin-anchors": "0.7.1",
+    "gitbook-plugin-github": "2.0.0",
+    "gitbook-plugin-image-wrapper": "1.0.1",
+    "gitbook-plugin-toggle-chapters": "0.0.3"
   }
 }
