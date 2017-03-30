@@ -5,6 +5,7 @@
     "github",
     "image-wrapper",
     "toggle-chapters",
+    "codetabs",
     "-sharing"
   ],
   "pluginsConfig": {

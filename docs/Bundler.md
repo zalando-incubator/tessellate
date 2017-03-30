@@ -25,9 +25,9 @@ The REST API of tessellate-bundler has only one endpoint and method to create ne
 
 ## Tessellate JSON
 
-tessellate-bundler creates universal JavaScript bundles which can be rendered by **React** on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: **type**, **props** and **children**. These attributes correspond exactly to the arguments the the [React.createElement()](https://facebook.github.io/react/docs/react-api.html#createelement) function. Here's an example of a simple component hierarchy:
+tessellate-bundler creates universal JavaScript bundles which can be rendered by **React** on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: **type**, **props** and **children**. These attributes correspond exactly to the arguments of the [React.createElement()](https://facebook.github.io/react/docs/react-api.html#createelement) function. Here's an example of a simple component hierarchy:
 
-```yaml
+{% codetabs name="YAML", type="yaml" -%}
 type: div
 props: null
 children:
@@ -40,7 +40,23 @@ children:
     href: https://tech.zalando.com
   children:
   - Zalando Technology
-```
+{%- language name="JSX", type="html" -%}
+<div>
+  <h1>Hello, World!</h1>
+  <a href="https://tech.zalando.com">Zalando Technology</a>
+</div>
+{%- language name="JavaScript", type="js" -%}
+React.createElement(
+  'div',
+  null,
+  React.createElement('h1', null),
+  React.createElement(
+    'a',
+    { href: 'https://tech.zalando.com' },
+    'Zalando Technology'
+  )
+);
+{%- endcodetabs %}
 
 ### type: `string`
 
