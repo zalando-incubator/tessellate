@@ -19,4 +19,9 @@ This section contains information for configuring Tessellate services in product
 
 ## tessellate-fragment
 
+* `APP_PORT` – Port on which the service listens.
+* `MORGAN_FORMAT` – [Format](https://github.com/expressjs/morgan#predefined-formats) for the [morgan](https://github.com/expressjs/morgan) HTTP request logger.
+* `MORGAN_THRESHOLD` – Do not log HTTP requests with status code values below this number.
+* `BUNDLES_SOURCE` – Remote address under which to resolve precompiled bundles.
+
 Under construction 🏗️ 🚧 👷
