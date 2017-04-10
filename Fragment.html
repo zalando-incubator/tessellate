@@ -25,6 +25,10 @@
                 
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -332,7 +336,29 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="tessellate-fragment"><a name="tessellate-fragment" class="plugin-anchor" href="#tessellate-fragment"><i class="fa fa-link" aria-hidden="true"></i></a>tessellate-fragment</h1>
-<p>Under construction &#x1F3D7;&#xFE0F; &#x1F6A7; &#x1F477;</p>
+<p>Tessellate fragment is a web service that renders precompiled JavaScript bundles of React components to static HTML. It implements the Mosaic <a href="GLOSSARY.html#fragment-api" class="glossary-term" title="A Mosaic fragment is a microservice which renders some partial HTML of a larger composition, i.e. a website. It also returns an HTTP header with links to additional CSS and JavaScript files. Fragments are composed by the Tailor layout service.">Fragment API</a> and can be composed together with other Fragments inside a <a href="https://github.com/zalando/tailor" target="_blank">Tailor</a> template.</p>
+<h2 id="api"><a name="api" class="plugin-anchor" href="#api"><i class="fa fa-link" aria-hidden="true"></i></a>API</h2>
+<p>tessellate-fragment listens for incoming traffic at its root endpoint <code>/</code> and uses HTTP request headers to decide what response to serve.</p>
+<h2 id="resource-fetching"><a name="resource-fetching" class="plugin-anchor" href="#resource-fetching"><i class="fa fa-link" aria-hidden="true"></i></a>Resource fetching</h2>
+<p>The fragment fetches two kinds of input for the rendering step: a precompiled bundle and some optional external properties (content).</p>
+<p>The source for bundles can be configured using the <code>BUNDLES_SOURCE</code> environment variable or with the <code>sources</code> query parameter the fragment tag&apos;s <code>src</code> attribute. The first one must be an HTTP address (e.g. <a href="https://myserver.com" target="_blank">https://myserver.com</a>) that represents the base to resolve individual bundles. The seconds one bust be an API endpoint that returns a JSON response with the following schema:</p>
+<pre><code class="lang-typescript">{
+  bundles: {
+    src: <span class="hljs-built_in">string</span>,
+    path?: <span class="hljs-built_in">string</span>,
+    properties?: <span class="hljs-built_in">string</span>
+  }
+}
+</code></pre>
+<p>Currently two different kinds of configuration for individual bundle resolution are supported:</p>
+<ul>
+<li>Dynamic by HTTP headers: <code>x-zalando-request-uri</code> and <code>x-zalando-request-host</code> are used.</li>
+<li>Static: The configured base address is the only one.</li>
+</ul>
+<p>The fragment then fetches two files <code>index.js</code> and <code>index.css</code> from the remote location, e.g. <code>https://myserver.com/test.com/mysite/index.js</code> (with dynamic resolution) or <code>https://myserver.com/index.js</code> (with static resolution).</p>
+<p>If the <code>sources</code> query parameter was used, the <code>properties</code> attribute in the API response is used to fetch additional properties (content) that are going to be injected into the React components at render time.</p>
+<h2 id="further-information"><a name="further-information" class="plugin-anchor" href="#further-information"><i class="fa fa-link" aria-hidden="true"></i></a>Further information</h2>
+<p>See <a href="Configuration.html#tessellate-fragment">Configuration</a> for details on how to configure tessellate-fragment.</p>
 
                                 
                                 </section>
@@ -376,7 +402,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Documentation of tessellate-fragment.","title":"Fragment","level":"1.4","depth":1,"next":{"title":"Configuration","level":"1.5","depth":1,"path":"Configuration.md","ref":"Configuration.md","articles":[{"title":"Tesselate Bundler","level":"1.5.1","depth":2,"anchor":"#tessellate-bundler","path":"Configuration.md","ref":"Configuration.md#tessellate-bundler","articles":[]},{"title":"Tessellate Fragment","level":"1.5.2","depth":2,"anchor":"#tessellate-fragment","path":"Configuration.md","ref":"Configuration.md#tessellate-fragment","articles":[]}]},"previous":{"title":"Tessellate bundles","level":"1.3.3","depth":2,"anchor":"#tessellate-bundles","path":"Bundler.md","ref":"Bundler.md#tessellate-bundles","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Fragment.md","mtime":"2017-03-28T12:55:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-29T16:12:14.573Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Documentation of tessellate-fragment.","title":"Fragment","level":"1.4","depth":1,"next":{"title":"Configuration","level":"1.5","depth":1,"path":"Configuration.md","ref":"Configuration.md","articles":[{"title":"Tesselate Bundler","level":"1.5.1","depth":2,"anchor":"#tessellate-bundler","path":"Configuration.md","ref":"Configuration.md#tessellate-bundler","articles":[]},{"title":"Tessellate Fragment","level":"1.5.2","depth":2,"anchor":"#tessellate-fragment","path":"Configuration.md","ref":"Configuration.md#tessellate-fragment","articles":[]}]},"previous":{"title":"Tessellate bundles","level":"1.3.3","depth":2,"anchor":"#tessellate-bundles","path":"Bundler.md","ref":"Bundler.md#tessellate-bundles","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","codetabs","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"codetabs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Fragment.md","mtime":"2017-04-10T08:38:18.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-10T08:39:35.995Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -391,6 +417,10 @@
     
         
         <script src="gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
         
     
         

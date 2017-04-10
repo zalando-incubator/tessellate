@@ -424,6 +424,10 @@ es6-symbol@3, es6-symbol@^3.0.2, es6-symbol@~3.1:
     d "~0.1.1"
     es5-ext "~0.10.11"
 
+escape-html@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
+
 escape-string-regexp@^1.0.2:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -570,6 +574,12 @@ gitbook-plugin-anchors@0.7.1:
   dependencies:
     cheerio "*"
     github-slugid "1.0.1"
+
+gitbook-plugin-codetabs@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-codetabs/-/gitbook-plugin-codetabs-1.0.0.tgz#5dd6b9d2e7ca19e6906c7adad8f6d56961b4fe88"
+  dependencies:
+    escape-html "^1.0.3"
 
 gitbook-plugin-github@2.0.0:
   version "2.0.0"

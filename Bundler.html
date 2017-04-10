@@ -25,6 +25,10 @@
                 
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -348,8 +352,8 @@
 <li>400 bad request &#x2013; illegal request payload</li>
 </ul>
 <h2 id="tessellate-json"><a name="tessellate-json" class="plugin-anchor" href="#tessellate-json"><i class="fa fa-link" aria-hidden="true"></i></a>Tessellate JSON</h2>
-<p>tessellate-bundler creates universal JavaScript bundles which can be rendered by <strong>React</strong> on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: <strong>type</strong>, <strong>props</strong> and <strong>children</strong>. These attributes correspond exactly to the arguments the the <a href="https://facebook.github.io/react/docs/react-api.html#createelement" target="_blank">React.createElement()</a> function. Here&apos;s an example of a simple component hierarchy:</p>
-<pre><code class="lang-yaml"><span class="hljs-attr">type:</span> div
+<p>tessellate-bundler creates universal JavaScript bundles which can be rendered by <strong>React</strong> on both the server- and client-side. In order to create such a bundle, the web service requires an abstract description of the recursively nested hierarchy of React components and their properties. Each element in the hierarchy has three attributes: <strong>type</strong>, <strong>props</strong> and <strong>children</strong>. These attributes correspond exactly to the arguments of the <a href="https://facebook.github.io/react/docs/react-api.html#createelement" target="_blank">React.createElement()</a> function. Here&apos;s an example of a simple component hierarchy:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">YAML</div><div class="tab" data-codetab="1">JSX</div><div class="tab" data-codetab="2">JavaScript</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre><code class="lang-yaml"><span class="hljs-attr">type:</span> div
 <span class="hljs-attr">props:</span> <span class="hljs-literal">null</span>
 <span class="hljs-attr">children:</span>
 <span class="hljs-attr">- type:</span> h1
@@ -360,8 +364,19 @@
 <span class="hljs-attr">  props:</span>
 <span class="hljs-attr">    href:</span> https://tech.zalando.com
 <span class="hljs-attr">  children:</span>
-<span class="hljs-bullet">  -</span> Zalando Technology
-</code></pre>
+<span class="hljs-bullet">  -</span> Zalando Technology</code></pre></div><div class="tab" data-codetab="1"><pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, World!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://tech.zalando.com&quot;</span>&gt;</span>Zalando Technology<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div><div class="tab" data-codetab="2"><pre><code class="lang-js">React.createElement(
+  <span class="hljs-string">&apos;div&apos;</span>,
+  <span class="hljs-literal">null</span>,
+  React.createElement(<span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-literal">null</span>),
+  React.createElement(
+    <span class="hljs-string">&apos;a&apos;</span>,
+    { href: <span class="hljs-string">&apos;https://tech.zalando.com&apos;</span> },
+    <span class="hljs-string">&apos;Zalando Technology&apos;</span>
+  )
+);</code></pre></div></div></div></p>
 <h3 id="type-string"><a name="type-string" class="plugin-anchor" href="#type-string"><i class="fa fa-link" aria-hidden="true"></i></a>type: <code>string</code></h3>
 <p>The type of element. It can either be the name of a standard HTML element (<code>div</code>, <code>span</code>, etc.) or the name of a <a href="https://facebook.github.io/react/docs/components-and-props.html" target="_blank">React component</a> type that can be <a href="https://nodejs.org/api/globals.html#globals_require" target="_blank">required</a> in the Node execution context of the tessellate-bundler process. In the second case tessellate-bundler is going to generate code with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">ES2015 module import</a> syntax from the given type. The following schema applies:</p>
 <p><code>[node-module-name].[component-name]</code></p>
@@ -486,7 +501,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Documentation of tessellate-bundler.","title":"Bundler","level":"1.3","depth":1,"next":{"title":"API","level":"1.3.1","depth":2,"anchor":"#api","path":"Bundler.md","ref":"Bundler.md#api","articles":[]},"previous":{"title":"Mosaic integration","level":"1.2.3","depth":2,"anchor":"#mosaic-integration","path":"Architecture.md","ref":"Architecture.md#mosaic-integration","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-29T16:09:11.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-29T16:12:14.573Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Documentation of tessellate-bundler.","title":"Bundler","level":"1.3","depth":1,"next":{"title":"API","level":"1.3.1","depth":2,"anchor":"#api","path":"Bundler.md","ref":"Bundler.md#api","articles":[]},"previous":{"title":"Mosaic integration","level":"1.2.3","depth":2,"anchor":"#mosaic-integration","path":"Architecture.md","ref":"Architecture.md#mosaic-integration","articles":[]},"dir":"ltr"},"config":{"gitbook":"^3.2.2","theme":"default","variables":{},"plugins":["anchors","github","image-wrapper","toggle-chapters","codetabs","-sharing"],"pluginsConfig":{"image-wrapper":{},"github":{"url":"https://github.com/zalando-incubator/tessellate"},"search":{},"codetabs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Bundler.md","mtime":"2017-03-30T07:21:50.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-10T08:39:35.995Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -501,6 +516,10 @@
     
         
         <script src="gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
         
     
         

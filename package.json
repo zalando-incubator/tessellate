@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "gitbook-plugin-anchors": "0.7.1",
+    "gitbook-plugin-codetabs": "1.0.0",
     "gitbook-plugin-github": "2.0.0",
     "gitbook-plugin-image-wrapper": "1.0.1",
     "gitbook-plugin-toggle-chapters": "0.0.3"

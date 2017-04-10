@@ -1,0 +1,26 @@
+.codetabs {
+
+}
+
+.codetabs .codetabs-header .tab {
+    display: inline-block;
+    padding: 3px 6px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.codetabs .codetabs-header .tab.active {
+    border-bottom-color: #428bca;
+    cursor: default;
+    opacity: 1;
+}
+
+.codetabs .codetabs-body .tab {
+    display: none;
+}
+
+.codetabs .codetabs-body .tab.active {
+    display: block;
+}
+
