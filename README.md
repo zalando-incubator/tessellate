@@ -4,7 +4,7 @@ Micro service stack for dynamic fragments. &nbsp;&nbsp; [![Build Status](https:/
 
 ## What is Tessellate?
 
-Tessellate is a collection of micro services built on top of the [Mosaic](https://www.mosaic9.org) architecture. It is comprised of the following parts:
+Tessellate is a server-side React renderer that creates static HTML and a complementary component tree from abstract JSON definitions. It comprises several micro services built on top of the [Mosaic](https://www.mosaic9.org) architecture.
 
 |Package                                            |Description                                                        |Version|
 |:--------------------------------------------------|:------------------------------------------------------------------|:------|
@@ -16,16 +16,16 @@ Tessellate is a collection of micro services built on top of the [Mosaic](https:
 
 ## Dynamic fragments
 
-A Mosaic fragment is a web service that provides parts of a web page that can be composed together with other fragments by the [Tailor](https://github.com/zalando/tailor) layout service.
+A Mosaic Fragment is a web service that provides one part of a modular web page. Fragments can be composed together with other Fragments by the [Tailor](https://github.com/zalando/tailor) layout service. Tessellate is an implementation of such a Fragment.
 
-Tessellate fragments can respond to requests dynamically as they are agnostic about the content they provide. Any prepared ReactJS module can be rendered by a Tessellate fragment.
+tessellate-fragment can respond to requests dynamically and is agnostic about the content it provides. It renders precompiled JavaScript bundles made of React components. The bundles are compiled from an abstract JSON definition using tessellate-bundler.
 
 ## Installation
 
 Tessellate micro services can easily be installed as Node modules:
 
 ```
-npm i --save tessellate-fragment
+npm i --save tessellate-bundler tessellate-fragment
 ```
 
 ## Configuration
@@ -34,7 +34,7 @@ Each micro service reads configuration from environment variables, command line 
 
 ## Development
 
-Tessellate requires Node.js version 7+ and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
+Tessellate requires Node.js >= 7.6 and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
 
 ```
 npm install   # Install dependencies and initialize packages.
@@ -51,3 +51,7 @@ npm install -g flow-bin
 ```
 
 For details on pull requests, commit messages and contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Documentation
+
+Go to [zalando-incubator.github.io/tessellate](https://zalando-incubator.github.io/tessellate) for detailed documentation.

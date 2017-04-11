@@ -21,4 +21,5 @@ if [[ "$TRAVIS_BRANCH" == "master" ]]; then
   npm prune
 
   npm run semantic-release
+  npm run publish-docs
 fi
