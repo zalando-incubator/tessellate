@@ -1,6 +1,6 @@
 {
   "name": "tessellate-transform",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Tessellate JSX/JSON transformer.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
