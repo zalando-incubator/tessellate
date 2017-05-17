@@ -14,7 +14,7 @@ type ExpressionStatement = {
   expression: Expression
 };
 
-type Expression = JSXElement | Literal;
+type Expression = JSXElement | Literal | JSXText;
 
 type JSXElement = {
   type: 'JSXElement',
@@ -39,6 +39,12 @@ type Attribute = {
 type JSXExpressionContainer = {
   type: 'JSXExpressionContainer',
   expression: ObjectExpression | Literal
+};
+
+type JSXText = {
+  type: 'JSXText',
+  value: string,
+  raw: string
 };
 
 type Literal = {
@@ -72,7 +78,7 @@ type JSXMemberExpression = {
 type ProcessingCallbacks = {|
   onEnter: (element: Element) => void,
   onLeave: (element: Element) => void,
-  onLiteral: (literal: Literal) => void
+  onLiteral: (literal: Literal | JSXText) => void
 |};
 
 function processAttribute(attribute: Attribute): { [key: string]: mixed } {
@@ -80,6 +86,7 @@ function processAttribute(attribute: Attribute): { [key: string]: mixed } {
   let result = null;
 
   switch (value.type) {
+    case 'JSXText':
     case 'Literal': {
       result = value.value;
       break;
@@ -94,6 +101,7 @@ function processAttribute(attribute: Attribute): { [key: string]: mixed } {
           );
           break;
         }
+        case 'JSXText':
         case 'Literal': {
           result = expression.value;
           break;
@@ -114,7 +122,7 @@ function processExpression(expression: Expression, callbacks: ProcessingCallback
     }
     callbacks.onLeave(expression.openingElement);
   }
-  if (expression.type === 'Literal') {
+  if (expression.type === 'Literal' || expression.type === 'JSXText') {
     callbacks.onLiteral(expression);
   }
 }
@@ -154,7 +162,7 @@ function parseElement(element: Element, typePrefix: string): ParseResult {
   return jsonNode;
 }
 
-function parseLiteral(literal: Literal): ?string {
+function parseLiteral(literal: Literal | JSXText): ?string {
   const isNotJustWhitespace = /\S+/.test(literal.raw);
   if (isNotJustWhitespace && typeof literal.value === 'string') {
     return literal.value;
@@ -196,7 +204,7 @@ function parseJSX(jsx: string, callbacks: ParseCallbacks, opts: ParseOptions) {
     onLeave: () => {
       callbacks.onLeave(cache.pop());
     },
-    onLiteral: (literal: Literal) => {
+    onLiteral: (literal: Literal | JSXText) => {
       const string = parseLiteral(literal);
       if (string) callbacks.onLiteral(string);
     }
