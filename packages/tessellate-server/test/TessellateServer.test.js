@@ -1,3 +1,5 @@
+// @flow
+
 import supertest from 'supertest';
 import TessellateServer from '../src/TessellateServer';
 import { Problem } from '../src/error';
@@ -8,7 +10,7 @@ describe('TessellateServer', () => {
   afterEach(async () => _server.stop());
 
   async function startServer(server: TessellateServer): Promise<*> {
-    server = (_server = await server.start(3001));
+    server = _server = await server.start(3001);
     const appRequest = supertest.agent(server.appServer);
     const metricsRequest = supertest.agent(server.metricsServer);
     return { server, appRequest, metricsRequest };
@@ -73,12 +75,9 @@ describe('TessellateServer', () => {
     const { server, appRequest } = await startServer(new TessellateServer());
     server.router.get('/', observable => observable.mapTo('NOPE :('));
 
-    server.use(
-      async ctx => {
-        ctx.body = 'YAY :)';
-      },
-      true
-    );
+    server.use(async ctx => {
+      ctx.body = 'YAY :)';
+    }, true);
 
     await appRequest.get('/').expect(200).expect('YAY :)');
   });
@@ -126,10 +125,12 @@ describe('TessellateServer', () => {
     const payload = { foo: 'bar' };
     let body;
 
-    server.router.post('/', observable => observable.map(ctx => {
-      body = ctx.request.body;
-      return 'OK';
-    }));
+    server.router.post('/', observable =>
+      observable.map(ctx => {
+        body = ctx.request.body;
+        return 'OK';
+      })
+    );
 
     await appRequest.post('/').send(payload).expect('OK');
 

@@ -29,7 +29,7 @@ describe('create request', () => {
   });
 });
 
-function mockAuthConfigWithType(type: string) {
+function mockAuthConfigWithType(type) {
   require('../../lib/configurations/configuration-provider').getById.mockImplementation(() => {
     return {
       id: 'content-service',

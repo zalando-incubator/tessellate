@@ -147,8 +147,10 @@ function parseElementType(element: Element, typePrefix: string): string {
 }
 
 function parseElementAttrs(element: Element): { [key: string]: mixed } {
-  return element.attributes.reduce((attrs, attr) => Object.assign(attrs, processAttribute(attr)), {
-  });
+  return element.attributes.reduce(
+    (attrs, attr) => Object.assign(attrs, processAttribute(attr)),
+    {}
+  );
 }
 
 function parseElement(element: Element, typePrefix: string): ParseResult {

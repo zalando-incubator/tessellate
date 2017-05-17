@@ -41,13 +41,15 @@ export default class Root extends Component {
       return;
     }
     const reader = new FileReader();
-    reader.onload = e => this.setState({
-      currentFile: file,
-      fileContent: e.target.result
-    });
-    reader.onerror = e => this.setState({
-      status: `Error: ${e}`
-    });
+    reader.onload = e =>
+      this.setState({
+        currentFile: file,
+        fileContent: e.target.result
+      });
+    reader.onerror = e =>
+      this.setState({
+        status: `Error: ${e}`
+      });
     reader.readAsText(file);
   }
 
