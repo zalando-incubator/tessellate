@@ -23,7 +23,8 @@ describe('sources-resolver', () => {
 
   it('merges remote properties with properties from nconf and headers', async () => {
     require('request-promise-native').mockImplementation(() =>
-      Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } }));
+      Promise.resolve({ sources: { bundles: { path: 'zalando.de/remote' } } })
+    );
 
     const headers = {
       'x-zalando-request-uri': '/foo',

@@ -31,34 +31,30 @@ function parseOptions(): Object {
   };
 }
 
-const parseRequest: Epic<RoutedContext, ParsedRequest> = o => o.map(ctx => {
-  const { domain, name } = ctx.params;
-  const element = ctx.request.body;
-  return { domain, name, element };
-});
+const parseRequest: Epic<RoutedContext, ParsedRequest> = o =>
+  o.map(ctx => {
+    const { domain, name } = ctx.params;
+    const element = ctx.request.body;
+    return { domain, name, element };
+  });
 
-const createBundle: Epic<ParsedRequest, CreatedBundle> = o => o.flatMap(async ({
-  domain,
-  name,
-  element
-}) => {
-  const source = scriptBuilder.build(element);
-  const bundle = await bundleService.make(source, parseOptions());
-  return { domain, name, bundle };
-});
+const createBundle: Epic<ParsedRequest, CreatedBundle> = o =>
+  o.flatMap(async ({ domain, name, element }) => {
+    const source = scriptBuilder.build(element);
+    const bundle = await bundleService.make(source, parseOptions());
+    return { domain, name, bundle };
+  });
 
-const exportBundle: Epic<CreatedBundle, ResponseBody> = o => o.flatMap(async ({
-  domain,
-  name,
-  bundle
-}) => {
-  const { js, css } = await contentService.publish({ domain, name, bundle });
-  return { js, css };
-});
+const exportBundle: Epic<CreatedBundle, ResponseBody> = o =>
+  o.flatMap(async ({ domain, name, bundle }) => {
+    const { js, css } = await contentService.publish({ domain, name, bundle });
+    return { js, css };
+  });
 
-const createReponse: Epic<ResponseBody, CreatedResponse> = o => o.map(({ js, css }) => ({
-  body: { js, css },
-  status: 201
-}));
+const createReponse: Epic<ResponseBody, CreatedResponse> = o =>
+  o.map(({ js, css }) => ({
+    body: { js, css },
+    status: 201
+  }));
 
 export default util.foldEpics(parseRequest, createBundle, exportBundle, createReponse);

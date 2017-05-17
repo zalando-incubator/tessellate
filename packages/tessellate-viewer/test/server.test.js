@@ -28,13 +28,15 @@ describe('server', () => {
   describe('/:domain/:name', () => {
     it('should return HTML', async () => {
       const fragmentService = require('../src/fragment-service');
-      fragmentService.fetchFragment.mockImplementation(() => Promise.resolve({
-        html: '<h1>Hello, test!</h1>',
-        link: {
-          js: 'http://test.com/test/index.js',
-          css: 'http://test.com/test/index.css'
-        }
-      }));
+      fragmentService.fetchFragment.mockImplementation(() =>
+        Promise.resolve({
+          html: '<h1>Hello, test!</h1>',
+          link: {
+            js: 'http://test.com/test/index.js',
+            css: 'http://test.com/test/index.css'
+          }
+        })
+      );
 
       const { text } = await request
         .get('/zalando.de/test')

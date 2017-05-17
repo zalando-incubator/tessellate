@@ -26,7 +26,7 @@ describe('get configuration by id', () => {
     constructor(configurations) {
       this.configurations = configurations;
     }
-    load(): Array<AuthConfig> {
+    load() {
       return this.configurations;
     }
   };

@@ -22,8 +22,8 @@ describe('server', () => {
 
   afterEach(async () => _server.stop());
 
-  async function startServer(): Promise<*> {
-    server = (_server = await server.start(3001));
+  async function startServer() {
+    server = _server = await server.start(3001);
     const appRequest = supertest.agent(server.appServer);
     const metricsRequest = supertest.agent(server.metricsServer);
     return { server, appRequest, metricsRequest };

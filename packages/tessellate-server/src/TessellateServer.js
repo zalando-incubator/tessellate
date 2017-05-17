@@ -22,13 +22,13 @@ function startServer(listener: Listener, port: number): Promise<Server> {
   return new Promise((resolve, reject) => {
     let server = http
       .createServer(listener)
-      .listen(port, undefined, undefined, e => e ? reject(e) : resolve(server));
+      .listen(port, undefined, undefined, e => (e ? reject(e) : resolve(server)));
   });
 }
 
 function stopServer(server: ?Server): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (server) server.close(e => e ? reject(e) : resolve());
+    if (server) server.close(e => (e ? reject(e) : resolve()));
     else reject(new Error('Server not running.'));
   });
 }

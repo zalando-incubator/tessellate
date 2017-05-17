@@ -1,19 +1,20 @@
 // @flow
 import React, { Component } from 'react';
 
+type Props = {|
+  onSubmit: (args: Args) => void
+|};
+
 type Args = {|
   domain: string,
   key: string
 |};
 
 export default class SubmitForm extends Component {
-  props: {|
-    onSubmit: (args: Args) => void
-  |};
-
+  props: Props;
   state: Args;
 
-  constructor(props: Object) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       domain: '',

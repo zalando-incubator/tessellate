@@ -32,17 +32,18 @@ async function _createWebpackSandbox(args: Options = {}): Promise<WebpackSandbox
     'react-dom': 'react-dom'
   });
   const packages = args.packages || [];
+  packages.push('babel-loader');
 
   if (args.cssSupport) {
     loaders.push({
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: 'css-loader'
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader'
       })
     });
     plugins.push(new ExtractTextPlugin('[name]-[hash].min.css'));
-    packages.push('style-loader', 'css-loader');
+    packages.push('style-loader', 'css-loader', 'extract-text-webpack-plugin');
   }
 
   if (args.production) {

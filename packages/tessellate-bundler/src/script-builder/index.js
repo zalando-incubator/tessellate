@@ -106,6 +106,5 @@ function parseElementType(
     const name: string = camelCase(moduleName);
     const className = `'${name}'`;
     return { className, imports };
-  } else
-    throw new ElementProblem(`Illegal element type ${element.type}`);
+  } else throw new ElementProblem(`Illegal element type ${element.type}`);
 }

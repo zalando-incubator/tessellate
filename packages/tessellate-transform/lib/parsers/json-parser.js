@@ -56,7 +56,10 @@ function processJSONObject(json: JSONObject, callbacks: ParseCallbacks, opts: Pa
 
   for (let key of childrenAndLiteralKeys) {
     if (
-      jsonMap.childrenKeys.includes(key) && jsonNode && json[key] && typeof json[key] === 'object'
+      jsonMap.childrenKeys.includes(key) &&
+      jsonNode &&
+      json[key] &&
+      typeof json[key] === 'object'
     ) {
       parseJSON(json[key], callbacks, opts);
     } else if (literalKeys.includes(key) && typeof json[key] === 'string') {

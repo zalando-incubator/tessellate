@@ -19,7 +19,7 @@ export default class MetricsApp {
 
     // Start collecting stats with prometheus.
     prometheus.register.clear();
-    prometheus.defaultMetrics();
+    prometheus.collectDefaultMetrics();
     prometheusGCStats()();
   }
 }

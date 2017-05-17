@@ -1,3 +1,5 @@
+// @flow
+
 jest.mock('uuid');
 
 import fs from 'mz/fs';
