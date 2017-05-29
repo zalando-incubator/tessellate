@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2017",
+    "moduleResolution": "Node",
+    "newLine": "LF",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "declaration": true,
+    "pretty": true,
+    "removeComments": true,
+    "lib": [
+      "dom",
+      "es2017"
+    ]
+  },
+  "include": [
+    "src/**/*"
+   ],
+   "formatCodeOptions": {
+    "indentSize": 2,
+    "tabSize": 2,
+    "newLineCharacter": "\n"
+  }
+}

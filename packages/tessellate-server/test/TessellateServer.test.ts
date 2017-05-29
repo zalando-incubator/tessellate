@@ -1,6 +1,4 @@
-// @flow
-
-import supertest from 'supertest';
+import supertest = require('supertest');
 import TessellateServer from '../src/TessellateServer';
 import { Problem } from '../src/error';
 
@@ -9,8 +7,8 @@ describe('TessellateServer', () => {
 
   afterEach(async () => _server.stop());
 
-  async function startServer(server: TessellateServer): Promise<*> {
-    server = _server = await server.start(3001);
+  async function startServer(server: TessellateServer) {
+    server = _server = await server.start(3001, 3002);
     const appRequest = supertest.agent(server.appServer);
     const metricsRequest = supertest.agent(server.metricsServer);
     return { server, appRequest, metricsRequest };
@@ -18,7 +16,7 @@ describe('TessellateServer', () => {
 
   it('should support a simple route', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', observable => observable.mapTo('Hello, test!'));
+    server.router.get('/', ctx => ctx.body = 'Hello, test!');
 
     await appRequest.get('/').expect(200).expect('Hello, test!');
   });
@@ -39,7 +37,7 @@ describe('TessellateServer', () => {
     });
 
     const { appRequest } = await startServer(server);
-    server.router.get('/', observable => observable.mapTo('OK'));
+    server.router.get('/', ctx => ctx.body = 'OK');
 
     expect(middlewareWasCalled).toBe(false);
 
@@ -50,7 +48,7 @@ describe('TessellateServer', () => {
 
   it('should use additional middleware after the server was started', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', observable => observable.mapTo('OK'));
+    server.router.get('/', ctx => ctx.body = 'OK');
 
     let middlewareWasCalled = false;
 
@@ -73,7 +71,7 @@ describe('TessellateServer', () => {
 
   it('should use deferred middleware', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', observable => observable.mapTo('NOPE :('));
+    server.router.get('/', ctx => ctx.body = 'NOPE :(');
 
     server.use(async ctx => {
       ctx.body = 'YAY :)';
@@ -125,11 +123,10 @@ describe('TessellateServer', () => {
     const payload = { foo: 'bar' };
     let body;
 
-    server.router.post('/', observable =>
-      observable.map(ctx => {
-        body = ctx.request.body;
-        return 'OK';
-      })
+    server.router.post('/', ctx => {
+      body = ctx.request.body;
+      ctx.body = 'OK';
+    }
     );
 
     await appRequest.post('/').send(payload).expect('OK');

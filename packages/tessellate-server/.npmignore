@@ -1,11 +1,9 @@
 /src
 /test
 /coverage
-/flow-typed
 /example
-.babelrc
-.eslintignore
-.eslintrc
+tsconfig.json
+tslint.json
 .flowconfig
 .gitignore
 .npmignore

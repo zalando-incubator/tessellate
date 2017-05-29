@@ -1,40 +1,34 @@
-// @flow
-
-import Koa from 'koa';
-import http from 'http';
-import compose from 'koa-compose';
-import morgan from 'koa-morgan';
-import bodyParser from 'koa-bodyparser';
-import RxRouter from 'koa-router-rx';
+import Koa = require('koa');
+import http = require('http');
+import compose = require('koa-compose');
+import bodyParser = require('koa-bodyparser');
+import RxRouter = require('koa-router');
 import MetricsApp from './MetricsApp';
-import nconf from './nconf';
 import error from './error';
+import { logger } from './logger';
+import { Middleware } from 'koa';
+import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import type { Middleware } from 'koa';
-import type { Server, IncomingMessage, ServerResponse } from 'http';
-
-type Options = {
-  name?: string
-};
 type Listener = (req: IncomingMessage, res: ServerResponse) => void;
 
 function startServer(listener: Listener, port: number): Promise<Server> {
   return new Promise((resolve, reject) => {
     let server = http
       .createServer(listener)
-      .listen(port, undefined, undefined, e => (e ? reject(e) : resolve(server)));
+      .listen(port, undefined, undefined, (e: Error) => (e ? reject(e) : resolve(server)));
   });
 }
 
-function stopServer(server: ?Server): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (server) server.close(e => (e ? reject(e) : resolve()));
+function stopServer(server?: Server): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    if (server) server.close((e: Error) => (e ? reject(e) : resolve()));
     else reject(new Error('Server not running.'));
   });
 }
 
 function additionalMiddleware(middleware: Array<Middleware>): Middleware {
-  let composed, length;
+  let composed: Middleware;
+  let length: number;
   return (ctx, next) => {
     if (!composed || middleware.length !== length) {
       composed = compose(middleware);
@@ -48,23 +42,18 @@ export default class TessellateServer {
   app: Koa;
   metrics: Koa;
   router: RxRouter;
-  appServer: ?Server;
-  metricsServer: ?Server;
+  appServer?: Server;
+  metricsServer?: Server;
   middleware: Array<Middleware>;
 
-  constructor(options: Options = {}) {
+  constructor() {
     this.app = new Koa();
-    this.app.name = options.name;
     this.router = new RxRouter();
     this.metrics = new MetricsApp().app;
     this.middleware = [];
 
-    const morganFormat = String(nconf.get('MORGAN_FORMAT'));
-    const morganThresh = parseInt(nconf.get('MORGAN_THRESHOLD'));
-    const morganSkip = (req: IncomingMessage, res: ServerResponse) => res.statusCode < morganThresh;
-
     this.app
-      .use(morgan(morganFormat, { skip: morganSkip }))
+      .use(logger())
       .use(error())
       .use(bodyParser({ enableTypes: ['json'] }))
       .use(additionalMiddleware(this.middleware))
@@ -84,16 +73,17 @@ export default class TessellateServer {
     return this;
   }
 
-  async start(port: number | string, metricsPort?: number | string): Promise<TessellateServer> {
-    if (!port) throw new Error('No port specified!');
+  async start(port: number, metricsPort?: number): Promise<TessellateServer> {
+    // Start the main server.
+    const servers = [startServer(this.app.callback(), port)];
 
-    const portNumber = parseInt(port);
-    const metricsPortNumber = parseInt(metricsPort);
+    // Only start the metrics server if a metrics port is provided.
+    if (metricsPort) {
+      servers.push(startServer(this.metrics.callback(), metricsPort));
+    }
 
-    const [appServer, metricsServer] = await Promise.all([
-      startServer(this.app.callback(), portNumber),
-      startServer(this.metrics.callback(), metricsPortNumber || portNumber + 1)
-    ]);
+    // Wait for all the servers to start...
+    const [appServer, metricsServer] = await Promise.all(servers);
 
     this.appServer = appServer;
     this.metricsServer = metricsServer;

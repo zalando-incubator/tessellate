@@ -1,11 +1,9 @@
-// @flow
-
-import type { Middleware } from 'koa';
+import { Middleware } from 'koa';
 
 export class Problem extends Error {
-  title: string;
-  detail: ?string;
-  status: ?number;
+  readonly title: string;
+  readonly detail?: string;
+  readonly status?: number;
 
   constructor(args: { title: string, detail?: string, status?: number }) {
     super(args.title);
@@ -14,8 +12,16 @@ export class Problem extends Error {
     this.status = args.status;
   }
 
+  toJSON(): object {
+    return Object.freeze({
+      title: this.title,
+      detail: this.detail,
+      status: this.status
+    })
+  }
+
   toString(): string {
-    return `${this.status || ''} ${this.title} ${this.detail || ''}`.trim();
+    return JSON.stringify(this.toJSON());
   }
 }
 
@@ -23,10 +29,10 @@ export default function middleware(): Middleware {
   return async (ctx, next) =>
     next().catch(err => {
       ctx.status = err.status || err.code || 500;
-      ctx.body = {
+      ctx.body = new Problem({
         title: err.title || err.name,
         detail: err.detail || err.message,
         status: ctx.status
-      };
+      });
     });
 }

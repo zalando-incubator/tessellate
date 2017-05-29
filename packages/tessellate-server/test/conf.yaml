@@ -1,5 +1,5 @@
 # Example config file
-FOO: bar
-BAR:
+foo: bar
+bar:
   what: is
   code: 42
