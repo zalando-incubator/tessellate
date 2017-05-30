@@ -94,7 +94,7 @@ export class Conf {
   /**
    * Use environment variables as a source. If a prefix is configured,
    * it will be prepended to configuration value names during lookup.
-   * 
+   *
    * When looking up environment variables, all names will be transformed
    * into CONSTANT_CASE. This means that environment variables must be
    * declared in CONSTANT_CASE.

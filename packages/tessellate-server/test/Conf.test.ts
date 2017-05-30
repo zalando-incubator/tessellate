@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import path = require('path');
 import { Conf } from '../src/conf';
 

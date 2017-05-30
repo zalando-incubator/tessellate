@@ -84,3 +84,7 @@ server.router.get('/teapot', ctx => ctx.throw(
 
 server.start(3001);
 ```
+
+## Documentation
+
+[Read the TypeDocs](https://cdn.rawgit.com/zalando-incubator/tessellate/88-consider-typescript/packages/tessellate-server/doc/index.html).

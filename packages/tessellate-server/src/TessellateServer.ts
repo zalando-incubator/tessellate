@@ -30,7 +30,7 @@ function stopServer(server?: Server): Promise<void> {
  * Care a middleware that lazily composes middlewares from a mutable array.
  * This way we can inject additional middlewares into the middleware stack
  * even after the stack was already set up.
- * 
+ *
  * @param middleware List of middlewares to compose.
  */
 function additionalMiddleware(middleware: Array<Middleware>): Middleware {
@@ -51,8 +51,8 @@ function additionalMiddleware(middleware: Array<Middleware>): Middleware {
 export default class TessellateServer {
   private readonly app: Koa;
   private readonly metrics: Koa;
-  private appServer?: Server;
-  private metricsServer?: Server;
+  appServer?: Server;
+  metricsServer?: Server;
   private readonly middleware: Array<Middleware>;
 
   /**

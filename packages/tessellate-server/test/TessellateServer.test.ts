@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import supertest = require('supertest');
 import TessellateServer from '../src/TessellateServer';
 import { Problem } from '../src/error';

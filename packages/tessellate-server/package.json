@@ -38,6 +38,7 @@
     "mz": "2.6.0",
     "prom-client": "9.0.0",
     "prometheus-gc-stats": "0.3.4",
+    "request-promise-native": "1.0.4",
     "source-map-support": "0.4.15",
     "winston": "2.3.1"
   },
@@ -50,6 +51,7 @@
     "@types/koa-compose": "3.2.2",
     "@types/koa-router": "7.0.22",
     "@types/mz": "0.0.31",
+    "@types/request-promise-native": "1.0.5",
     "@types/supertest": "2.0.0",
     "@types/winston": "2.3.2",
     "jest": "20.0.1",
