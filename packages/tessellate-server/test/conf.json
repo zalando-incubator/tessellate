@@ -1,0 +1,13 @@
+{
+  "array": [
+    "one",
+    "two"
+  ],
+  "object": {
+    "whatIsCode": 42,
+    "tautology": true
+  },
+  "example": "value",
+  "number": 42,
+  "boolean": true
+}

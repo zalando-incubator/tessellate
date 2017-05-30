@@ -5,6 +5,7 @@
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "publishConfig": {
     "tag": "next"
   },
@@ -21,10 +22,9 @@
     "dist": "npm run clean && npm run build",
     "start": "ts-node example/server.ts",
     "lint": "tslint --type-check --project tsconfig.json",
-    "test": "npm run lint && NODE_ENV=test jest --coverage",
-    "flow-gen-files": "flow-copy-source -v src dist",
-    "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
-    "prepublishOnly": "npm run clean && npm run dist && npm run flow-gen-files",
+    "test": "npm run lint && TESSELLATE_LOG_LEVEL=error jest --coverage",
+    "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
+    "prepublishOnly": "run dist",
     "upgrade-dependencies": "ncu -u"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "mz": "2.6.0",
     "prom-client": "9.0.0",
     "prometheus-gc-stats": "0.3.4",
+    "source-map-support": "0.4.15",
     "winston": "2.3.1"
   },
   "devDependencies": {
@@ -56,6 +57,7 @@
     "rimraf": "2.6.1",
     "ts-jest": "20.0.4",
     "ts-node": "3.0.4",
+    "typedoc": "0.7.1",
     "typescript": "2.3.3"
   },
   "jest": {
@@ -71,7 +73,8 @@
     "coverageReporters": [
       "json",
       "lcov",
-      "text"
+      "text",
+      "html"
     ]
   }
 }

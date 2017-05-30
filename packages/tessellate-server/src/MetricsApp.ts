@@ -3,9 +3,16 @@ import Router = require('koa-router');
 import prometheus = require('prom-client');
 import prometheusGCStats = require('prometheus-gc-stats');
 
+/**
+ * A separate koa application for serving Prometheus metrics.
+ */
 export default class MetricsApp {
-  app: Koa;
-  router: Router;
+  private readonly router: Router;
+
+  /**
+   * Koa application instance.
+   */
+  readonly app: Koa;
 
   constructor() {
     this.app = new Koa();

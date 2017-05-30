@@ -1,5 +1,10 @@
 # Example config file
-foo: bar
-bar:
-  what: is
-  code: 42
+array:
+  - one
+  - two
+object:
+  whatIsCode: 42
+  tautology: true
+example: value
+number: 42
+boolean: true

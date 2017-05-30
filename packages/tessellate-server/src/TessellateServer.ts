@@ -2,7 +2,7 @@ import Koa = require('koa');
 import http = require('http');
 import compose = require('koa-compose');
 import bodyParser = require('koa-bodyparser');
-import RxRouter = require('koa-router');
+import KoaRouter = require('koa-router');
 import MetricsApp from './MetricsApp';
 import error from './error';
 import { logger } from './logger';
@@ -26,6 +26,13 @@ function stopServer(server?: Server): Promise<void> {
   });
 }
 
+/**
+ * Care a middleware that lazily composes middlewares from a mutable array.
+ * This way we can inject additional middlewares into the middleware stack
+ * even after the stack was already set up.
+ * 
+ * @param middleware List of middlewares to compose.
+ */
 function additionalMiddleware(middleware: Array<Middleware>): Middleware {
   let composed: Middleware;
   let length: number;
@@ -38,17 +45,24 @@ function additionalMiddleware(middleware: Array<Middleware>): Middleware {
   };
 }
 
+/**
+ * Manages koa servers for the application and optional metrics.
+ */
 export default class TessellateServer {
-  app: Koa;
-  metrics: Koa;
-  router: RxRouter;
-  appServer?: Server;
-  metricsServer?: Server;
-  middleware: Array<Middleware>;
+  private readonly app: Koa;
+  private readonly metrics: Koa;
+  private appServer?: Server;
+  private metricsServer?: Server;
+  private readonly middleware: Array<Middleware>;
+
+  /**
+   * [koa-router](https://github.com/alexmingoia/koa-router/tree/master) instance.
+   */
+  readonly router: KoaRouter;
 
   constructor() {
     this.app = new Koa();
-    this.router = new RxRouter();
+    this.router = new KoaRouter();
     this.metrics = new MetricsApp().app;
     this.middleware = [];
 
@@ -61,6 +75,13 @@ export default class TessellateServer {
       .use(this.router.allowedMethods());
   }
 
+  /**
+   * Add koa middleware. This middleware will run after the internal
+   * middlewares for logging, error handling and body-parsing.
+   * @param middleware Koa middleware to use.
+   * @param defer Run the middleware after all other middleware.
+   * @return This TessellateServer instance.
+   */
   use(middleware: Middleware, defer: boolean = false): TessellateServer {
     if (defer) {
       this.middleware.push(async (ctx, next) => {
@@ -73,6 +94,13 @@ export default class TessellateServer {
     return this;
   }
 
+  /**
+   * Start the koa application server. If metricsPort is provided,
+   * an optional Prometheus metrics server will be started as well.
+   * @param port Required port for the application server.
+   * @param metricsPort Optional port for the metrics server.
+   * @return This TessellateServer instance.
+   */
   async start(port: number, metricsPort?: number): Promise<TessellateServer> {
     // Start the main server.
     const servers = [startServer(this.app.callback(), port)];
@@ -91,7 +119,10 @@ export default class TessellateServer {
     return this;
   }
 
-  stop(): Promise<any> {
-    return Promise.all([stopServer(this.appServer), stopServer(this.metricsServer)]);
+  /**
+   * Stop all running servers.
+   */
+  async stop(): Promise<void> {
+    await Promise.all([stopServer(this.appServer), stopServer(this.metricsServer)]);
   }
 }

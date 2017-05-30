@@ -1,5 +1,8 @@
 import { Middleware } from 'koa';
 
+/**
+ * Error class for web service exceptions.
+ */
 export class Problem extends Error {
   readonly title: string;
   readonly detail?: string;
@@ -25,8 +28,11 @@ export class Problem extends Error {
   }
 }
 
+/**
+ * Create an error handling middleware.
+ */
 export default function middleware(): Middleware {
-  return async (ctx, next) =>
+  return (ctx, next) =>
     next().catch(err => {
       ctx.status = err.status || err.code || 500;
       ctx.body = new Problem({

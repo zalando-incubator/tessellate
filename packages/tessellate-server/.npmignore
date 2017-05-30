@@ -2,6 +2,8 @@
 /test
 /coverage
 /example
+/typings
+/doc
 tsconfig.json
 tslint.json
 .flowconfig
