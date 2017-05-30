@@ -68,6 +68,9 @@ const defaultScopes = {
   default: ['uid']
 };
 
+/**
+ * Retrieves OAuth2 tokens from a backend using the password credentials flow.
+ */
 export default class PasswordCredentialsFlowProvider implements TokenProvider {
   private readonly accessTokenUri: string;
   private readonly userCredentialsProvider: UserCredentialsProvider;

@@ -17,6 +17,9 @@ function parseTokens(tokenString: string): { [key: string]: string } {
     }, {});
 }
 
+/**
+ * Provides tokens from an in-memory store.
+ */
 export class LocalProvider implements TokenProvider {
   private readonly oauth2AccessTokens: { [key: string]: string };
 

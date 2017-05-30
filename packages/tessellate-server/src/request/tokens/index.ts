@@ -1,10 +1,11 @@
 import TokenProvider from './TokenProvider';
+import NullProvider from './NullProvider';
 import LocalProvider from './LocalProvider';
 import PasswordCredentialsFlowProvider from './PasswordCredentialsFlowProvider';
 import conf from '../../Conf';
 import { log } from '../../logger';
 
-function selectProvider(): TokenProvider | void {
+function selectProvider(): TokenProvider {
   const oauth2AccessTokens = conf.getObject('oauth2AccessTokens') || process.env['OAUTH2_ACCESS_TOKENS'];
 
   if (!!oauth2AccessTokens) {
@@ -26,6 +27,9 @@ function selectProvider(): TokenProvider | void {
       credentialsDir
     });
   }
+
+  log.info('Using token NullProvider.');
+  return new NullProvider();
 }
 
 export default selectProvider();
