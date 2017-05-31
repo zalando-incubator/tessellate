@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;error&quot; | tessellate-server</title>
+	<title>&quot;request/AuthorizationProvider&quot; | tessellate-server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="_error_.html">&quot;error&quot;</a>
+					<a href="_request_authorizationprovider_.html">&quot;request/AuthorizationProvider&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;error&quot;</h1>
+			<h1>External module &quot;request/AuthorizationProvider&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,15 +71,16 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_error_.problem.html" class="tsd-kind-icon">Problem</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-kind-icon">Authorization<wbr>Provider</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_error_.html#middleware" class="tsd-kind-icon">middleware</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_request_authorizationprovider_.html#basicauthorizationprovider" class="tsd-kind-icon">basic<wbr>Authorization<wbr>Provider</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_request_authorizationprovider_.html#oauth2authorizationprovider" class="tsd-kind-icon">oauth2<wbr>Authorization<wbr>Provider</a></li>
 							</ul>
 						</section>
 					</div>
@@ -88,24 +89,74 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="middleware" class="tsd-anchor"></a>
-					<h3>middleware</h3>
+					<a name="basicauthorizationprovider" class="tsd-anchor"></a>
+					<h3>basic<wbr>Authorization<wbr>Provider</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">middleware<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Middleware</span></li>
+						<li class="tsd-signature tsd-kind-icon">basic<wbr>Authorization<wbr>Provider<span class="tsd-signature-symbol">(</span>credentials<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-signature-type">AuthorizationProvider</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/error.ts#L34">error.ts:34</a></li>
+									<li>Defined in request/AuthorizationProvider.ts:16</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create an error handling middleware.</p>
+									<p>Create a basic authorization provider.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Middleware</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>credentials: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Username and password.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>pass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>user<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-signature-type">AuthorizationProvider</a></h4>
+							<p>A basic authorization provider.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="oauth2authorizationprovider" class="tsd-anchor"></a>
+					<h3>oauth2<wbr>Authorization<wbr>Provider</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">oauth2<wbr>Authorization<wbr>Provider<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-signature-type">TokenSupplier</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-signature-type">AuthorizationProvider</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in request/AuthorizationProvider.ts:28</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create an OAuth2 authorization provider.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>supplier: <a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-signature-type">TokenSupplier</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A token supplier.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-signature-type">AuthorizationProvider</a></h4>
+							<p>An OAuth2 authorization provider.</p>
 						</li>
 					</ul>
 				</section>
@@ -126,7 +177,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_tessellateserver_.html">"<wbr>Tessellate<wbr>Server"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="_error_.html">"error"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -135,7 +186,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_logger_.html">"logger"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="_request_authorizationprovider_.html">"request/<wbr>Authorization<wbr>Provider"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -157,11 +208,14 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_error_.problem.html" class="tsd-kind-icon">Problem</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_request_authorizationprovider_.authorizationprovider.html" class="tsd-kind-icon">Authorization<wbr>Provider</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_error_.html#middleware" class="tsd-kind-icon">middleware</a>
+						<a href="_request_authorizationprovider_.html#basicauthorizationprovider" class="tsd-kind-icon">basic<wbr>Authorization<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_request_authorizationprovider_.html#oauth2authorizationprovider" class="tsd-kind-icon">oauth2<wbr>Authorization<wbr>Provider</a>
 					</li>
 				</ul>
 			</nav>

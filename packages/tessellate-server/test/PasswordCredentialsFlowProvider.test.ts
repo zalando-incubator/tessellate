@@ -41,6 +41,8 @@ describe('PasswordCredentialsFlowProvider', () => {
       credentialsDir: '/tmp/test'
     });
 
+    provider.addToken('default', ['read', 'write']);
+
     const tokens = await provider.getTokens();
 
     expect(tokens['default']).toBe('token');
@@ -53,7 +55,7 @@ describe('PasswordCredentialsFlowProvider', () => {
         grant_type: 'password',
         username: 'user',
         pasword: 'pass',
-        scope: 'uid'
+        scope: 'read write'
       },
       auth: {
         user: 'id',
@@ -81,6 +83,8 @@ describe('PasswordCredentialsFlowProvider', () => {
       accessTokenUri,
       credentialsDir
     });
+
+    provider.addToken('default', ['uid']);
 
     const tokens = await provider.getTokens();
     expect(typeof tokens['default']).toBe('string');

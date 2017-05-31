@@ -1,4 +1,4 @@
-import TokenProvider from './TokenProvider';
+import { TokenProvider } from './';
 
 function parseTokens(tokenString: string): { [key: string]: string } {
   if (!/^\w+=\S+/.test(tokenString)) {
@@ -20,7 +20,7 @@ function parseTokens(tokenString: string): { [key: string]: string } {
 /**
  * Provides tokens from an in-memory store.
  */
-export class LocalProvider implements TokenProvider {
+export default class LocalProvider implements TokenProvider {
   private readonly oauth2AccessTokens: { [key: string]: string };
 
   constructor(oauth2AccessTokens: string | { [key: string]: string }) {
@@ -33,9 +33,11 @@ export class LocalProvider implements TokenProvider {
     return Promise.resolve(Object.assign({}, this.oauth2AccessTokens));
   }
 
-  getToken(key: string): Promise<string | void> {
-    return Promise.resolve(this.oauth2AccessTokens[key]);
+  getToken(key: string): Promise<string> {
+    return Promise.resolve(this.oauth2AccessTokens[key] || '');
+  }
+
+  getTokenSupplier(name: string): TokenProvider.TokenSupplier {
+    return () => this.getToken(name);
   }
 }
-
-export default LocalProvider;

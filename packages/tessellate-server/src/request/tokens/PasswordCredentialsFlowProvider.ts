@@ -1,7 +1,7 @@
 import path = require('path');
 import fs = require('mz/fs');
 import request = require('request-promise-native');
-import TokenProvider from './TokenProvider';
+import { TokenProvider } from './';
 
 export type UserCredentialsProvider = () => UserCredentials | Promise<UserCredentials>;
 export type ClientCredentialsProvider = () => ClientCredentials | Promise<ClientCredentials>;
@@ -10,7 +10,6 @@ export type Options = {
   accessTokenUri: string;
   tokenInfoUri?: string;
   realm?: string;
-  tokenScopes?: { [name: string]: string[] };
   credentialsDir?: string;
   userCredentialsProvider?: UserCredentialsProvider;
   clientCredentialsProvider?: ClientCredentialsProvider;
@@ -64,12 +63,8 @@ function defaultTokenResponseParser(response: any): string {
   return '';
 }
 
-const defaultScopes = {
-  default: ['uid']
-};
-
 /**
- * Retrieves OAuth2 tokens from a backend using the password credentials flow.
+ * Retrieves OAuth2 tokens from a backend using the resource owner password credentials flow.
  */
 export default class PasswordCredentialsFlowProvider implements TokenProvider {
   private readonly accessTokenUri: string;
@@ -98,12 +93,17 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
     this.realm = options.realm || '/services';
     this.accessTokenUri = options.accessTokenUri;
     this.oauth2AccessTokens = {};
-    this.tokenScopes = Object.assign({}, options.tokenScopes || defaultScopes);
     this.debounceMilliseconds = options.debounceMilliseconds || 10000;
     this.tokenResponseParser = options.tokenResponseParser || defaultTokenResponseParser;
+    this.tokenScopes = {};
     this.lastRefresh = 0;
   }
 
+  /**
+   * Request a new token for the given list of scopes.
+   * @param scopes List of scopes to request.
+   * @return Value of the token.
+   */
   private async requestToken(scopes: string[]): Promise<string> {
     const clientCredentials = await this.clientCredentialsProvider();
     const userCredentials = await this.userCredentialsProvider();
@@ -114,7 +114,7 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
         grant_type: 'password',
         username: userCredentials.username,
         pasword: userCredentials.password,
-        scope: scopes.join('')
+        scope: scopes.join(' ')
       },
       auth: {
         user: clientCredentials.id,
@@ -126,20 +126,46 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
     return this.tokenResponseParser(response);
   }
 
-  private async refreshTokensIfNecessary() {
+  /**
+   * Check if enough time has elapsed since the last refresh,
+   * then request a new token for each list of scopes.
+   */
+  private async refreshTokensIfNecessary(): Promise<void> {
     const now = new Date().getTime();
     const dt = now - this.lastRefresh;
     if (dt > this.debounceMilliseconds) {
       this.lastRefresh = now;
-      const tokenNames: string[] = Object.keys(this.tokenScopes);
-      const tokens: string[] = await Promise.all(
+      const tokenNames = Object.keys(this.tokenScopes);
+      // Request all named tokens in order by their scopes.
+      const tokens = await Promise.all(
         tokenNames.map(tokenName => this.requestToken(this.tokenScopes[tokenName]))
       );
-
+      // Assign the updated token values in order by name.
       for (let i = 0; i < tokens.length; i += 1) {
         this.oauth2AccessTokens[tokenNames[i]] = tokens[i];
       }
     }
+  }
+
+  /**
+   * Add a new token to manage.
+   * @param name Name of the token to add.
+   * @param scopes Requested scopes of the token.
+   * @return This TokenProvider instance.
+   */
+  addToken(name: string, scopes: string[]): PasswordCredentialsFlowProvider {
+    this.tokenScopes[name] = scopes;
+    return this;
+  }
+
+  /**
+   * Add multiple tokens to manage.
+   * @param tokens Lists of requested scopes by token name.
+   * @return This TokenProvider instance.
+   */
+  addTokens(tokens: { [name: string]: string[] }): PasswordCredentialsFlowProvider {
+    Object.assign(this.tokenScopes, tokens);
+    return this;
   }
 
   async getTokens(): Promise<{ [key: string]: string }> {
@@ -147,8 +173,12 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
     return Object.assign({}, this.oauth2AccessTokens);
   }
 
-  async getToken(key: string): Promise<string | void> {
+  async getToken(key: string): Promise<string> {
     await this.refreshTokensIfNecessary();
-    return this.oauth2AccessTokens[key];
+    return this.oauth2AccessTokens[key] || '';
+  }
+
+  getTokenSupplier(name: string): TokenProvider.TokenSupplier {
+    return () => this.getToken(name);
   }
 }

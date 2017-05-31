@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;error&quot; | tessellate-server</title>
+	<title>TokenProvider | tessellate-server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,56 +56,177 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="_error_.html">&quot;error&quot;</a>
+					<a href="_request_tokens_index_.html">&quot;request/tokens/index&quot;</a>
+				</li>
+				<li>
+					<a href="_request_tokens_index_.tokenprovider.html">TokenProvider</a>
 				</li>
 			</ul>
-			<h1>External module &quot;error&quot;</h1>
+			<h1>Module TokenProvider</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Provides authorization tokens.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">TokenProvider</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_request_tokens_localprovider_.localprovider.html" class="tsd-signature-type">LocalProvider</a></li>
+					<li><a href="../classes/_request_tokens_nullprovider_.nullprovider.html" class="tsd-signature-type">NullProvider</a></li>
+					<li><a href="../classes/_request_tokens_passwordcredentialsflowprovider_.passwordcredentialsflowprovider.html" class="tsd-signature-type">PasswordCredentialsFlowProvider</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_error_.problem.html" class="tsd-kind-icon">Problem</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-kind-icon">Token<wbr>Supplier</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_error_.html#middleware" class="tsd-kind-icon">middleware</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-module"><a href="_request_tokens_index_.tokenprovider.html#gettoken" class="tsd-kind-icon">get<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-module"><a href="_request_tokens_index_.tokenprovider.html#gettokensupplier" class="tsd-kind-icon">get<wbr>Token<wbr>Supplier</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-module"><a href="_request_tokens_index_.tokenprovider.html#gettokens" class="tsd-kind-icon">get<wbr>Tokens</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="middleware" class="tsd-anchor"></a>
-					<h3>middleware</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">middleware<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Middleware</span></li>
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="tokensupplier" class="tsd-anchor"></a>
+					<h3>Token<wbr>Supplier</h3>
+					<div class="tsd-signature tsd-kind-icon">Token<wbr>Supplier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/request/tokens/index.ts#L33">request/tokens/index.ts:33</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-module">
+					<a name="gettoken" class="tsd-anchor"></a>
+					<h3>get<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Token<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/error.ts#L34">error.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/request/tokens/index.ts#L22">request/tokens/index.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create an error handling middleware.</p>
+									<p>Get a single token by name.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Middleware</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Name of the token.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Value of the token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-module">
+					<a name="gettokensupplier" class="tsd-anchor"></a>
+					<h3>get<wbr>Token<wbr>Supplier</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Token<wbr>Supplier<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-signature-type">TokenSupplier</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/request/tokens/index.ts#L29">request/tokens/index.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get a supplier function for a given token name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Name of the token.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-signature-type">TokenSupplier</a></h4>
+							<p>Function that returns a valid token value.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-module">
+					<a name="gettokens" class="tsd-anchor"></a>
+					<h3>get<wbr>Tokens</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Tokens<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/request/tokens/index.ts#L15">request/tokens/index.ts:15</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get a collection of all token values by name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Collection of all tokens by name.</p>
 						</li>
 					</ul>
 				</section>
@@ -126,7 +247,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_tessellateserver_.html">"<wbr>Tessellate<wbr>Server"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="_error_.html">"error"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -150,18 +271,29 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_request_tokens_passwordcredentialsflowprovider_.html">"request/tokens/<wbr>Password<wbr>Credentials<wbr>Flow<wbr>Provider"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="_request_tokens_index_.html">"request/tokens/index"</a>
+						<ul>
+							<li class="current tsd-kind-module tsd-parent-kind-external-module">
+								<a href="_request_tokens_index_.tokenprovider.html">Token<wbr>Provider</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_error_.problem.html" class="tsd-kind-icon">Problem</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="_request_tokens_index_.tokenprovider.html#tokensupplier" class="tsd-kind-icon">Token<wbr>Supplier</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_error_.html#middleware" class="tsd-kind-icon">middleware</a>
+					<li class=" tsd-kind-method tsd-parent-kind-module">
+						<a href="_request_tokens_index_.tokenprovider.html#gettoken" class="tsd-kind-icon">get<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-method tsd-parent-kind-module">
+						<a href="_request_tokens_index_.tokenprovider.html#gettokensupplier" class="tsd-kind-icon">get<wbr>Token<wbr>Supplier</a>
+					</li>
+					<li class=" tsd-kind-method tsd-parent-kind-module">
+						<a href="_request_tokens_index_.tokenprovider.html#gettokens" class="tsd-kind-icon">get<wbr>Tokens</a>
 					</li>
 				</ul>
 			</nav>

@@ -1,4 +1,4 @@
-import { TessellateServer, Problem, log } from '../src'
+import { TessellateServer, Problem, log, request } from '../src'
 
 const server = new TessellateServer();
 
@@ -21,6 +21,18 @@ server.router.get('/teapot', ctx => {
 server.router.get('/error', ctx => {
   log.error("An error occurred!");
   ctx.throw(new Error('An error.'));
+});
+
+server.router.get('/zalando', async ctx => {
+  const response = await request({
+    method: 'GET',
+    uri: 'https://api.github.com/users/zalando',
+    json: true,
+    headers: {
+      'User-Agent': 'tessellate'
+    }
+  });
+  ctx.body = response.body;
 });
 
 server.start(3001, 3002);
