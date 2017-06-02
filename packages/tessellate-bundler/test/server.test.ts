@@ -16,7 +16,7 @@ describe('server', () => {
   let startedServer: TessellateServer;
 
   beforeEach(async () => {
-    conf.set('PUBLISH_TARGET', 'file://test/fixtures');
+    conf.set('publishTarget', 'file://test/fixtures');
   });
 
   afterEach(async () => startedServer.stop());

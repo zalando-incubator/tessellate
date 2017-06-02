@@ -32,7 +32,7 @@ const mkdirp = thenify(require('mkdirp'));
 
 export async function publish(args: ExportArgs): Promise<PublishResult> {
   log.debug('Publish %s/%s', args.domain, args.name);
-  const target = url.parse(conf.getString('PUBLISH_TARGET'));
+  const target = url.parse(conf.getString('publishTarget', ''));
 
   if (target.protocol === 'file:') {
     let targetPath;

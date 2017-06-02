@@ -8,7 +8,7 @@ import { conf, log, TessellateServer } from 'tessellate-server';
 import bundleEpic from './epics/bundles';
 
 function getFileSystemPublishTarget(): string | null {
-  const target = url.parse(conf.getString('PUBLISH_TARGET'));
+  const target = url.parse(conf.getString('publishTarget', ''));
   if (target.protocol === 'file:') {
     const { hostname, pathname } = target;
     if (hostname || pathname) {
@@ -32,13 +32,17 @@ export function init(): TessellateServer {
   }
 
   server.router.get('/health', ctx => ctx.body = 'OK');
-  server.router.post('/bundles/:domain/:name', bundleEpic);
+  server.router.post('/bundles/:domain/:name', async ctx => {
+    const { body, status } = await bundleEpic(ctx);
+    ctx.status = status;
+    ctx.body = body;
+  });
 
   return server;
 }
 
 export async function start(
-  port = conf.getNumber('APP_PORT')
+  port = conf.getNumber('appPort', 3001)
 ): Promise<TessellateServer> {
   const server = await init().start(port, port + 1);
   log.info('listening on port %d', port);

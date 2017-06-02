@@ -11,11 +11,11 @@ type CreatedBundle = { domain: string; name: string; bundle: TessellateBundle; }
 export type ResponseBody = { js: string; css?: string; };
 export type CreatedResponse = { body: ResponseBody; status: number; };
 
-function parseOptions() {
-  const packages = conf.getObject('NPM_MODULES');
-  const externalsList = conf.getObject('NPM_EXTERNALS') as string[];
+function parseOptions(): bundleService.Options {
+  const packages = conf.getObject('npmModules', []) as string[];
+  const externalsList = conf.getObject('npmExternals', []) as string[];
   const externals = externalsList.reduce((exts: object, ext) => Object.assign(exts, { [ext]: ext }), {});
-  const production = conf.get('NODE_ENV') === 'production';
+  const production = conf.getString('nodeEnv') === 'production';
 
   return {
     cssSupport: true,
@@ -55,7 +55,6 @@ async function createReponse(responseBody: Promise<ResponseBody>): Promise<Creat
   };
 }
 
-// export default util.foldEpics(parseRequest, createBundle, exportBundle, createReponse);
 export default function(ctx: Context): Promise<CreatedResponse> {
   return createReponse(exportBundle(createBundle(parseRequest(ctx))));
 }

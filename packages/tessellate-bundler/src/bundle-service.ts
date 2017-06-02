@@ -77,7 +77,7 @@ export async function make(source: string, options: Options = {}): Promise<Tesse
   const [bundle] = await webpackSandbox.run(source);
 
   const files = Object.keys(bundle);
-  log.info('Made bundle %o', files);
+  log.info('Made bundle %j', files);
   // TODO: handle case of multiple files
   const jsBundle = files.filter(b => b.endsWith('.js'))[0];
   const cssBundle = files.filter(b => b.endsWith('.css'))[0];
