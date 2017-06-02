@@ -1,32 +1,31 @@
-/* Server API integration tests. */
-/* global jasmine */
+/// <reference types="jest" />
 
 jest.mock('../src/content-service', () => ({
   publish: jest.fn()
 }));
 
-import path from 'path';
-import fs from 'mz/fs';
-import supertest from 'supertest';
-import nconf from '../src/nconf';
+import path = require('path');
+import fs = require('mz/fs');
+import supertest = require('supertest');
+import { conf, TessellateServer } from 'tessellate-server';
 import * as server from '../src/server';
 
 describe('server', () => {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-  let _server;
+  let startedServer: TessellateServer;
 
   beforeEach(async () => {
-    nconf.set('PUBLISH_TARGET', 'file://test/fixtures');
+    conf.set('PUBLISH_TARGET', 'file://test/fixtures');
   });
 
-  afterEach(async () => _server.stop());
+  afterEach(async () => startedServer.stop());
 
   async function startServer() {
-    server = _server = await server.start(3001);
-    const appRequest = supertest.agent(server.appServer);
-    const metricsRequest = supertest.agent(server.metricsServer);
-    return { server, appRequest, metricsRequest };
+    startedServer = await server.start(3001);
+    const appRequest = supertest.agent(startedServer.appServer);
+    const metricsRequest = supertest.agent(startedServer.metricsServer);
+    return { server: startedServer, appRequest, metricsRequest };
   }
 
   describe('/health', () => {
@@ -51,7 +50,7 @@ describe('server', () => {
 
     it('build a bundle from a JSON payload', async () => {
       const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'));
-      const element = JSON.parse(json);
+      const element = JSON.parse(json.toString());
       const { appRequest } = await startServer();
 
       await appRequest

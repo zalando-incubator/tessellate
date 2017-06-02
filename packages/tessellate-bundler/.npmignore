@@ -2,10 +2,9 @@
 /test
 /coverage
 /bundles
-/flow-typed
-.babelrc
-.eslintignore
-.eslintrc
-.flowconfig
+/typings
+/doc
+tsconfig.json
+tslint.json
 .gitignore
 .npmignore

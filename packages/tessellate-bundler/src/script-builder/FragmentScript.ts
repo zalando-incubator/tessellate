@@ -1,13 +1,11 @@
-// @flow
+export type FragmentArgs = {
+  reactElement: string;
+  rootID: string;
+  props: { [key: string]: any };
+  imports: { [key: string]: string };
+};
 
-type FragmentArgs = {|
-  reactElement: string,
-  rootID: string,
-  props: { [key: string]: any },
-  imports: { [key: string]: string }
-|};
-
-function importScript(module: string, imported: Array<string> | string): string {
+function importScript(module: string, imported: string[] | string): string {
   if (Array.isArray(imported)) {
     return `import { ${imported.join(', ')} } from '${module}'`;
   } else {

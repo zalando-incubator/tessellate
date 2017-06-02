@@ -1,9 +1,9 @@
-// @flow
+/// <reference types="jest" />
 
 jest.mock('uuid');
 
-import fs from 'mz/fs';
-import path from 'path';
+import fs = require('mz/fs');
+import path = require('path');
 import * as scriptBuilder from '../src/script-builder';
 
 describe('script-builder', () => {
@@ -12,7 +12,7 @@ describe('script-builder', () => {
 
   it('should build a fragment script string from a content structure', async () => {
     const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'));
-    const element = JSON.parse(json);
+    const element = JSON.parse(json.toString());
     const result = scriptBuilder.build(element);
     expect(typeof result).toBe('string');
     expect(result).toMatchSnapshot();

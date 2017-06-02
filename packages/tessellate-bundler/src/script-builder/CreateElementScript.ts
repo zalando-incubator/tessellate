@@ -1,10 +1,8 @@
-// @flow
-
-type CreateElementArgs = {|
+export type CreateElementArgs = {
   className: string,
   propsId: string,
-  children: Array<string>
-|};
+  children: string[]
+};
 
 export default function createElementScript(args: CreateElementArgs): string {
   return `
