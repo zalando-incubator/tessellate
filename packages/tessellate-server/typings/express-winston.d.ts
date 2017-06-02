@@ -35,11 +35,11 @@ declare module 'express-winston' {
     }
 
     interface NextFunction {
-        (err?: any): void;
+      (err?: any): void;
     }
 
     interface RequestHandler {
-        (req: IncomingMessage, res: ServerResponse, next: NextFunction): any;
+      (req: IncomingMessage, res: ServerResponse, next: NextFunction): any;
     }
 
     export interface ExpressWinston {

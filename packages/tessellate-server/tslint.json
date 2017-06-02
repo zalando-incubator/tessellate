@@ -5,8 +5,14 @@
   ],
   "jsRules": {},
   "rules": {
-    "trailing-comma": false,
-    "quotemark": "single",
+    "no-reference": false,
+    "trailing-comma": [
+      false
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
     "no-var-requires": false,
     "object-literal-sort-keys": false,
     "interface-over-type-literal": false,

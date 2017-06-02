@@ -63,7 +63,7 @@
     "supertest": "3.0.0",
     "ts-jest": "20.0.5",
     "ts-node": "3.0.4",
-    "tslint": "5.4.0",
+    "tslint": "5.4.2",
     "typedoc": "0.7.1",
     "typescript": "2.3.4"
   },

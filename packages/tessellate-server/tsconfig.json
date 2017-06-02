@@ -18,8 +18,7 @@
     ]
   },
   "include": [
-    "src/**/*",
-    "typings/**/*"
+    "src/**/*"
    ],
    "formatCodeOptions": {
     "indentSize": 2,
