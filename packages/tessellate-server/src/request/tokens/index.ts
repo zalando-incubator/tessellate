@@ -2,7 +2,7 @@ import conf from '../../Conf';
 import { log } from '../../logger';
 import LocalProvider from './LocalProvider';
 import NullProvider from './NullProvider';
-import PasswordCredentialsFlowProvider from './PasswordCredentialsFlowProvider';
+import PasswordCredentialsFlowProvider, { TokenScopes } from './PasswordCredentialsFlowProvider';
 import TokenProvider from './TokenProvider';
 
 export { default as NullProvider } from './NullProvider';
@@ -25,7 +25,7 @@ export function selectProvider(): TokenProvider {
   const tokenScopes = conf.getObject('oauth2TokenScopes');
   const credentialsDir = conf.getString('oauth2CredentialsDir');
 
-  if (accessTokenUri) {
+  if (accessTokenUri && tokenInfoUri && tokenScopes && credentialsDir) {
     log.info('Using OAuth2 PasswordCredentialsFlowProvider.');
     const provider = new PasswordCredentialsFlowProvider({
       accessTokenUri,
@@ -33,7 +33,7 @@ export function selectProvider(): TokenProvider {
       credentialsDir
     });
 
-    return provider.addTokens(tokenScopes);
+    return provider.addTokens(tokenScopes as TokenScopes);
   }
 
   log.info('Using token NullProvider.');

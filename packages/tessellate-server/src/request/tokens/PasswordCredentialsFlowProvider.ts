@@ -3,6 +3,8 @@ import fs = require('mz/fs');
 import request = require('request-promise-native');
 import TokenProvider, { TokenSupplier } from './TokenProvider';
 
+export type TokenScopes = { [name: string]: string[] };
+export type TokenSet = { [name: string]: string };
 export type UserCredentialsProvider = () => UserCredentials | Promise<UserCredentials>;
 export type ClientCredentialsProvider = () => ClientCredentials | Promise<ClientCredentials>;
 
@@ -61,8 +63,8 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
   private readonly userCredentialsProvider: UserCredentialsProvider;
   private readonly clientCredentialsProvider: ClientCredentialsProvider;
   private readonly debounceMilliseconds: number;
-  private readonly tokenScopes: { [name: string]: string[] };
-  private readonly oauth2AccessTokens: { [key: string]: string };
+  private readonly tokenScopes: TokenScopes;
+  private readonly oauth2AccessTokens: TokenSet;
   private readonly realm: string;
   private readonly tokenResponseParser: (response: any) => string;
   private lastRefresh: number;
@@ -153,12 +155,12 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
    * @param tokens Lists of requested scopes by token name.
    * @return This TokenProvider instance.
    */
-  public addTokens(tokens: { [name: string]: string[] }): PasswordCredentialsFlowProvider {
+  public addTokens(tokens: TokenScopes): PasswordCredentialsFlowProvider {
     Object.assign(this.tokenScopes, tokens);
     return this;
   }
 
-  public async getTokens(): Promise<{ [key: string]: string }> {
+  public async getTokens(): Promise<TokenSet> {
     await this.refreshTokensIfNecessary();
     return Object.assign({}, this.oauth2AccessTokens);
   }

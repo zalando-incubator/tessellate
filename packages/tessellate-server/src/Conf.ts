@@ -41,6 +41,11 @@ function readConfigFile(filePath: string): object {
  */
 export type Store = { [key: string]: any };
 
+function firstDefined<A, B>(a: A | undefined, b?: B): A | B | void {
+  if (a !== undefined) return a;
+  else return b;
+}
+
 /**
  * A hierarchical configuration provider that supports multiple sources.
  */
@@ -155,35 +160,43 @@ export class Conf {
   /**
    * Return a stored value.
    * @param name Name of the value.
+   * @param fallback optional fallback value.
    * @return The stored value.
    */
-  public get(name: string): any {
-    return this.resolve(name);
+  public get(name: string, fallback?: any): any {
+    return firstDefined(this.resolve(name), fallback);
   }
 
   /**
    * Return a stored value as a string.
    * @param name Name of the value.
+   * @param fallback optional fallback value.
    * @return The stored value as a string.
    */
-  public getString(name: string): string {
+  public getString(name: string, fallback: string): string;
+  public getString(name: string, fallback?: string): string | void;
+  public getString(name: string, fallback?: string): string | void {
     const value = this.resolve(name);
     if (typeof value === 'string') {
       return value;
     } else {
-      return JSON.stringify(value);
+      return firstDefined(JSON.stringify(value), fallback);
     }
   }
 
   /**
    * Return a stored value as a number.
    * @param name Name of the value.
+   * @param fallback optional fallback value.
    * @return The stored value as a number.
    */
-  public getNumber(name: string): number {
+  public getNumber(name: string, fallback: number): number;
+  public getNumber(name: string, fallback?: number): number | void;
+  public getNumber(name: string, fallback?: number): number | void {
     const value = parseFloat(this.resolve(name));
     if (isNaN(value)) {
-      throw new Error(`Not a number: ${value}`);
+      if (fallback !== undefined) return fallback;
+      else throw new Error(`Not a number: ${value}`);
     }
     return value;
   }
@@ -201,18 +214,21 @@ export class Conf {
   /**
    * Return a stored value as an object.
    * @param name Name of the value.
+   * @param fallback optional fallback value.
    * @return The stored value as an object.
    */
-  public getObject(name: string): any {
+  public getObject(name: string, fallback: object): object;
+  public getObject(name: string, fallback?: object): object | void;
+  public getObject(name: string, fallback?: object): object | void {
     const value = this.resolve(name);
     if (typeof value === 'string') {
       try {
-        return JSON.parse(value);
+        return firstDefined(JSON.parse(value), fallback);
       } catch (e) {
         throw new Error(`Not an object: ${value}`);
       }
     } else {
-      return value;
+      return firstDefined(value, fallback);
     }
   }
 }
