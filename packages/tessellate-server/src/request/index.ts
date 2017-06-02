@@ -1,6 +1,6 @@
 import request = require('request-promise-native');
+import { FullResponse, Options } from 'request-promise-native';
 import { AuthorizationProvider } from './AuthorizationProvider';
-import { Options, FullResponse } from 'request-promise-native';
 
 /**
  * Make an HTTP request. Uses the [request](https://github.com/request/request) library.
@@ -8,7 +8,10 @@ import { Options, FullResponse } from 'request-promise-native';
  * @param authProvider Optional authorization provider.
  * @return Full HTTP response.
  */
-export default async function makeReqest(options: Options, authProvider?: AuthorizationProvider): Promise<FullResponse> {
+export default async function makeReqest(
+  options: Options,
+  authProvider?: AuthorizationProvider
+): Promise<FullResponse> {
   if (authProvider) {
     options.auth = await authProvider();
   }

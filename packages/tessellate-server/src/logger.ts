@@ -1,9 +1,9 @@
 import expressWinston = require('express-winston');
-import conf from './conf';
-import { Logger, LoggerInstance, transports } from 'winston';
 import { Middleware } from 'koa';
+import { Logger, LoggerInstance, transports } from 'winston';
+import conf from './conf';
 
-const colorize = process.env['NODE_ENV'] !== 'production';
+const colorize = process.env.NODE_ENV !== 'production';
 
 /**
  * A [winston](https://github.com/winstonjs/winston) logger instance.
@@ -32,6 +32,6 @@ export function logger(options?: expressWinston.Options): Middleware {
   });
 
   return (ctx, next) => new Promise((resolve, reject) => {
-    middlewareFn(ctx.req, ctx.res, (err: Error) => err ? reject(err) : resolve(ctx))
+    middlewareFn(ctx.req, ctx.res, (err: Error) => err ? reject(err) : resolve(ctx));
   }).then(next);
 }

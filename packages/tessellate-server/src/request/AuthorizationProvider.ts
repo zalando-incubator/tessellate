@@ -1,12 +1,10 @@
 import { AuthOptions } from 'request';
-import { TokenProvider } from './tokens';
+import { TokenSupplier } from './tokens/TokenProvider';
 
 /**
  * Returns authorization options for the request client.
  */
-export interface AuthorizationProvider {
-  (): Promise<AuthOptions>;
-}
+export type AuthorizationProvider = () => Promise<AuthOptions>;
 
 /**
  * Create a basic authorization provider.
@@ -25,7 +23,7 @@ export function basicAuthorizationProvider(credentials: { user: string, pass: st
  * @param supplier A token supplier.
  * @return An OAuth2 authorization provider.
  */
-export function oauth2AuthorizationProvider(supplier: TokenProvider.TokenSupplier): AuthorizationProvider {
+export function oauth2AuthorizationProvider(supplier: TokenSupplier): AuthorizationProvider {
   return async () => ({
     sendImmediately: true,
     bearer: await supplier()

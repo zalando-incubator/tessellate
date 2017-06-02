@@ -4,9 +4,9 @@ import { Middleware } from 'koa';
  * Error class for web service exceptions.
  */
 export class Problem extends Error {
-  readonly title: string;
-  readonly detail?: string;
-  readonly status?: number;
+  public readonly title: string;
+  public readonly detail?: string;
+  public readonly status?: number;
 
   constructor(args: { title: string, detail?: string, status?: number }) {
     super(args.title);
@@ -15,15 +15,15 @@ export class Problem extends Error {
     this.status = args.status;
   }
 
-  toJSON(): object {
+  public toJSON(): object {
     return Object.freeze({
       title: this.title,
       detail: this.detail,
       status: this.status
-    })
+    });
   }
 
-  toString(): string {
+  public toString(): string {
     return JSON.stringify(this.toJSON());
   }
 }

@@ -1,7 +1,7 @@
 import path = require('path');
 import fs = require('mz/fs');
 import request = require('request-promise-native');
-import { TokenProvider } from './';
+import TokenProvider, { TokenSupplier } from './TokenProvider';
 
 export type UserCredentialsProvider = () => UserCredentials | Promise<UserCredentials>;
 export type ClientCredentialsProvider = () => ClientCredentials | Promise<ClientCredentials>;
@@ -17,24 +17,14 @@ export type Options = {
   tokenResponseParser?: (response: any) => string;
 };
 
-export class UserCredentials {
-  readonly username: string;
-  readonly password: string;
-
-  constructor(username: string, password: string) {
-    this.username = username;
-    this.password = password;
-  }
+export type UserCredentials = {
+  username: string;
+  password: string;
 };
 
-export class ClientCredentials {
-  readonly id: string;
-  readonly secret: string;
-
-  constructor(id: string, secret: string) {
-    this.id = id;
-    this.secret = secret;
-  }
+export type ClientCredentials = {
+  id: string;
+  secret: string;
 };
 
 async function loadCredentials(filePath: string): Promise<{ [name: string]: string }> {
@@ -45,20 +35,20 @@ async function loadCredentials(filePath: string): Promise<{ [name: string]: stri
 function userCredentialsProvider(filePath: string, fields: UserCredentials): () => Promise<UserCredentials> {
   return async () => {
     const credentials = await loadCredentials(filePath);
-    return new UserCredentials(credentials[fields.username], credentials[fields.password]);
-  }
+    return { username: credentials[fields.username], password: credentials[fields.password] };
+  };
 }
 
 function clientCredentialsProvider(filePath: string, fields: ClientCredentials): () => Promise<ClientCredentials> {
   return async () => {
     const credentials = await loadCredentials(filePath);
-    return new ClientCredentials(credentials[fields.id], credentials[fields.secret]);
-  }
+    return { id: credentials[fields.id], secret: credentials[fields.secret] };
+  };
 }
 
 function defaultTokenResponseParser(response: any): string {
   if (typeof response === 'object') {
-    return response['access_token'] || '';
+    return response.access_token || '';
   }
   return '';
 }
@@ -82,12 +72,12 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
 
     this.userCredentialsProvider = options.userCredentialsProvider || userCredentialsProvider(
       path.join(credentialsDir, 'user.json'),
-      new UserCredentials('application_username', 'application_password')
+      { username: 'application_username', password: 'application_password' }
     );
 
     this.clientCredentialsProvider = options.clientCredentialsProvider || clientCredentialsProvider(
       path.join(credentialsDir, 'client.json'),
-      new ClientCredentials('client_id', 'client_secret')
+      { id: 'client_id', secret: 'client_secret' }
     );
 
     this.realm = options.realm || '/services';
@@ -153,7 +143,7 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
    * @param scopes Requested scopes of the token.
    * @return This TokenProvider instance.
    */
-  addToken(name: string, scopes: string[]): PasswordCredentialsFlowProvider {
+  public addToken(name: string, scopes: string[]): PasswordCredentialsFlowProvider {
     this.tokenScopes[name] = scopes;
     return this;
   }
@@ -163,22 +153,22 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
    * @param tokens Lists of requested scopes by token name.
    * @return This TokenProvider instance.
    */
-  addTokens(tokens: { [name: string]: string[] }): PasswordCredentialsFlowProvider {
+  public addTokens(tokens: { [name: string]: string[] }): PasswordCredentialsFlowProvider {
     Object.assign(this.tokenScopes, tokens);
     return this;
   }
 
-  async getTokens(): Promise<{ [key: string]: string }> {
+  public async getTokens(): Promise<{ [key: string]: string }> {
     await this.refreshTokensIfNecessary();
     return Object.assign({}, this.oauth2AccessTokens);
   }
 
-  async getToken(key: string): Promise<string> {
+  public async getToken(key: string): Promise<string> {
     await this.refreshTokensIfNecessary();
     return this.oauth2AccessTokens[key] || '';
   }
 
-  getTokenSupplier(name: string): TokenProvider.TokenSupplier {
+  public getTokenSupplier(name: string): TokenSupplier {
     return () => this.getToken(name);
   }
 }

@@ -4,8 +4,10 @@
 /example
 /typings
 /doc
+/node_modules
 tsconfig.json
 tslint.json
+yarn.lock
 .flowconfig
 .gitignore
 .npmignore

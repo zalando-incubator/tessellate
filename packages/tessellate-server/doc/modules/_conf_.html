@@ -74,7 +74,6 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_conf_.conf.html" class="tsd-kind-icon">Conf</a></li>
-								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported"><a href="../classes/_conf_.illegaltypeerror.html" class="tsd-kind-icon">Illegal<wbr>Type<wbr>Error</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -108,7 +107,7 @@
 					<div class="tsd-signature tsd-kind-icon">Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/Conf.ts#L48">Conf.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/ce2f3fa/packages/tessellate-server/src/Conf.ts#L42">Conf.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -131,20 +130,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="configfilepath" class="tsd-anchor"></a>
 					<h3>config<wbr>File<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">config<wbr>File<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;process.env[&#x27;TESSELLATE_CONF&#x27;] || &#x27;&#x27;</span></div>
+					<div class="tsd-signature tsd-kind-icon">config<wbr>File<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;process.env.TESSELLATE_CONF || &#x27;&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/Conf.ts#L226">Conf.ts:226</a></li>
+							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/ce2f3fa/packages/tessellate-server/src/Conf.ts#L220">Conf.ts:220</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="log" class="tsd-anchor"></a>
 					<h3>log</h3>
-					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LoggerInstance</span><span class="tsd-signature-symbol"> =&nbsp;new Logger({transports: [new (transports.Console)({level: process.env[&#x27;TESSELLATE_LOG_LEVEL&#x27;]})]})</span></div>
+					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LoggerInstance</span><span class="tsd-signature-symbol"> =&nbsp;new Logger({transports: [new (transports.Console)({level: process.env.TESSELLATE_LOG_LEVEL})]})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/Conf.ts#L9">Conf.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/ce2f3fa/packages/tessellate-server/src/Conf.ts#L9">Conf.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -166,7 +165,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/Conf.ts#L24">Conf.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/ce2f3fa/packages/tessellate-server/src/Conf.ts#L24">Conf.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -183,13 +182,13 @@
 					<a name="readfile" class="tsd-anchor"></a>
 					<h3>read<wbr>File</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">read<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parser<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
+						<li class="tsd-signature tsd-kind-icon">read<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parser<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/4f848c1/packages/tessellate-server/src/Conf.ts#L15">Conf.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/zalando-incubator/tessellate/blob/ce2f3fa/packages/tessellate-server/src/Conf.ts#L15">Conf.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -202,7 +201,7 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -212,14 +211,14 @@
 															<h5>s: <span class="tsd-signature-type">string</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span></h4>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
 												</li>
 											</ul>
 										</li>
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -265,6 +264,9 @@
 						<a href="_request_tokens_passwordcredentialsflowprovider_.html">"request/tokens/<wbr>Password<wbr>Credentials<wbr>Flow<wbr>Provider"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="_request_tokens_tokenprovider_.html">"request/tokens/<wbr>Token<wbr>Provider"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="_request_tokens_index_.html">"request/tokens/index"</a>
 					</li>
 				</ul>
@@ -273,9 +275,6 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_conf_.conf.html" class="tsd-kind-icon">Conf</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../classes/_conf_.illegaltypeerror.html" class="tsd-kind-icon">Illegal<wbr>Type<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_conf_.html#store" class="tsd-kind-icon">Store</a>

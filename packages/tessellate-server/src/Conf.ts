@@ -8,11 +8,11 @@ import { Logger, LoggerInstance, transports } from 'winston';
  */
 const log: LoggerInstance = new Logger({
   transports: [new (transports.Console)({
-    level: process.env['TESSELLATE_LOG_LEVEL']
+    level: process.env.TESSELLATE_LOG_LEVEL
   })]
 });
 
-function readFile(file: string, parser: (s: string) => Object): Object {
+function readFile(file: string, parser: (s: string) => object): object {
   try {
     return parser(fs.readFileSync(file, 'utf8'));
   } catch (e) {
@@ -33,12 +33,6 @@ function readConfigFile(filePath: string): object {
     default:
       log.error(`Unsupported file: ${filePath}\n`);
       return {};
-  }
-}
-
-class IllegalTypeError extends Error {
-  constructor(message: string) {
-    super(message);
   }
 }
 
@@ -66,7 +60,7 @@ export class Conf {
       return this.override[name];
     }
 
-    for (let key of this.storeNames) {
+    for (const key of this.storeNames) {
       if (name in this.stores[key]) {
         return this.stores[key][name];
       }
@@ -78,7 +72,7 @@ export class Conf {
       return true;
     }
 
-    for (let key in this.stores) {
+    for (const key in this.stores) {
       if (name in this.stores[key]) {
         return true;
       }
@@ -101,12 +95,12 @@ export class Conf {
    * @param prefix Prefix of environment variables.
    * @return This Conf instance.
    */
-  withEnv(prefix: string = ''): Conf {
+  public withEnv(prefix: string = ''): Conf {
     const prefixValue = changeCase.constant(prefix);
     const getEnvName = (name: string) => {
       const keyValue = changeCase.constant(name);
       return prefixValue ? `${prefixValue}_${keyValue}` : keyValue;
-    }
+    };
 
     const store = new Proxy({}, {
       get: (_, name: string) => {
@@ -127,7 +121,7 @@ export class Conf {
    * @param file The absolute or relative file path.
    * @return This Conf instance.
    */
-  withFile(file: string): Conf {
+  public withFile(file: string): Conf {
     if (!file) {
       return this;
     }
@@ -142,7 +136,7 @@ export class Conf {
    * @param name Optional name of the store.
    * @return This Conf instance.
    */
-  withStore(store: Store, name: string = 'default'): Conf {
+  public withStore(store: Store, name: string = 'default'): Conf {
     this.addStore(Object.assign({}, store), name);
     return this;
   }
@@ -153,7 +147,7 @@ export class Conf {
    * @param value Actual value.
    * @return This Conf instance.
    */
-  set(key: string, value: any): Conf {
+  public set(key: string, value: any): Conf {
     this.override[key] = value;
     return this;
   }
@@ -163,7 +157,7 @@ export class Conf {
    * @param name Name of the value.
    * @return The stored value.
    */
-  get(name: string): any {
+  public get(name: string): any {
     return this.resolve(name);
   }
 
@@ -172,7 +166,7 @@ export class Conf {
    * @param name Name of the value.
    * @return The stored value as a string.
    */
-  getString(name: string): string {
+  public getString(name: string): string {
     const value = this.resolve(name);
     if (typeof value === 'string') {
       return value;
@@ -186,10 +180,10 @@ export class Conf {
    * @param name Name of the value.
    * @return The stored value as a number.
    */
-  getNumber(name: string): number {
+  public getNumber(name: string): number {
     const value = parseFloat(this.resolve(name));
     if (isNaN(value)) {
-      throw new IllegalTypeError(`Not a number: ${value}`);
+      throw new Error(`Not a number: ${value}`);
     }
     return value;
   }
@@ -199,7 +193,7 @@ export class Conf {
    * @param name Name of the value.
    * @return The stored value as a boolean.
    */
-  getBoolean(name: string): boolean {
+  public getBoolean(name: string): boolean {
     const value = this.resolve(name);
     return value !== false && value !== 'false' && this.exists(name);
   }
@@ -209,13 +203,13 @@ export class Conf {
    * @param name Name of the value.
    * @return The stored value as an object.
    */
-  getObject(name: string): any {
+  public getObject(name: string): any {
     const value = this.resolve(name);
     if (typeof value === 'string') {
       try {
         return JSON.parse(value);
       } catch (e) {
-        throw new IllegalTypeError(`Not an object: ${value}`);
+        throw new Error(`Not an object: ${value}`);
       }
     } else {
       return value;
@@ -223,7 +217,7 @@ export class Conf {
   }
 }
 
-const configFilePath = process.env['TESSELLATE_CONF'] || '';
+const configFilePath = process.env.TESSELLATE_CONF || '';
 if (!configFilePath) {
   log.warn('No config file provided. Consider setting TESSELLATE_CONF.');
 }

@@ -12,14 +12,14 @@ export default class MetricsApp {
   /**
    * Koa application instance.
    */
-  readonly app: Koa;
+  public readonly app: Koa;
 
   constructor() {
     this.app = new Koa();
     this.router = new Router();
 
     this.router.get('/metrics', ctx => {
-      ctx.body = prometheus.register.metrics()
+      ctx.body = prometheus.register.metrics();
     });
 
     this.app.use(this.router.routes());

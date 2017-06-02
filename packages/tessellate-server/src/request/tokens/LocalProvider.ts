@@ -1,4 +1,4 @@
-import { TokenProvider } from './';
+import TokenProvider, { TokenSupplier } from './TokenProvider';
 
 function parseTokens(tokenString: string): { [key: string]: string } {
   if (!/^\w+=\S+/.test(tokenString)) {
@@ -8,11 +8,11 @@ function parseTokens(tokenString: string): { [key: string]: string } {
   return tokenString
     .split(',')
     .reduce((obj, pair) => {
-      const [key, token] = pair.split('=')
+      const [key, token] = pair.split('=');
       if (typeof key === 'string' && typeof token === 'string') {
-        return Object.assign(obj, { [key]: token })
+        return Object.assign(obj, { [key]: token });
       } else {
-        return obj
+        return obj;
       }
     }, {});
 }
@@ -29,15 +29,15 @@ export default class LocalProvider implements TokenProvider {
       : oauth2AccessTokens;
   }
 
-  getTokens(): Promise<{ [key: string]: string }> {
+  public getTokens(): Promise<{ [key: string]: string }> {
     return Promise.resolve(Object.assign({}, this.oauth2AccessTokens));
   }
 
-  getToken(key: string): Promise<string> {
+  public getToken(key: string): Promise<string> {
     return Promise.resolve(this.oauth2AccessTokens[key] || '');
   }
 
-  getTokenSupplier(name: string): TokenProvider.TokenSupplier {
+  public getTokenSupplier(name: string): TokenSupplier {
     return () => this.getToken(name);
   }
 }

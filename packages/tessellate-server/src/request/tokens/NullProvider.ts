@@ -1,18 +1,18 @@
-import { TokenProvider } from './';
+import TokenProvider, { TokenSupplier } from './TokenProvider';
 
 /**
  * Empty token provider which returns nothing.
  */
 export default class NullProvider implements TokenProvider {
-  getTokens(): Promise<{ [key: string]: string }> {
+  public getTokens(): Promise<{ [key: string]: string }> {
     return Promise.resolve({});
   }
 
-  getToken(): Promise<string> {
+  public getToken(): Promise<string> {
     return Promise.resolve('');
   }
 
-  getTokenSupplier(): TokenProvider.TokenSupplier {
+  public getTokenSupplier(): TokenSupplier {
     return () => this.getToken();
   }
 }
