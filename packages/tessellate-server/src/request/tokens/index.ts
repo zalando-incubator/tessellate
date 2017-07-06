@@ -17,7 +17,7 @@ export function selectProvider(): TokenProvider {
 
   if (!!oauth2AccessTokens) {
     log.info('Using OAuth2 LocalProvider.');
-    return new LocalProvider(oauth2AccessTokens);
+    return new LocalProvider(oauth2AccessTokens as any);
   }
 
   const accessTokenUri = conf.getString('oauth2TokenUri');
