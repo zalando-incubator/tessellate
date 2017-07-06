@@ -1,5 +1,8 @@
 /// <reference types="jest" />
 
+jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
+require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
+
 import fs = require('mz/fs');
 import path = require('path');
 import createWebpackSandbox from 'webpack-sandboxed';
@@ -7,6 +10,8 @@ import * as bundleService from '../src/bundle-service';
 
 describe('bundle-service', () => {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
+  beforeEach(() => (jest.resetAllMocks()));
 
   test('ensure webpack-sandboxed works', async () => {
     const webpackSandbox = await createWebpackSandbox();

@@ -1,5 +1,8 @@
 /// <reference types="jest" />
 
+jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
+require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
+
 jest.mock('../src/content-service', () => ({
   publish: jest.fn()
 }));
@@ -17,6 +20,7 @@ describe('server', () => {
 
   beforeEach(async () => {
     conf.set('publishTarget', 'file://test/fixtures');
+    jest.resetAllMocks();
   });
 
   afterEach(async () => startedServer.stop());

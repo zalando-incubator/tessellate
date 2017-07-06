@@ -6,15 +6,18 @@ import * as scriptBuilder from '../script-builder';
 import TessellateBundle from '../TessellateBundle';
 import TessellateElement from '../TessellateElement';
 
-type ParsedRequest = { domain: string; name: string; element: TessellateElement; };
-type CreatedBundle = { domain: string; name: string; bundle: TessellateBundle; };
-export type ResponseBody = { js: string; css?: string; };
-export type CreatedResponse = { body: ResponseBody; status: number; };
+type ParsedRequest = { domain: string; name: string; element: TessellateElement };
+type CreatedBundle = { domain: string; name: string; bundle: TessellateBundle };
+type ResponseBody = { js: string; css?: string };
+type CreatedResponse = { body: ResponseBody; status: number };
 
 function parseOptions(): bundleService.Options {
   const packages = conf.getObject('npmModules', []) as string[];
   const externalsList = conf.getObject('npmExternals', []) as string[];
-  const externals = externalsList.reduce((exts: object, ext) => Object.assign(exts, { [ext]: ext }), {});
+  const externals = externalsList.reduce(
+    (exts, ext) => Object.assign(exts, { [ext]: ext }),
+    {} as { [key: string]: string }
+  );
   const production = conf.getString('nodeEnv') === 'production';
 
   return {
@@ -32,7 +35,7 @@ async function parseRequest(ctx: Context): Promise<ParsedRequest> {
   return { domain, name, element };
 }
 
-async function createBundle(req: Promise<ParsedRequest>): Promise<CreatedBundle> {
+async function compileBundle(req: Promise<ParsedRequest>): Promise<CreatedBundle> {
   const { domain, name, element } = await req;
   const source = scriptBuilder.build(element);
   const bundle = await bundleService.make(source, parseOptions());
@@ -55,6 +58,8 @@ async function createReponse(responseBody: Promise<ResponseBody>): Promise<Creat
   };
 }
 
-export default function(ctx: Context): Promise<CreatedResponse> {
-  return createReponse(exportBundle(createBundle(parseRequest(ctx))));
+export default async function createBundle(ctx: Context): Promise<void> {
+  const { body, status } = await createReponse(exportBundle(compileBundle(parseRequest(ctx))));
+  ctx.status = status;
+  ctx.body = body;
 }

@@ -1,7 +1,7 @@
 export type CreateElementArgs = {
-  className: string,
-  propsId: string,
-  children: string[]
+  className: string;
+  propsId: string;
+  children: string[];
 };
 
 export default function createElementScript(args: CreateElementArgs): string {
