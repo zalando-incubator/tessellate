@@ -14,7 +14,7 @@
     "bootstrap": "lerna bootstrap --hoist --nohoist=\"+(tessellate-*|ts-jest)\"",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
     "upgrade-dependencies": "ncu -u && lerna exec -- ./node_modules/.bin/ncu -u && npm run bootstrap",
-    "prettier": "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.js\"",
+    "prettier": "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.+(js|ts)\"",
     "publish-docs": "cd docs && npm run publish"
   },
   "devDependencies": {
@@ -38,10 +38,10 @@
     "flow-bin": "0.47.0",
     "flow-typed": "2.1.2",
     "jest": "20.0.4",
-    "lerna": "2.0.0-rc.5",
+    "lerna": "2.0.0",
     "lerna-semantic-release": "9.1.0",
-    "npm-check-updates": "2.11.2",
-    "prettier": "1.3.1",
+    "npm-check-updates": "2.12.1",
+    "prettier": "1.5.2",
     "rimraf": "2.6.1",
     "supertest": "3.0.0"
   },
