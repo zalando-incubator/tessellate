@@ -9,7 +9,6 @@ import request = require('request-promise-native');
 import PasswordCredentialsFlowProvider from '../src/request/tokens/PasswordCredentialsFlowProvider';
 
 describe('PasswordCredentialsFlowProvider', () => {
-
   beforeEach(() => jest.resetAllMocks());
 
   test('get token', async () => {
@@ -28,12 +27,12 @@ describe('PasswordCredentialsFlowProvider', () => {
         });
       }
     });
-    fs.readFile = readFileMock
+    fs.readFile = readFileMock;
 
     // Configure request mock.
     const postMock = jest.fn(async () => {
       return { access_token: 'token' };
-    })
+    });
     request.post = postMock;
 
     const provider = new PasswordCredentialsFlowProvider({
@@ -89,5 +88,5 @@ describe('PasswordCredentialsFlowProvider', () => {
     const tokens = await provider.getTokens();
     expect(typeof tokens['default']).toBe('string');
     expect(typeof tokens['default'].length).toBeGreaterThan(0);
-  })
+  });
 });

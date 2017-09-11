@@ -1,16 +1,16 @@
 /// <reference types="jest" />
 
 import supertest = require('supertest');
-import TessellateServer from '../src/TessellateServer';
 import { Problem } from '../src/error';
+import TessellateServer from '../src/TessellateServer';
 
 describe('TessellateServer', () => {
-  let _server;
+  let serverDelegate: TessellateServer;
 
-  afterEach(async () => _server.stop());
+  afterEach(async () => serverDelegate.stop());
 
   async function startServer(server: TessellateServer) {
-    server = _server = await server.start(3001, 3002);
+    server = serverDelegate = await server.start(3001, 3002);
     const appRequest = supertest.agent(server.appServer);
     const metricsRequest = supertest.agent(server.metricsServer);
     return { server, appRequest, metricsRequest };
@@ -18,15 +18,21 @@ describe('TessellateServer', () => {
 
   it('should support a simple route', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', ctx => ctx.body = 'Hello, test!');
+    server.router.get('/', ctx => (ctx.body = 'Hello, test!'));
 
-    await appRequest.get('/').expect(200).expect('Hello, test!');
+    await appRequest
+      .get('/')
+      .expect(200)
+      .expect('Hello, test!');
   });
 
   it('should return metrics', async () => {
     const { metricsRequest } = await startServer(new TessellateServer());
 
-    await metricsRequest.get('/metrics').expect(200).expect('Content-Type', /^text\/plain/);
+    await metricsRequest
+      .get('/metrics')
+      .expect(200)
+      .expect('Content-Type', /^text\/plain/);
   });
 
   it('should use additional middleware', async () => {
@@ -39,22 +45,28 @@ describe('TessellateServer', () => {
     });
 
     const { appRequest } = await startServer(server);
-    server.router.get('/', ctx => ctx.body = 'OK');
+    server.router.get('/', ctx => (ctx.body = 'OK'));
 
     expect(middlewareWasCalled).toBe(false);
 
-    await appRequest.get('/').expect(200).expect('OK');
+    await appRequest
+      .get('/')
+      .expect(200)
+      .expect('OK');
 
     expect(middlewareWasCalled).toBe(true);
   });
 
   it('should use additional middleware after the server was started', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', ctx => ctx.body = 'OK');
+    server.router.get('/', ctx => (ctx.body = 'OK'));
 
     let middlewareWasCalled = false;
 
-    await appRequest.get('/').expect(200).expect('OK');
+    await appRequest
+      .get('/')
+      .expect(200)
+      .expect('OK');
 
     expect(middlewareWasCalled).toBe(false);
 
@@ -66,20 +78,26 @@ describe('TessellateServer', () => {
 
     expect(middlewareWasCalled).toBe(false);
 
-    await appRequest.get('/').expect(200).expect('OK');
+    await appRequest
+      .get('/')
+      .expect(200)
+      .expect('OK');
 
     expect(middlewareWasCalled).toBe(true);
   });
 
   it('should use deferred middleware', async () => {
     const { server, appRequest } = await startServer(new TessellateServer());
-    server.router.get('/', ctx => ctx.body = 'NOPE :(');
+    server.router.get('/', ctx => (ctx.body = 'NOPE :('));
 
     server.use(async ctx => {
       ctx.body = 'YAY :)';
     }, true);
 
-    await appRequest.get('/').expect(200).expect('YAY :)');
+    await appRequest
+      .get('/')
+      .expect(200)
+      .expect('YAY :)');
   });
 
   it('should handle Errors', async () => {
@@ -128,10 +146,12 @@ describe('TessellateServer', () => {
     server.router.post('/', ctx => {
       body = ctx.request.body;
       ctx.body = 'OK';
-    }
-    );
+    });
 
-    await appRequest.post('/').send(payload).expect('OK');
+    await appRequest
+      .post('/')
+      .send(payload)
+      .expect('OK');
 
     expect(body).toEqual(payload);
   });

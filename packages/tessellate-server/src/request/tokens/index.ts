@@ -1,4 +1,4 @@
-import conf from '../../Conf';
+import conf from '../../conf';
 import { log } from '../../logger';
 import LocalProvider from './LocalProvider';
 import NullProvider from './NullProvider';
