@@ -1,6 +1,6 @@
+import changeCase = require('change-case');
 import fs = require('fs');
 import path = require('path');
-import changeCase = require('change-case');
 import { Logger, LoggerInstance, transports } from 'winston';
 
 /**

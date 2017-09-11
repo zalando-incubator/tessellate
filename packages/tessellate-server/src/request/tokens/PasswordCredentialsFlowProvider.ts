@@ -1,5 +1,5 @@
-import path = require('path');
 import fs = require('mz/fs');
+import path = require('path');
 import request = require('request-promise-native');
 import TokenProvider, { TokenSupplier } from './TokenProvider';
 

@@ -1,10 +1,10 @@
-import Koa = require('koa');
 import http = require('http');
-import compose = require('koa-compose');
-import bodyParser = require('koa-bodyparser');
-import KoaRouter = require('koa-router');
 import { IncomingMessage, Server, ServerResponse } from 'http';
+import Koa = require('koa');
 import { Middleware } from 'koa';
+import bodyParser = require('koa-bodyparser');
+import compose = require('koa-compose');
+import KoaRouter = require('koa-router');
 import error from './error';
 import { logger } from './logger';
 import MetricsApp from './MetricsApp';
@@ -13,9 +13,8 @@ type Listener = (req: IncomingMessage, res: ServerResponse) => void;
 
 function startServer(listener: Listener, port: number): Promise<Server> {
   return new Promise((resolve, reject) => {
-    const server = http
-      .createServer(listener)
-      .listen(port, undefined, undefined, (e: Error) => (e ? reject(e) : resolve(server)));
+    const server = http.createServer(listener);
+    server.listen(port, undefined, undefined, (e: Error) => (e ? reject(e) : resolve(server)));
   });
 }
 
