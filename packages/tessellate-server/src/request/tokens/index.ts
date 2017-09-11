@@ -13,7 +13,8 @@ export { default as PasswordCredentialsFlowProvider } from './PasswordCredential
  * @deprecated
  */
 export function selectProvider(): TokenProvider {
-  const oauth2AccessTokens = conf.getObject('oauth2AccessTokens') || process.env.OAUTH2_ACCESS_TOKENS;
+  const oauth2AccessTokens =
+    conf.getObject('oauth2AccessTokens') || process.env.OAUTH2_ACCESS_TOKENS;
 
   if (!!oauth2AccessTokens) {
     log.info('Using OAuth2 LocalProvider.');

@@ -10,7 +10,7 @@ const colorize = process.env.NODE_ENV !== 'production';
  */
 export const log: LoggerInstance = new Logger({
   transports: [
-    new (transports.Console)({
+    new transports.Console({
       colorize,
       level: conf.get('logLevel')
     })
@@ -31,7 +31,8 @@ export function logger(options?: expressWinston.Options): Middleware {
     ...options
   });
 
-  return (ctx, next) => new Promise((resolve, reject) => {
-    middlewareFn(ctx.req, ctx.res, (err: Error) => err ? reject(err) : resolve(ctx));
-  }).then(next);
+  return (ctx, next) =>
+    new Promise((resolve, reject) => {
+      middlewareFn(ctx.req, ctx.res, (err: Error) => (err ? reject(err) : resolve(ctx)));
+    }).then(next);
 }

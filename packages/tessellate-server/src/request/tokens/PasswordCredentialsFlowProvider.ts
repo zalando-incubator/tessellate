@@ -34,14 +34,20 @@ async function loadCredentials(filePath: string): Promise<{ [name: string]: stri
   return JSON.parse(json.toString()) || {};
 }
 
-function userCredentialsProvider(filePath: string, fields: UserCredentials): () => Promise<UserCredentials> {
+function userCredentialsProvider(
+  filePath: string,
+  fields: UserCredentials
+): () => Promise<UserCredentials> {
   return async () => {
     const credentials = await loadCredentials(filePath);
     return { username: credentials[fields.username], password: credentials[fields.password] };
   };
 }
 
-function clientCredentialsProvider(filePath: string, fields: ClientCredentials): () => Promise<ClientCredentials> {
+function clientCredentialsProvider(
+  filePath: string,
+  fields: ClientCredentials
+): () => Promise<ClientCredentials> {
   return async () => {
     const credentials = await loadCredentials(filePath);
     return { id: credentials[fields.id], secret: credentials[fields.secret] };
@@ -72,15 +78,19 @@ export default class PasswordCredentialsFlowProvider implements TokenProvider {
   constructor(options: Options) {
     const credentialsDir = options.credentialsDir || process.cwd();
 
-    this.userCredentialsProvider = options.userCredentialsProvider || userCredentialsProvider(
-      path.join(credentialsDir, 'user.json'),
-      { username: 'application_username', password: 'application_password' }
-    );
+    this.userCredentialsProvider =
+      options.userCredentialsProvider ||
+      userCredentialsProvider(path.join(credentialsDir, 'user.json'), {
+        username: 'application_username',
+        password: 'application_password'
+      });
 
-    this.clientCredentialsProvider = options.clientCredentialsProvider || clientCredentialsProvider(
-      path.join(credentialsDir, 'client.json'),
-      { id: 'client_id', secret: 'client_secret' }
-    );
+    this.clientCredentialsProvider =
+      options.clientCredentialsProvider ||
+      clientCredentialsProvider(path.join(credentialsDir, 'client.json'), {
+        id: 'client_id',
+        secret: 'client_secret'
+      });
 
     this.realm = options.realm || '/services';
     this.accessTokenUri = options.accessTokenUri;

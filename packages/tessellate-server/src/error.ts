@@ -8,7 +8,7 @@ export class Problem extends Error {
   public readonly detail?: string;
   public readonly status?: number;
 
-  constructor(args: { title: string, detail?: string, status?: number }) {
+  constructor(args: { title: string; detail?: string; status?: number }) {
     super(args.title);
     this.title = args.title;
     this.detail = args.detail;

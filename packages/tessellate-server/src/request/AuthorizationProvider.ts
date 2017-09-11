@@ -11,7 +11,10 @@ export type AuthorizationProvider = () => Promise<AuthOptions>;
  * @param credentials Username and password.
  * @return A basic authorization provider.
  */
-export function basicAuthorizationProvider(credentials: { user: string, pass: string }): AuthorizationProvider {
+export function basicAuthorizationProvider(credentials: {
+  user: string;
+  pass: string;
+}): AuthorizationProvider {
   return async () => ({
     sendImmediately: true,
     ...credentials
