@@ -12,7 +12,7 @@ export type ReactScript = {
 };
 
 type PropsType = { [key: string]: any };
-type ImportsType = { [key: string]: (string[] | string) };
+type ImportsType = { [key: string]: string[] | string };
 
 class ElementProblem extends Problem {
   constructor(detail: string) {
@@ -69,7 +69,7 @@ function toReactScripts(
 function parseElementType(
   element: TessellateElement,
   imports: ImportsType
-): { className: string, imports: ImportsType } {
+): { className: string; imports: ImportsType } {
   if (!element.type) throw new ElementProblem('Missing element type on ' + JSON.stringify(element));
 
   // Try to match '<node-module-name>.<component-name>'

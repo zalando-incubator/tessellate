@@ -36,7 +36,10 @@ describe('server', () => {
     test('return OK', async () => {
       const { appRequest } = await startServer();
 
-      await appRequest.get('/health').expect(200).expect('OK');
+      await appRequest
+        .get('/health')
+        .expect(200)
+        .expect('OK');
     });
   });
 
@@ -44,7 +47,10 @@ describe('server', () => {
     test('serve static files from PUBLISH_TARGET', async () => {
       const { appRequest } = await startServer();
 
-      await appRequest.get('/content.json').expect(200).expect('Content-Type', /json/);
+      await appRequest
+        .get('/content.json')
+        .expect(200)
+        .expect('Content-Type', /json/);
     });
   });
 
@@ -72,7 +78,10 @@ describe('server', () => {
     test('serve JSON metrics', async () => {
       const { metricsRequest } = await startServer();
 
-      await metricsRequest.get('/metrics').expect(200).expect('Content-Type', /^text\/plain/);
+      await metricsRequest
+        .get('/metrics')
+        .expect(200)
+        .expect('Content-Type', /^text\/plain/);
     });
   });
 });

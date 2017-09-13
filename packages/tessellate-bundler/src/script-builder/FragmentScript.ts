@@ -17,7 +17,9 @@ export default function fragmentScript(args: FragmentArgs): string {
   return `
   import React, { Component } from 'react'
   import ReactDOM from 'react-dom'
-  ${Object.keys(args.imports).map(name => importScript(name, args.imports[name])).join('\n')}
+  ${Object.keys(args.imports)
+    .map(name => importScript(name, args.imports[name]))
+    .join('\n')}
 
   const BUNDLED_PROPS = ${JSON.stringify(args.props)}
 

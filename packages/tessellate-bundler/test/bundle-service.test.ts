@@ -11,7 +11,7 @@ import * as bundleService from '../src/bundle-service';
 describe('bundle-service', () => {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-  beforeEach(() => (jest.resetAllMocks()));
+  beforeEach(() => jest.resetAllMocks());
 
   test('ensure webpack-sandboxed works', async () => {
     const webpackSandbox = await createWebpackSandbox();

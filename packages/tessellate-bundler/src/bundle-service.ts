@@ -30,7 +30,7 @@ async function _createWebpackSandbox(args: Options = {}): Promise<WebpackRunner>
   ];
 
   const externals: webpack.ExternalsObjectElement = Object.assign({}, args.externals, {
-    'react': 'react',
+    react: 'react',
     'react-dom': 'react-dom'
   });
 
@@ -88,9 +88,9 @@ export async function make(source: string, options: Options = {}): Promise<Tesse
   };
   const css = cssBundle
     ? {
-      name: cssBundle,
-      source: bundle[cssBundle]
-    }
+        name: cssBundle,
+        source: bundle[cssBundle]
+      }
     : undefined;
 
   return { js, css };
