@@ -1,6 +1,6 @@
-import webpack = require('webpack');
 import ExtractTextPlugin = require('extract-text-webpack-plugin');
 import { log } from 'tessellate-server';
+import webpack = require('webpack');
 import webpackSandboxed, { WebpackRunner } from 'webpack-sandboxed';
 import TessellateBundle from './TessellateBundle';
 import * as utils from './utils';

@@ -1,5 +1,6 @@
 /// <reference types="jest" />
 
+(jest as any).setTimeout(10000);
 jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
 require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 

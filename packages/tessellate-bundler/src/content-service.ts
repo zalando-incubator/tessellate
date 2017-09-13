@@ -1,8 +1,8 @@
-import url = require('url');
-import path = require('path');
 import fs = require('mz/fs');
-import thenify = require('thenify');
+import path = require('path');
 import { conf, log, Problem } from 'tessellate-server';
+import thenify = require('thenify');
+import url = require('url');
 import TessellateBundle from './TessellateBundle';
 import TessellateElement from './TessellateElement';
 

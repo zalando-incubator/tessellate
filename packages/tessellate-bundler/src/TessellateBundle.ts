@@ -1,11 +1,11 @@
 export type JSBundle = {
   name: string;
-  source: string;
+  source: Buffer;
 };
 
 export type CSSBundle = {
   name: string;
-  source: string;
+  source: Buffer;
 };
 
 type TessellateBundle = {

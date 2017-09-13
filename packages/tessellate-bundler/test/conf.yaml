@@ -1,5 +1,5 @@
 appPort: 3001
-logLevel: warn
+logLevel: debug
 publishTarget: file://bundles
 # Node modules to load in webpack-sandboxed. Must be locally installed.
 npmModules:

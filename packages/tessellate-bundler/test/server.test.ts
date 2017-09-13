@@ -7,8 +7,8 @@ jest.mock('../src/content-service', () => ({
   publish: jest.fn()
 }));
 
-import path = require('path');
 import fs = require('mz/fs');
+import path = require('path');
 import supertest = require('supertest');
 import { conf, TessellateServer } from 'tessellate-server';
 import * as server from '../src/server';
@@ -33,7 +33,7 @@ describe('server', () => {
   }
 
   describe('/health', () => {
-    it('should return OK', async () => {
+    test('return OK', async () => {
       const { appRequest } = await startServer();
 
       await appRequest.get('/health').expect(200).expect('OK');
@@ -41,7 +41,7 @@ describe('server', () => {
   });
 
   describe('/static', () => {
-    it('should serve static files from PUBLISH_TARGET', async () => {
+    test('serve static files from PUBLISH_TARGET', async () => {
       const { appRequest } = await startServer();
 
       await appRequest.get('/content.json').expect(200).expect('Content-Type', /json/);
@@ -50,9 +50,10 @@ describe('server', () => {
 
   describe('/bundles/:domain/:name', () => {
     const contentService = require('../src/content-service');
-    contentService.publish.mockImplementation(() => Promise.resolve({ js: '', css: '' }));
 
-    it('build a bundle from a JSON payload', async () => {
+    test('build a bundle from a JSON payload', async () => {
+      contentService.publish.mockImplementation(() => Promise.resolve({ js: '', css: '' }));
+
       const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'));
       const element = JSON.parse(json.toString());
       const { appRequest } = await startServer();
@@ -68,7 +69,7 @@ describe('server', () => {
   });
 
   describe('/metrics', () => {
-    it('should serve JSON metrics', async () => {
+    test('serve JSON metrics', async () => {
       const { metricsRequest } = await startServer();
 
       await metricsRequest.get('/metrics').expect(200).expect('Content-Type', /^text\/plain/);

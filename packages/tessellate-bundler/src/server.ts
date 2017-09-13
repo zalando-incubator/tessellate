@@ -1,10 +1,10 @@
 /// <reference path="../typings/index.d.ts" />
 
-import url = require('url');
-import path = require('path');
-import koaStatic = require('koa-static');
 import kcors = require('kcors');
+import koaStatic = require('koa-static');
+import path = require('path');
 import { conf, log, TessellateServer } from 'tessellate-server';
+import url = require('url');
 import createBundle from './epics/bundles';
 import getHealth from './epics/health';
 
