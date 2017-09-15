@@ -22,6 +22,10 @@ class BundleProblem extends Problem {
 }
 
 export async function fetchBundle(sources: Object): Promise<Bundle> {
+  if (!sources.bundles.src) {
+    throw new BundleProblem('No bundle source configured!');
+  }
+
   const uri = url.parse(sources.bundles.src);
 
   if ((uri.protocol === 'http:' || uri.protocol === 'https:') && uri.hostname) {

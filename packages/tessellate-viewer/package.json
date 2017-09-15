@@ -29,25 +29,25 @@
     "upgrade-dependencies": "ncu -u"
   },
   "dependencies": {
-    "debug": "2.6.7",
-    "ejs": "2.5.6",
-    "js-yaml": "3.8.4",
-    "koa": "2.2.0",
+    "debug": "3.0.1",
+    "ejs": "2.5.7",
+    "js-yaml": "3.10.0",
+    "koa": "2.3.0",
     "koa-morgan": "1.0.1",
-    "koa-router": "7.1.1",
-    "koa-static": "3.0.0",
+    "koa-router": "7.2.1",
+    "koa-static": "4.0.1",
     "nconf": "0.8.4",
     "request": "2.81.0",
     "request-promise-native": "1.0.4",
-    "thenify": "3.2.1"
+    "thenify": "3.3.0"
   },
   "devDependencies": {
-    "babel-cli": "6.24.1",
-    "eslint": "3.19.0",
-    "flow-bin": "0.46.0",
-    "flow-typed": "2.1.2",
-    "jest": "20.0.1",
-    "npm-check-updates": "2.11.1",
+    "babel-cli": "6.26.0",
+    "eslint": "4.6.1",
+    "flow-bin": "0.54.1",
+    "flow-typed": "2.1.5",
+    "jest": "21.0.2",
+    "npm-check-updates": "2.12.1",
     "rimraf": "2.6.1",
     "supertest": "3.0.0"
   },
