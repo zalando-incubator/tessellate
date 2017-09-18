@@ -25,7 +25,7 @@ tessellate-fragment can respond to requests dynamically and is agnostic about th
 Tessellate micro services can easily be installed as Node modules:
 
 ```
-npm i --save tessellate-bundler tessellate-fragment
+yarn add tessellate-bundler tessellate-fragment
 ```
 
 ## Configuration
@@ -34,14 +34,14 @@ Each micro service reads configuration from environment variables, command line 
 
 ## Development
 
-Tessellate requires Node.js >= 7.6 and uses [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
+Tessellate requires Node.js >= 7.6 and uses [Yarn workspaces](https://yarnpkg.com/blog/2017/08/02/introducing-workspaces) and [Lerna](https://github.com/lerna/lerna) for managing packages. Run the following commands in the root directory to get started:
 
 ```
-npm install   # Install dependencies and initialize packages.
-npm run dist  # Compile all packages.
+yarn install   # Install dependencies and initialize packages.
+yarn run dist  # Compile all packages.
 ```
 
-We recommend using [Atom](https://atom.io) text editor together with the [Nuclide](https://nuclide.io) plugin and [Flow](https://flowtype.org) for static type checking.
+We recommend using [Code](https://code.visualstudio.com) for editing TypeScript packages and the [Atom](https://atom.io) text editor together with the [Nuclide](https://nuclide.io) plugin and [Flow](https://flowtype.org) for static type checking of flow-typed JavaScript packages (currently only editor, viewer and trasform).
 
 Here's how to install Nuclide (requires Atom) and Flow:
 
