@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import kcors = require('kcors');
 import koaStatic = require('koa-static');
 import path = require('path');
@@ -8,28 +6,27 @@ import url = require('url');
 import createBundle from './epics/bundles';
 import getHealth from './epics/health';
 
-function getFileSystemPublishTarget(): string | null {
-  const target = url.parse(conf.getString('publishTarget', ''));
-  if (target.protocol === 'file:') {
-    const { hostname, pathname } = target;
-    if (hostname || pathname) {
-      return path.resolve(process.cwd(), path.join(hostname || '', pathname || ''));
-    } else {
-      return null;
-    }
-  }
-  return null;
-}
-
 export function init(): TessellateServer {
   const server = new TessellateServer();
 
+  // Send CORS headers.
   server.use(kcors());
 
-  const fileSystemPublishTarget = getFileSystemPublishTarget();
-  if (fileSystemPublishTarget) {
-    log.info('Serving files from %s', fileSystemPublishTarget);
-    server.use(koaStatic(fileSystemPublishTarget, { defer: true, gzip: true }));
+  // Configure static bundle serving if necessary.
+  const publishTarget = url.parse(conf.getString('publishTarget', ''));
+
+  if (publishTarget.protocol === 'file:') {
+    const { hostname, pathname } = publishTarget;
+    if (hostname || pathname) {
+      const fileSystemPublishTarget = path.resolve(
+        process.cwd(),
+        path.join(hostname || '', pathname || '')
+      );
+      log.info('Serving files from %s', fileSystemPublishTarget);
+      server.use(koaStatic(fileSystemPublishTarget, { defer: true, gzip: true }));
+    } else {
+      throw new Error(`Illegal publish target ${publishTarget}`);
+    }
   }
 
   server.router.get('/health', getHealth);
@@ -40,7 +37,7 @@ export function init(): TessellateServer {
 
 export async function start(port = conf.getNumber('appPort', 3001)): Promise<TessellateServer> {
   const server = await init().start(port, port + 1);
-  log.info('listening on port %d', port);
+  log.info('Listening on port %d', port);
   return server;
 }
 

@@ -17,7 +17,7 @@ function parseOptions(): bundleService.Options {
   const externals = externalsList.reduce((exts, ext) => Object.assign(exts, { [ext]: ext }), {} as {
     [key: string]: string;
   });
-  const production = conf.getString('nodeEnv') === 'production';
+  const production = process.env.NODE_ENV === 'production';
 
   return {
     cssSupport: true,

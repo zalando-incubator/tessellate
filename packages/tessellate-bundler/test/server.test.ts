@@ -1,5 +1,3 @@
-/// <reference types="jest" />
-
 jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
 require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 
@@ -14,7 +12,7 @@ import { conf, TessellateServer } from 'tessellate-server';
 import * as server from '../src/server';
 
 describe('server', () => {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+  (jest as any).setTimeout(20000);
 
   let startedServer: TessellateServer;
 

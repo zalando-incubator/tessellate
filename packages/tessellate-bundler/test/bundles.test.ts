@@ -1,6 +1,3 @@
-/// <reference types="jest" />
-
-(jest as any).setTimeout(10000);
 jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
 require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 
@@ -10,6 +7,8 @@ import path = require('path');
 import createBundle from '../src/epics/bundles';
 
 describe('bundles', () => {
+  (jest as any).setTimeout(20000);
+
   beforeEach(() => jest.resetAllMocks());
 
   test('create bundle response', async () => {

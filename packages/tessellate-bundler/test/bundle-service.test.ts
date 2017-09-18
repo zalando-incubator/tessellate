@@ -1,5 +1,3 @@
-/// <reference types="jest" />
-
 jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
 require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 
@@ -9,7 +7,7 @@ import createWebpackSandbox from 'webpack-sandboxed';
 import * as bundleService from '../src/bundle-service';
 
 describe('bundle-service', () => {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+  (jest as any).setTimeout(20000);
 
   beforeEach(() => jest.resetAllMocks());
 

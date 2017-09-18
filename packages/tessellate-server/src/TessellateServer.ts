@@ -6,7 +6,7 @@ import bodyParser = require('koa-bodyparser');
 import compose = require('koa-compose');
 import KoaRouter = require('koa-router');
 import error from './error';
-import { logger } from './logger';
+import { log, logger } from './logger';
 import MetricsApp from './MetricsApp';
 
 type Listener = (req: IncomingMessage, res: ServerResponse) => void;
@@ -102,10 +102,12 @@ export default class TessellateServer {
    */
   public async start(port: number, metricsPort?: number): Promise<TessellateServer> {
     // Start the main server.
+    log.debug('Start application server on port %d', port);
     const servers = [startServer(this.app.callback(), port)];
 
     // Only start the metrics server if a metrics port is provided.
     if (metricsPort) {
+      log.debug('Start metrics server on port %d', metricsPort);
       servers.push(startServer(this.metrics.callback(), metricsPort));
     }
 

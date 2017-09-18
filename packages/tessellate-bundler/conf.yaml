@@ -1,0 +1,5 @@
+appPort: 3001
+logLevel: debug
+publishTarget: file://bundles
+npmModules: []
+npmExternals: []

@@ -5,7 +5,7 @@ A small web service that renders precompiled JavaScript bundles of React compone
 ## Getting started
 
 ```bash
-npm install tessellate-fragment
+yarn install tessellate-fragment
 node_modules/.bin/tessellate-fragment
 ```
 

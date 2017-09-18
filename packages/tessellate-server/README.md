@@ -12,30 +12,30 @@ Web service runtime for tessellate services. It contains the following modules:
 
 ## TessellateServer
 
-```typescript
+```javascript
 import { TessellateServer } from 'tessellate-server'
 const server = new TessellateServer()
 ```
 
-```typescript
+```javascript
 server.use(middleware: Middleware, defer: boolean = false): TessellateServer
 ```
 
 Add koa [Middleware](https://github.com/koajs/koa/wiki#middleware) that runs **before** any routes are handled. If `defer` is set to `true`, the middleware will run **after** all routes. Also see [koa.app.use](https://github.com/koajs/koa/blob/v2.x/docs/api/index.md#appusefunction).
 
-```typescript
+```javascript
 server.start(port: number, metricsPort?: number): Promise<TessellateServer>
 ```
 
 Start the koa application server and an optional [prometheus](https://github.com/siimon/prom-client) metrics server on the specified ports. If no `metricsPort` is provided, prometheus will not be started.
 
-```typescript
+```javascript
 server.router: Router
 ```
 
 [koa-router](https://github.com/alexmingoia/koa-router) instance. Use it to add routes.
 
-```typescript
+```javascript
 server.stop(): Promise<void>
 ```
 
@@ -43,28 +43,15 @@ Stop all koa servers.
 
 ## conf
 
-```typescript
+```javascript
 import { conf } from 'tessellate-server'
 ```
 
-A hierarchical configuration provider inspired by [nconf](https://github.com/indexzero/nconf).
-
-
-```typescript
-conf.set(key: string, value: any): Conf
-conf.get(key: string): any
-conf.getString(key: string): string
-conf.getNumber(key: string): number
-conf.getBoolean(key: string): boolean
-conf.getObject(key: string): object
-conf.withEnv(prefix?: string): Conf
-conf.withFile(file: string): Conf
-conf.withStore(defaults: object, name?: string): Conf
-```
+An instance of the hierarchical configuration provider [typeconf](https://github.com/mfellner/typeconf).
 
 ## Problem
 
-```typescript
+```javascript
 import { Problem } from 'tessellate-server'
 ```
 
@@ -72,7 +59,7 @@ A throwable Error class modeled after [Zalando Problem](https://github.com/zalan
 
 ## log
 
-```typescript
+```javascript
 import { log } from 'tessellate-server'
 ```
 
@@ -80,7 +67,7 @@ A [winston](https://github.com/winstonjs/winston) logger intance.
 
 ## request
 
-```typescript
+```javascript
 import { request } from 'tessellate-server'
 request(options: request.Options, provider?: AuthorizationProvider): Promise<FullResponse>
 ```
@@ -92,7 +79,7 @@ A request client based on [request-promise-native](https://github.com/request/re
 
 ### request/AuthorizationProvider
 
-```typescript
+```javascript
 import { 
   basicAuthorizationProvider,
   oauth2AuthorizationProvider
@@ -101,7 +88,7 @@ import {
 
 Create authorization providers, functions that return authorization options for the request client.
 
-```typescript
+```javascript
 type AuthorizationProvider = () => Promise<AuthOptions>
 type basicAuthorizationProvider = (credentials: { user: string, pass: string }) => AuthorizationProvider
 type oauth2AuthorizationProvider = (supplier: TokenProvider.TokenSupplier) => AuthorizationProvider
@@ -109,7 +96,7 @@ type oauth2AuthorizationProvider = (supplier: TokenProvider.TokenSupplier) => Au
 
 ### request/tokens
 
-```typescript
+```javascript
 import { 
   LocalProvider,
   PasswordCredentialsFlowProvider
@@ -122,7 +109,7 @@ Token providers can provide tokens using the OAuth2 authentication scheme.
 
 Run `npm start` or check out the code below:
 
-```typescript
+```javascript
 import { TessellateServer, Problem } from '../src'
 
 const server = new TessellateServer();

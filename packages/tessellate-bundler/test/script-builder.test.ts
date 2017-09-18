@@ -1,5 +1,3 @@
-/// <reference types="jest" />
-
 jest.mock('uuid');
 
 import fs = require('mz/fs');
@@ -7,6 +5,8 @@ import path = require('path');
 import * as scriptBuilder from '../src/script-builder';
 
 describe('script-builder', () => {
+  (jest as any).setTimeout(20000);
+
   const uuid = require('uuid');
   uuid.v4.mockImplementation(mockUUID());
 

@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 require('source-map-support').install();
 
 export { default as TessellateServer } from './TessellateServer';

@@ -20,10 +20,10 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "build": "tsc -p .",
-    "dist": "npm run clean && npm run build && npm run docs",
+    "dist": "yarn run clean && yarn run build && yarn run docs",
     "start": "ts-node example/server.ts",
     "lint": "tslint --type-check --project tsconfig.json && tslint test/**/.ts",
-    "test": "npm run lint && TESSELLATE_LOG_LEVEL=error jest --coverage",
+    "test": "yarn run lint && TESSELLATE_LOG_LEVEL=warn jest --coverage",
     "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
     "prepublishOnly": "run dist",
     "upgrade-dependencies": "ncu -u"
@@ -63,7 +63,7 @@
     "prettier": "1.6.1",
     "rimraf": "2.6.1",
     "supertest": "3.0.0",
-    "ts-jest": "21.0.0",
+    "ts-jest": "21.0.1",
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
     "typedoc": "0.8.0",

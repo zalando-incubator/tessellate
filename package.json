@@ -5,7 +5,9 @@
     "npm": ">=4.3.0"
   },
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "postinstall": "yarn run dist",
     "lint": "lerna run lint",
@@ -13,12 +15,9 @@
     "clean": "lerna run clean",
     "dist": "lerna run dist",
     "bootstrap": "lerna bootstrap",
-    "semantic-release":
-      "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
-    "upgrade-dependencies":
-      "ncu -u && lerna exec -- ./node_modules/.bin/ncu -u && yarn run bootstrap",
-    "prettier":
-      "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.+(js|ts)\"",
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
+    "upgrade-dependencies": "ncu -u && lerna exec -- ./node_modules/.bin/ncu -u && yarn run bootstrap",
+    "prettier": "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.+(js|ts)\"",
     "publish-docs": "cd docs && yarn run publish"
   },
   "devDependencies": {
@@ -45,7 +44,8 @@
     "npm-check-updates": "2.12.1",
     "prettier": "1.7.0",
     "rimraf": "2.6.2",
-    "supertest": "3.0.0"
+    "supertest": "3.0.0",
+    "ts-jest": "21.0.1"
   },
   "config": {
     "commitizen": {

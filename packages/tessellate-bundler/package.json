@@ -22,10 +22,10 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "build": "tsc -p .",
-    "dist": "npm run clean && npm run build && npm run docs",
-    "start": "ts-node example/server.ts",
+    "dist": "yarn run clean && yarn run build && yarn run docs",
+    "start": "TESSELLATE_CONF=conf.yaml ts-node src/server.ts",
     "lint": "tslint --type-check --project tsconfig.json && tslint test/**/.ts",
-    "test": "npm run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
+    "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
     "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
     "prepublishOnly": "run dist",
     "upgrade-dependencies": "ncu -u"
@@ -37,7 +37,6 @@
     "babel-preset-react": "6.24.1",
     "change-case": "3.0.1",
     "css-loader": "0.28.7",
-    "debug": "3.0.1",
     "extract-text-webpack-plugin": "3.0.0",
     "kcors": "2.2.1",
     "koa-static": "4.0.1",

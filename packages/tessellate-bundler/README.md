@@ -5,7 +5,7 @@ A small web service that creates a React component hierarchy from JSON and compi
 ## Getting started
 
 ```bash
-npm install tessellate-bundler
+yarn install tessellate-bundler
 node_modules/.bin/tessellate-bundler
 ```
 
