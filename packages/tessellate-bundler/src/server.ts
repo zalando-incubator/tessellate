@@ -3,10 +3,9 @@ import koaStatic = require('koa-static');
 import path = require('path');
 import { conf, log, TessellateServer } from 'tessellate-server';
 import url = require('url');
-import createBundle from './epics/bundles';
-import getHealth from './epics/health';
+import { Bundler, BundleService, HealthService, WebpackFactory } from './domain';
 
-export function init(): TessellateServer {
+export async function init(): Promise<TessellateServer> {
   const server = new TessellateServer();
 
   // Send CORS headers.
@@ -29,14 +28,29 @@ export function init(): TessellateServer {
     }
   }
 
-  server.router.get('/health', getHealth);
-  server.router.post('/bundles/:domain/:name', createBundle);
+  // Load webpack configuration.
+  const packages = conf.getObject('npmModules', []) as string[];
+  const externals = conf.getObject('npmExternals', []) as string[];
+  const production = process.env.NODE_ENV === 'production';
+
+  const webpackFactory = new WebpackFactory({ cssSupport: true, production })
+    .withPackages(packages)
+    .withExternals(externals);
+
+  const webpackRunner = await webpackFactory.createInstance();
+  const bundler = new Bundler({ webpackRunner });
+  const bundleService = new BundleService({ bundler });
+  const healthService = new HealthService();
+
+  server.router.get('/health', healthService.getHealthHandler());
+  server.router.post('/bundles/:domain/:name', bundleService.getBundleHandler());
 
   return server;
 }
 
 export async function start(port = conf.getNumber('appPort', 3001)): Promise<TessellateServer> {
-  const server = await init().start(port, port + 1);
+  const server = await init();
+  await server.start(port, port + 1);
   log.info('Listening on port %d', port);
   return server;
 }

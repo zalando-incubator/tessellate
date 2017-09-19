@@ -12,7 +12,7 @@ import { conf, TessellateServer } from 'tessellate-server';
 import * as server from '../src/server';
 
 describe('server', () => {
-  (jest as any).setTimeout(20000);
+  (jest as any).setTimeout(30000);
 
   let startedServer: TessellateServer;
 
@@ -52,7 +52,7 @@ describe('server', () => {
     });
   });
 
-  describe('/bundles/:domain/:name', () => {
+  describe.skip('/bundles/:domain/:name', () => {
     const contentService = require('../src/content-service');
 
     test('build a bundle from a JSON payload', async () => {

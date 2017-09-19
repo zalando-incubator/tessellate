@@ -5,7 +5,7 @@ import path = require('path');
 import * as scriptBuilder from '../src/script-builder';
 
 describe('script-builder', () => {
-  (jest as any).setTimeout(20000);
+  (jest as any).setTimeout(30000);
 
   const uuid = require('uuid');
   uuid.v4.mockImplementation(mockUUID());

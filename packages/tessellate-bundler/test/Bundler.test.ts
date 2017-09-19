@@ -4,10 +4,11 @@ require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 import fs = require('mz/fs');
 import path = require('path');
 import createWebpackSandbox from 'webpack-sandboxed';
-import * as bundleService from '../src/bundle-service';
+import Bundler from '../src/domain/Bundler';
+import WebpackFactory from '../src/domain/WebpackFactory';
 
 describe('bundle-service', () => {
-  (jest as any).setTimeout(20000);
+  (jest as any).setTimeout(30000);
 
   beforeEach(() => jest.resetAllMocks());
 
@@ -19,8 +20,11 @@ describe('bundle-service', () => {
   });
 
   test('make a bundle from a source string', async () => {
+    const webpackRunner = await new WebpackFactory().createInstance();
+    const bundler = new Bundler({ webpackRunner });
+
     const source = await fs.readFile(path.resolve(__dirname, 'fixtures', 'fragment-script.js'));
-    const bundle = await bundleService.make(source.toString());
+    const bundle = await bundler.compile(source.toString());
     expect(bundle.js).toBeDefined();
     expect(bundle.css).not.toBeDefined();
     expect(bundle.js.name).toMatch(/\.js$/);
