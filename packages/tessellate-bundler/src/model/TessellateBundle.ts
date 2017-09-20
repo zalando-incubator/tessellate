@@ -8,7 +8,7 @@ export type CSSBundle = {
   source: Buffer;
 };
 
-type TessellateBundle = {
+export type TessellateBundle = {
   js: JSBundle;
   css?: CSSBundle;
 };

@@ -1,10 +1,6 @@
 jest.mock('mkdirp', () => (_: string, callback: () => void) => callback());
 require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 
-jest.mock('../src/content-service', () => ({
-  publish: jest.fn()
-}));
-
 import fs = require('mz/fs');
 import path = require('path');
 import supertest = require('supertest');

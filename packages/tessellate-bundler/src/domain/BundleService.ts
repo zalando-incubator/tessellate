@@ -1,19 +1,22 @@
 import { IMiddleware } from 'koa-router';
 import { log } from 'tessellate-server';
-import * as contentService from '../content-service';
+import { TessellateElement } from '../model';
 import * as scriptBuilder from '../script-builder';
-import TessellateElement from '../TessellateElement';
 import Bundler from './Bundler';
+import ContentRepository from './ContentRepository';
 
 export type Args = {
   bundler: Bundler;
+  contentRepository: ContentRepository;
 };
 
 export default class BundleService {
   private readonly bundler: Bundler;
+  private readonly contentRepository: ContentRepository;
 
   constructor(args: Args) {
     this.bundler = args.bundler;
+    this.contentRepository = args.contentRepository;
   }
 
   public getBundleHandler(): IMiddleware {
@@ -28,7 +31,7 @@ export default class BundleService {
       const bundle = await this.bundler.compile(source);
 
       // Publish bundle.
-      const { js, css } = await contentService.publish({ domain, name, bundle });
+      const { js, css } = await this.contentRepository.publish({ domain, name, bundle });
 
       ctx.status = 201;
       ctx.body = { js, css };

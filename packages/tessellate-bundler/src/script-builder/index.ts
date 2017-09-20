@@ -1,7 +1,7 @@
 import { camelCase } from 'change-case';
 import { log, Problem } from 'tessellate-server';
 import uuid = require('uuid');
-import TessellateElement from '../TessellateElement';
+import { TessellateElement } from '../model';
 import createElementScript from './CreateElementScript';
 import fragmentScript from './FragmentScript';
 

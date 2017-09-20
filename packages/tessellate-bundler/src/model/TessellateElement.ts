@@ -1,4 +1,4 @@
-type TessellateElement = {
+export type TessellateElement = {
   type: string;
   style?: string;
   props: { [key: string]: any } | null;

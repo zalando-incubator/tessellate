@@ -1,6 +1,6 @@
 import { log } from 'tessellate-server';
 import { WebpackRunner } from 'webpack-sandboxed';
-import TessellateBundle from '../TessellateBundle';
+import { TessellateBundle } from '../model';
 
 export type Options = {
   cssSupport?: boolean;

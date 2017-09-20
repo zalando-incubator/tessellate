@@ -13,6 +13,7 @@
     "arrow-parens": [true, "ban-single-arg-parens"],
     "curly": [true, "ignore-same-line"],
     "object-literal-key-quotes": [true, "as-needed"],
+    "max-classes-per-file": false,
     "member-ordering": [
       true,
       {
