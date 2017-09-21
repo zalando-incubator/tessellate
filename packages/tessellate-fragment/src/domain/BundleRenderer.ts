@@ -10,7 +10,7 @@ export default class BundleRenderer {
   }
 
   public renderToString(source: string, props: object = {}): string {
-    const { Fragment } = this.sandbox.run(source);
-    return ReactDOMServer.renderToString(React.createElement(Fragment, props));
+    const { Root } = this.sandbox.run(source);
+    return ReactDOMServer.renderToString(React.createElement(Root, props));
   }
 }

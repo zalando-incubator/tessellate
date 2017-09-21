@@ -4,8 +4,8 @@ require('mz/fs').writeFile = jest.fn(() => Promise.resolve());
 import fs = require('mz/fs');
 import path = require('path');
 import createWebpackSandbox from 'webpack-sandboxed';
-import Bundler from '../src/domain/Bundler';
-import WebpackFactory from '../src/domain/WebpackFactory';
+import Bundler from '../../src/domain/Bundler';
+import WebpackFactory from '../../src/domain/WebpackFactory';
 
 describe('bundle-service', () => {
   (jest as any).setTimeout(30000);
@@ -23,7 +23,7 @@ describe('bundle-service', () => {
     const webpackRunner = await new WebpackFactory().createInstance();
     const bundler = new Bundler({ webpackRunner });
 
-    const source = await fs.readFile(path.resolve(__dirname, 'fixtures', 'fragment-script.js'));
+    const source = await fs.readFile(path.resolve(__dirname, '../fixtures/fragment-script.js'));
     const bundle = await bundler.compile(source.toString());
     expect(bundle.js).toBeDefined();
     expect(bundle.css).not.toBeDefined();

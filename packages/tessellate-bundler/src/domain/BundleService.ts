@@ -1,9 +1,8 @@
 import { IMiddleware } from 'koa-router';
 import { log } from 'tessellate-server';
-import { TessellateElement } from '../model';
-import * as scriptBuilder from '../script-builder';
 import Bundler from './Bundler';
 import ContentRepository from './ContentRepository';
+import generateScript from './generate-script';
 
 export type Args = {
   bundler: Bundler;
@@ -23,11 +22,14 @@ export default class BundleService {
     return async ctx => {
       // Parse bundle parameters.
       const { domain, name } = ctx.params;
-      const element = ctx.request.body as TessellateElement;
+      const element = ctx.request.body;
       log.debug('Parsed bundle request %s/%s', domain, name);
 
       // Generate code and compile bundle.
-      const source = scriptBuilder.build(element);
+      const source = generateScript({
+        layout: element,
+        content: {}
+      });
       const bundle = await this.bundler.compile(source);
 
       // Publish bundle.
