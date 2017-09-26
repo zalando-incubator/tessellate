@@ -3,7 +3,6 @@
 jest.mock('mz/fs');
 jest.mock('request-promise-native');
 
-import path = require('path');
 import fs = require('mz/fs');
 import request = require('request-promise-native');
 import PasswordCredentialsFlowProvider from '../src/request/tokens/PasswordCredentialsFlowProvider';
@@ -67,12 +66,10 @@ describe('PasswordCredentialsFlowProvider', () => {
   // Set the following environment variables in order to
   // run an integration test against a real backend.
   const accessTokenUri = process.env['OAUTH2_TOKEN_URI'];
-  const tokenInfoUri = process.env['OAUTH2_TOKEN_INFO_URI'];
   const credentialsDir = process.env['OAUTH2_CREDENTIALS_DIR'];
   jest.clearAllMocks();
 
   if (!accessTokenUri || !credentialsDir) {
-    console.warn('Skipping "get token from real backend"');
     test.skip('');
     return;
   }

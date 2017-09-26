@@ -2,8 +2,8 @@
 
 jest.mock('request-promise-native');
 
-import request = require('request-promise-native');
 import { RequestAPI } from 'request';
+import request = require('request-promise-native');
 import makeRequest from '../src/request';
 import * as authProviders from '../src/request/AuthorizationProvider';
 
