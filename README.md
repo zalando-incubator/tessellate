@@ -57,9 +57,7 @@ npm install -g flow-bin
 
 ## Contributing
 
-For details on pull requests, commit messages and contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
-
-Unless you explicitly state otherwise in advance, any non trivial contribution intentionally submitted for inclusion in this project by you to the steward of this repository (Zalando SE, Berlin) shall be under the terms and conditions of the [MIT License](LICENSE), without any additional copyright information, terms or conditions.
+For details on pull requests, commit messages and conditions for contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Documentation
 
