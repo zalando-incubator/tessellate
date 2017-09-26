@@ -1,5 +1,5 @@
-FROM registry.opensource.zalan.do/stups/node:6.4-53
-MAINTAINER maximilian.fellner@zalando.de
+FROM registry.opensource.zalan.do/stups/node:8.4.0-31
+LABEL maintainer="maximilian.fellner@zalando.de"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
@@ -12,17 +12,15 @@ COPY package.json package.json
 
 RUN npm install --production
 
-COPY bin/ bin/
-COPY dist/ dist/
-COPY static/ static/
+COPY bin dist static ./
 
 ENV NODE_ENV production
 ENV MORGAN_FORMAT common
-ENV APP_PORT 3003
+ENV APP_PORT 3005
 ENV DEBUG tessellate-viewer:*
 
-# HEALTHCHECK CMD ["curl",  "localhost:3003/health"]
+HEALTHCHECK --interval=5s CMD curl localhost:${APP_PORT}/health
 
-EXPOSE 3001
+EXPOSE 3005
 
 CMD ["bin/tessellate-viewer"]

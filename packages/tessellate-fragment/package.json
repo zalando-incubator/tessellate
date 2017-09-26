@@ -20,10 +20,10 @@
   },
   "scripts": {
     "clean": "rimraf dist/*",
-    "build": "tsc -p .",
-    "dist": "yarn run clean && yarn run build && yarn run docs",
+    "build": "tsc -p tsconfig.dist.json",
+    "dist": "yarn run clean && yarn run build",
     "start": "TESSELLATE_CONF=conf.yaml ts-node src/server.ts",
-    "lint": "tslint --type-check --project tsconfig.json && tslint test/**/.ts",
+    "lint": "tslint --type-check --project tsconfig.json",
     "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
     "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
     "prepublishOnly": "run dist",
