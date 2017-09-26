@@ -12,7 +12,6 @@ Tessellate is a server-side React renderer that creates static HTML and a comple
 |[tessellate-bundler](packages/tessellate-bundler)  |Builds portable ReactJS modules from abstract component structures.|[![npm version](https://badge.fury.io/js/tessellate-bundler.svg)](https://badge.fury.io/js/tessellate-bundler)|
 |[tessellate-fragment](packages/tessellate-fragment)|Agnostic fragment for rendering any ReactJS module.                |[![npm version](https://badge.fury.io/js/tessellate-fragment.svg)](https://badge.fury.io/js/tessellate-fragment)|
 |[tessellate-viewer](packages/tessellate-viewer)    |Simple layout service for composing fragments.                     |[![npm version](https://badge.fury.io/js/tessellate-viewer.svg)](https://badge.fury.io/js/tessellate-viewer)|
-|[tessellate-transform](packages/tessellate-transform)|Transform content to JSON for tessellate-bundler.                |[![npm version](https://badge.fury.io/js/tessellate-transform.svg)](https://badge.fury.io/js/tessellate-transform)|
 
 ## Dynamic fragments
 

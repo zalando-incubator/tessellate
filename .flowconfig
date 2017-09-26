@@ -12,7 +12,6 @@ packages/tessellate-fragment/flow-typed
 packages/tessellate-render/flow-typed
 packages/tessellate-request/flow-typed
 packages/tessellate-server/flow-typed
-packages/tessellate-transform/flow-typed
 packages/tessellate-viewer/flow-typed
 
 [options]
