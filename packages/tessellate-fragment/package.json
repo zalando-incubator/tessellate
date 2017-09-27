@@ -26,30 +26,31 @@
     "lint": "tslint --type-check --project tsconfig.json",
     "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
     "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
-    "prepublishOnly": "run dist",
-    "upgrade-dependencies": "ncu -u"
+    "prepublishOnly": "run dist"
   },
   "dependencies": {
     "lodash.merge": "4.6.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
-    "request": "2.81.0",
-    "request-promise-native": "1.0.4",
+    "request": "2.83.0",
+    "request-promise-native": "1.0.5",
     "tessellate-server": "1.1.1"
   },
   "devDependencies": {
     "@types/lodash.merge": "4.6.3",
-    "@types/react": "16.0.5",
-    "@types/react-dom": "15.5.4",
-    "@types/request-promise-native": "1.0.6",
-    "jest": "21.0.2",
-    "npm-check-updates": "2.12.1",
-    "rimraf": "2.6.1",
+    "@types/node": "8.0.31",
+    "@types/react": "16.0.7",
+    "@types/react-dom": "15.5.5",
+    "@types/request": "2.0.3",
+    "@types/request-promise-native": "1.0.7",
+    "@types/supertest": "2.0.3",
+    "jest": "21.2.0",
+    "rimraf": "2.6.2",
     "ts-jest": "21.0.1",
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
     "typedoc": "0.8.0",
-    "typescript": "2.5.2"
+    "typescript": "2.5.3"
   },
   "jest": {
     "testEnvironment": "node",
@@ -59,7 +60,7 @@
       "json"
     ],
     "transform": {
-      "\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.ts$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "/test/.*\\.test.ts$",
     "coverageReporters": [

@@ -29,8 +29,7 @@
     "lint": "eslint client server",
     "test": "npm run lint && NODE_ENV=test jest --coverage",
     "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
-    "prepublishOnly": "npm run clean && npm run dist",
-    "upgrade-dependencies": "ncu -u"
+    "prepublishOnly": "npm run clean && npm run dist"
   },
   "dependencies": {
     "debug": "3.0.1",
@@ -54,12 +53,11 @@
     "flow-bin": "0.54.1",
     "flow-typed": "2.1.5",
     "html-webpack-plugin": "2.30.1",
-    "jest": "21.0.2",
-    "npm-check-updates": "2.12.1",
+    "jest": "21.2.0",
     "raw-loader": "0.5.1",
     "react": "15.6.1",
     "react-dom": "15.6.1",
-    "rimraf": "2.6.1",
+    "rimraf": "2.6.2",
     "webpack": "3.5.6",
     "webpack-dev-server": "2.7.1"
   },
