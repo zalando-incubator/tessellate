@@ -19,8 +19,6 @@ export const log: LoggerInstance = new Logger({
 
 /**
  * Create a [winston](https://github.com/winstonjs/winston) logging middleware for koa.
- * @param options [Options](https://github.com/bithavoc/express-winston#options) for winston.
- * @return koa middleware.
  */
 export function logger(options?: expressWinston.Options): Middleware {
   const middlewareFn = expressWinston.logger({

@@ -65,46 +65,6 @@ import { log } from 'tessellate-server'
 
 A [winston](https://github.com/winstonjs/winston) logger intance.
 
-## request
-
-```javascript
-import { request } from 'tessellate-server'
-request(options: request.Options, provider?: AuthorizationProvider): Promise<FullResponse>
-```
-
-A request client based on [request-promise-native](https://github.com/request/request-promise-native);
-
-* `options`: [request options](https://github.com/request/request#requestoptions-callback) object
-* `provider`: optional `AuthorizationProvider`
-
-### request/AuthorizationProvider
-
-```javascript
-import { 
-  basicAuthorizationProvider,
-  oauth2AuthorizationProvider
-} from 'tessellate-server/request/AuthorizationProvider'
-```
-
-Create authorization providers, functions that return authorization options for the request client.
-
-```javascript
-type AuthorizationProvider = () => Promise<AuthOptions>
-type basicAuthorizationProvider = (credentials: { user: string, pass: string }) => AuthorizationProvider
-type oauth2AuthorizationProvider = (supplier: TokenProvider.TokenSupplier) => AuthorizationProvider
-```
-
-### request/tokens
-
-```javascript
-import { 
-  LocalProvider,
-  PasswordCredentialsFlowProvider
-} from 'tessellate-server/request/tokens'
-```
-
-Token providers can provide tokens using the OAuth2 authentication scheme.
-
 ## Example
 
 Run `npm start` or check out the code below:
