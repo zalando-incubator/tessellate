@@ -1,0 +1,9 @@
+# Zappr configuration.
+# https://zappr.readthedocs.io/en/latest/
+
+approvals:
+  pattern: "(:\\+1:|👍|:ship:|:shipit:|:rocket:|LGTM)"
+  minimum: 1
+  ignore: pr_opener
+  from:
+    collaborators: true

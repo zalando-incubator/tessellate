@@ -1,8 +1,8 @@
 ![Tessellate](https://media.github.bus.zalan.do/user/115/files/7af8ba6e-91f8-11e6-854d-0e3ce4d4a3e0)
 
-[Tessellate](https://github.com/zalando-incubator/tessellate) is a server-side React renderer that creates static HTML and a complementary component tree from abstract JSON definitions.
+[Tessellate](https://github.com/zalando-incubator/tessellate) is a server-side React service that creates static HTML and a JavaScript bundle from abstract JSON definitions. It is meant to be used as a **Fragment** as part of the [Mosaic](https://www.mosaic9.org) stack for micro services in the frontend but can be used independently as well.
 
-Tessellate implements the Fragment API of the Mosaic project. With Tessellate you can create *dynamic Fragments* that dynamically render results based on the context of each HTTP request.
+With Tessellate you can create *dynamic* Fragments compatiple with the Mosaic stack that provide HTML, CSS and JavaScript based on precompiled JavaScript bundles and the context of each HTTP request.
 
 ## Overview
 
