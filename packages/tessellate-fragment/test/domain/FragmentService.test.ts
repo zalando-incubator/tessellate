@@ -7,15 +7,10 @@ import SourcesResolver from '../../src/domain/SourcesResolver';
 describe('FragmentService', () => {
   const BundleProviderMock = jest.fn<BundleProvider>(() => ({
     fetchBundle: async () => ({
-      bundle: {
-        source: 'module.exports = 42;',
-        links: {
-          js: 'http://statics.com/index.js',
-          css: 'http://statics.com/styles.css'
-        }
-      },
-      props: {
-        test: 'test'
+      source: 'module.exports = 42;',
+      links: {
+        js: 'http://statics.com/index.js',
+        css: 'http://statics.com/styles.css'
       }
     })
   }));
@@ -51,8 +46,8 @@ describe('FragmentService', () => {
     await handler(routerContext, () => Promise.resolve());
 
     expect(bundleRenderer.renderToString).toBeCalledWith(
-      'module.exports = 42;', // source
-      expect.objectContaining({ test: 'test' }) // props
+      'module.exports = 42;',     // source
+      expect.objectContaining({}) // props
     );
 
     expect(routerContext.body).toEqual('<html></html>');

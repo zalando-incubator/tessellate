@@ -4,7 +4,6 @@ import url = require('url');
 
 export type Headers = { [name: string]: string };
 export type BundleSources = { bundles: { src?: string; path?: string } };
-export type BundleResult = { bundle: Bundle; props: { [name: string]: any } };
 export type Bundle = {
   source: string;
   links: {
@@ -20,13 +19,9 @@ class BundleProblem extends Problem {
 }
 
 export default class BundleProvider {
-  public async fetchBundle(args: {
-    headers: Headers;
-    sources: BundleSources;
-  }): Promise<BundleResult> {
-    const skipperArgs = this.parseSkipperArgs(args.headers);
+  public async fetchBundle(args: { sources: BundleSources }): Promise<Bundle> {
     const bundle = await this.fetchBundleFromSource(args.sources);
-    return { bundle, props: skipperArgs };
+    return bundle;
   }
 
   private async fetchBundleFromSource(sources: BundleSources): Promise<Bundle> {
@@ -58,16 +53,5 @@ export default class BundleProvider {
       gzip: true
     });
     return { source, links: { js: jsURL, css: cssURL } };
-  }
-
-  private parseSkipperArgs(headers: Headers) {
-    return {
-      language: headers['accept-language'],
-      referer: headers['referer'],
-      userAgent: headers['user-agent'],
-      requestURI: headers['x-zalando-request-uri'],
-      requestHost: headers['x-zalando-request-host'],
-      customer: headers['x-zalando-customer']
-    };
   }
 }

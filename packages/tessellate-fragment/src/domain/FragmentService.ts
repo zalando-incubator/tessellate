@@ -1,4 +1,5 @@
 import { IMiddleware } from 'koa-router';
+import { log } from 'tessellate-server';
 import BundleProvider from './BundleProvider';
 import BundleRenderer from './BundleRenderer';
 import SourcesResolver from './SourcesResolver';
@@ -22,12 +23,12 @@ export default class FragmentService {
     return async ctx => {
       const { headers, query } = ctx.request;
 
+      log.debug('Received request', ctx.headers, ctx.query);
+
       const sources = await this.sourcesResolver.resolveSources(headers, query);
-      const { bundle, props } = await this.bundleProvider.fetchBundle({ headers, sources });
+      const bundle = await this.bundleProvider.fetchBundle({ sources });
 
-      const content = {};
-      props.content = content;
-
+      const props = {};
       const html = this.bundleRenderer.renderToString(bundle.source, props);
 
       ctx.set('Content-Type', 'text/html;charset=utf-8');
