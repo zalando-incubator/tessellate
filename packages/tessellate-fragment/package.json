@@ -20,46 +20,54 @@
   },
   "scripts": {
     "clean": "rimraf dist/*",
-    "dist": "babel -d dist src",
-    "start": "DEBUG=tessellate-fragment:*,webpack-sandboxed:* babel-node src/server.js",
-    "lint": "eslint src test",
-    "test": "npm run lint && NODE_ENV=test jest --coverage",
-    "flow-typed-install": "rimraf flow-typed/npm && flow-typed install -o",
-    "prepublishOnly": "npm run clean && npm run dist",
-    "upgrade-dependencies": "ncu -u"
+    "build": "tsc -p tsconfig.dist.json",
+    "dist": "yarn run clean && yarn run build",
+    "start": "TESSELLATE_CONF=conf.yaml ts-node src/server.ts",
+    "lint": "tslint --type-check --project tsconfig.json",
+    "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
+    "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
+    "prepublishOnly": "run dist"
   },
   "dependencies": {
-    "debug": "2.6.7",
-    "js-yaml": "3.8.4",
-    "koa": "2.2.0",
-    "koa-morgan": "1.0.1",
-    "koa-router": "7.1.1",
     "lodash.merge": "4.6.0",
-    "mz": "2.6.0",
-    "nconf": "0.8.4",
-    "prom-client": "9.0.0",
-    "prometheus-gc-stats": "0.3.4",
-    "request": "2.81.0",
-    "request-promise-native": "1.0.4",
-    "tessellate-render": "0.1.0",
-    "tessellate-request": "1.2.0"
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "request": "2.83.0",
+    "request-promise-native": "1.0.5",
+    "tessellate-server": "1.1.1"
   },
   "devDependencies": {
-    "babel-cli": "6.24.1",
-    "eslint": "3.19.0",
-    "flow-bin": "0.46.0",
-    "flow-typed": "2.1.2",
-    "jest": "20.0.1",
-    "npm-check-updates": "2.11.1",
-    "rimraf": "2.6.1"
+    "@types/lodash.merge": "4.6.3",
+    "@types/node": "8.0.31",
+    "@types/react": "16.0.7",
+    "@types/react-dom": "15.5.5",
+    "@types/request": "2.0.3",
+    "@types/request-promise-native": "1.0.7",
+    "@types/supertest": "2.0.3",
+    "jest": "21.2.0",
+    "rimraf": "2.6.2",
+    "ts-jest": "21.0.1",
+    "ts-node": "3.3.0",
+    "tslint": "5.7.0",
+    "typedoc": "0.8.0",
+    "typescript": "2.5.3"
   },
   "jest": {
     "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json"
+    ],
+    "transform": {
+      "\\.ts$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/test/.*\\.test.ts$",
     "coverageReporters": [
       "json",
       "lcov",
-      "html",
-      "text"
+      "text",
+      "html"
     ]
   }
 }

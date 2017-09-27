@@ -1,0 +1,40 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-reference": false,
+    "trailing-comma": [
+      false
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "no-string-literal": false,
+    "interface-over-type-literal": false,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "member-ordering": [
+      "true",
+      {
+        "order": "fields-first"
+      }
+    ]
+  },
+  "rulesDirectory": []
+}

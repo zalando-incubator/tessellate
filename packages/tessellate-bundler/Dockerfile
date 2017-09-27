@@ -1,5 +1,5 @@
-FROM registry.opensource.zalan.do/stups/node:6.4-53
-MAINTAINER maximilian.fellner@zalando.de
+FROM registry.opensource.zalan.do/stups/node:8.4.0-31
+LABEL maintainer="maximilian.fellner@zalando.de"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
@@ -12,15 +12,13 @@ COPY package.json package.json
 
 RUN npm install --production
 
+COPY conf.yaml conf.yaml
 COPY bin/ bin/
 COPY dist/ dist/
 
 ENV NODE_ENV production
-ENV MORGAN_FORMAT common
-ENV APP_PORT 3001
-ENV DEBUG tessellate-bundler:*
 
-# HEALTHCHECK CMD ["curl",  "localhost:3001/health"]
+HEALTHCHECK --interval=5s CMD curl localhost:${APP_PORT}/health
 
 EXPOSE 3001
 

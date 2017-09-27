@@ -1,49 +1,55 @@
 # tessellate-server
 
-Web service runtime for tessellate services.
+Web service runtime for tessellate services. It contains the following modules:
 
-### TessellateServer
+* [TessellateServer](#tessellateserver) – Application and metrics server.
+* [conf](#conf) – Configuration module.
+* [Problem](#problem) – Custom error class.
+* [log](#log) – Logging module.
+* [request](#request) – HTTP client.
+  * [request/AuthorizationProvider](#requestauthorizationprovider) – Authorization providers.
+  * [request/tokens](#requesttokens) – OAuth2 token providers.
 
-```
+## TessellateServer
+
+```javascript
 import { TessellateServer } from 'tessellate-server'
+const server = new TessellateServer()
 ```
 
-##### constructor(options: Options = {})
-
-* `name: string` Optional application name (see [koa.app.name](https://github.com/koajs/koa/blob/v2.x/docs/api/index.md#settings))
-
-##### use(middleware: Middleware, defer: boolean = false): TessellateServer
+```javascript
+server.use(middleware: Middleware, defer: boolean = false): TessellateServer
+```
 
 Add koa [Middleware](https://github.com/koajs/koa/wiki#middleware) that runs **before** any routes are handled. If `defer` is set to `true`, the middleware will run **after** all routes. Also see [koa.app.use](https://github.com/koajs/koa/blob/v2.x/docs/api/index.md#appusefunction).
 
-##### start(port: number | string, metricsPort?: number | string): Promise<TessellateServer>
+```javascript
+server.start(port: number, metricsPort?: number): Promise<TessellateServer>
+```
 
-Start the koa application server and [prometheus](https://github.com/siimon/prom-client) metrics server on the specified ports. The default value for `metricsPort` is `port + 1`.
+Start the koa application server and an optional [prometheus](https://github.com/siimon/prom-client) metrics server on the specified ports. If no `metricsPort` is provided, prometheus will not be started.
 
-##### TessellateServer.router
+```javascript
+server.router: Router
+```
 
-[koa-rx-router](https://github.com/mfellner/koa-router-rx) instance. Use it to add routes.
+[koa-router](https://github.com/alexmingoia/koa-router) instance. Use it to add routes.
 
-##### stop(): Promise<any>
+```javascript
+server.stop(): Promise<void>
+```
 
 Stop all koa servers.
 
-### nconf
+## conf
 
 ```javascript
-import { nconf } from 'tessellate-server'
+import { conf } from 'tessellate-server'
 ```
 
-Wrapper around [nconf](https://github.com/indexzero/nconf) with default values and convenience methods.
+An instance of the hierarchical configuration provider [typeconf](https://github.com/mfellner/typeconf).
 
-* `set(key: string, value: any)` - see [nconf](https://github.com/indexzero/nconf)
-* `get(key: string)` - see [nconf](https://github.com/indexzero/nconf)
-* `getObject(key: string): Object` - see `get`
-* `getString(key: string): string` - see `get`
-* `argv(args: Object)` - see [nconf](https://github.com/indexzero/nconf#argv)
-* `defaults(defaults: Object)` - see [nconf](https://github.com/indexzero/nconf)
-
-### Problem
+## Problem
 
 ```javascript
 import { Problem } from 'tessellate-server'
@@ -51,30 +57,41 @@ import { Problem } from 'tessellate-server'
 
 A throwable Error class modeled after [Zalando Problem](https://github.com/zalando/problem).
 
-### Example
+## log
+
+```javascript
+import { log } from 'tessellate-server'
+```
+
+A [winston](https://github.com/winstonjs/winston) logger intance.
+
+## Example
 
 Run `npm start` or check out the code below:
 
 ```javascript
 import { TessellateServer, Problem } from '../src'
-import { Observable } from 'rxjs'
 
-const server = new TessellateServer()
+const server = new TessellateServer();
 
-server.use((ctx, next) => {
-  console.log('Hi, this is middleware.')
-  return next()
-})
+server.use((_, next) => {
+  console.log('Hi, this is middleware.');
+  return next();
+});
 
-server.router.get('/', o => o.mapTo('Hello!'))
+server.router.get('/', ctx => ctx.body = 'Hello!');
 
-server.router.get('/error', o => o.switchMapTo(Observable.throw(
+server.router.get('/teapot', ctx => ctx.throw(
   new Problem({
     title: 'Teapot',
     detail: 'I am a teapot.',
     status: 418
   }))
-))
+);
 
-server.start(3001)
+server.start(3001);
 ```
+
+## Documentation
+
+[Read the TypeDocs](https://cdn.rawgit.com/zalando-incubator/tessellate/88-consider-typescript/packages/tessellate-server/doc/index.html).

@@ -21,7 +21,10 @@ describe('server', () => {
 
   describe('/health', () => {
     it('should return OK', async () => {
-      await request.get('/health').expect(200).expect('OK');
+      await request
+        .get('/health')
+        .expect(200)
+        .expect('OK');
     });
   });
 

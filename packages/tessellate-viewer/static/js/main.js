@@ -35,7 +35,8 @@
   // RequireJS function to require all fragment scripts.
   // Callback will we called with the loaded modules.
   require(fragmentNames, function() {
-    var i, render = null;
+    var i,
+      render = null;
 
     console.debug('Render fragments:', fragmentNames.join(','));
 
