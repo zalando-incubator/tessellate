@@ -32,6 +32,8 @@ This is a rough outline of what the workflow for code contributions looks like:
 - Submit a pull request to [zalando-incubator/tessellate](https://github.com/zalando-incubator/tessellate)
 - Your pull request must receive a :thumbsup: from at least one [maintainer](https://github.com/zalando-incubator/tessellate/blob/master/MAINTAINERS)
 
+Unless you explicitly state otherwise in advance, any non trivial contribution intentionally submitted for inclusion in this project by you to the steward of this repository (Zalando SE, Berlin) shall be under the terms and conditions of the [MIT License](LICENSE), without any additional copyright information, terms or conditions.
+
 Thanks for your contributions!
 
 ### Commit messages

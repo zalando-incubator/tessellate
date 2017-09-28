@@ -55,7 +55,9 @@ apm install nuclide
 npm install -g flow-bin
 ```
 
-For details on pull requests, commit messages and contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
+## Contributing
+
+For details on pull requests, commit messages and conditions for contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Documentation
 
