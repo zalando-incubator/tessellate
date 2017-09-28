@@ -42,7 +42,7 @@ export default class SourcesResolver {
     return sources;
   }
 
-  private async assignSourcePropertiesFromQuery(query: any, sources: any) {
+  private async assignSourcePropertiesFromQuery(query: any, sources: Sources) {
     if (SOURCES_QUERY_PARAM in query) {
       const sourcesUrl = query[SOURCES_QUERY_PARAM];
       try {
@@ -55,6 +55,10 @@ export default class SourcesResolver {
       } catch (err) {
         throw new SourcesProblem(`Unable to load properties from ${sourcesUrl}`);
       }
+    }
+
+    if (query.id) {
+      sources.bundles.path = query.id;
     }
   }
 
