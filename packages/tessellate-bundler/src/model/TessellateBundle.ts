@@ -1,16 +1,11 @@
-export type JSBundle = {
+export type File = {
   name: string;
-  source: Buffer;
-};
-
-export type CSSBundle = {
-  name: string;
-  source: Buffer;
+  data: Buffer;
 };
 
 export type TessellateBundle = {
-  js: JSBundle;
-  css?: CSSBundle;
+  js: File[];
+  css: File[];
 };
 
 export default TessellateBundle;

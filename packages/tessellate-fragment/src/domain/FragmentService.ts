@@ -22,17 +22,20 @@ export default class FragmentService {
     return async ctx => {
       const { headers, query } = ctx.request;
 
-      const sources = await this.sourcesResolver.resolveSources(headers, query);
-      const bundle = await this.bundleProvider.fetchBundle({ sources });
+      const sources = this.sourcesResolver.resolveSources({ headers, query });
+      const bundle = await this.bundleProvider.fetchBundle(sources);
+      // TODO: implement middleware pattern for external content resolution.
 
       const props = {};
       const html = this.bundleRenderer.renderToString(bundle.source, props);
+      const links = [`<${bundle.links.js}>; rel="fragment-script"`];
+
+      if (bundle.links.css) {
+        links.push(`<${bundle.links.css}>; rel="stylesheet"`);
+      }
 
       ctx.set('Content-Type', 'text/html;charset=utf-8');
-      ctx.set('Link', [
-        `<${bundle.links.css}>; rel="stylesheet"`,
-        `<${bundle.links.js}>; rel="fragment-script"`
-      ]);
+      ctx.set('Link', links);
       ctx.body = html;
     };
   }

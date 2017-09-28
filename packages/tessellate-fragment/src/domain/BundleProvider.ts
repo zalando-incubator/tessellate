@@ -8,7 +8,7 @@ export type Bundle = {
   source: string;
   links: {
     js: string;
-    css: string;
+    css?: string;
   };
 };
 
@@ -19,39 +19,45 @@ class BundleProblem extends Problem {
 }
 
 export default class BundleProvider {
-  public async fetchBundle(args: { sources: BundleSources }): Promise<Bundle> {
-    const bundle = await this.fetchBundleFromSource(args.sources);
+  public async fetchBundle(source: string): Promise<Bundle> {
+    const bundle = await this.fetchBundleFromSource(source);
     return bundle;
   }
 
-  private async fetchBundleFromSource(sources: BundleSources): Promise<Bundle> {
-    if (!sources.bundles.src) {
-      throw new BundleProblem('No bundle source configured!');
-    }
-
-    const uri = url.parse(sources.bundles.src);
+  private async fetchBundleFromSource(source: string): Promise<Bundle> {
+    const uri = url.parse(source);
 
     if ((uri.protocol === 'http:' || uri.protocol === 'https:') && uri.hostname) {
-      const baseURL = url.format({
-        protocol: uri.protocol,
-        hostname: uri.hostname,
-        port: uri.port,
-        pathname: sources.bundles.path
-      });
-      return await this.fetchBundleFromHTTPSource(baseURL);
+      return await this.fetchBundleFromHTTPSource(uri);
     } else {
       throw new BundleProblem(`Illegal bundle source ${uri.href}`);
     }
   }
 
-  private async fetchBundleFromHTTPSource(baseURL: string): Promise<Bundle> {
-    const jsURL = `${baseURL}/index.js`;
-    const cssURL = `${baseURL}/index.css`;
+  private async fetchBundleFromHTTPSource(bundleUrl: url.Url): Promise<Bundle> {
+    log.debug('Fetch bundle %s', url.format(bundleUrl));
+    let bundle;
+    try {
+      bundle = await request(url.format(bundleUrl), {
+        json: true
+      });
+    } catch (e) {
+      throw new BundleProblem(e.message);
+    }
 
-    log.debug('Fetch bundle %s', jsURL);
-    const source = await request(jsURL, {
+    log.debug('Received bundle %j', bundle);
+
+    // TODO: validate response, handle multiple files
+    const baseUrl = `${bundleUrl.protocol!}//${bundleUrl.host}`;
+    const jsUrl = url.resolve(baseUrl, bundle.js[0]);
+    const cssUrl = bundle.css[0] ? url.resolve(baseUrl, bundle.css[0]) : undefined;
+
+    log.debug('Fetch script %s', jsUrl);
+
+    const source = await request(jsUrl, {
       gzip: true
     });
-    return { source, links: { js: jsURL, css: cssURL } };
+
+    return { source, links: { js: jsUrl, css: cssUrl } };
   }
 }

@@ -22,24 +22,17 @@ export default class Bundler {
 
   public async compile(source: string): Promise<TessellateBundle> {
     log.info('Compile webpack bundle from source.');
-    const [bundle] = await this.webpackRunner.run(source);
+    const [bundle, stats] = await this.webpackRunner.run(source);
 
-    const files = Object.keys(bundle);
-    log.info('Made bundle %j', files);
-    // TODO: handle case of multiple files
-    const jsBundle = files.filter(b => b.endsWith('.js'))[0];
-    const cssBundle = files.filter(b => b.endsWith('.css'))[0];
+    log.info('Compiled bundle %j', stats.toJson());
 
-    const js = {
-      name: jsBundle,
-      source: bundle[jsBundle]
-    };
-    const css = cssBundle
-      ? {
-          name: cssBundle,
-          source: bundle[cssBundle]
-        }
-      : undefined;
+    const js = Object.entries(bundle)
+      .filter(([name, _]) => name.endsWith('.js'))
+      .map(([name, data]) => ({ name, data }));
+
+    const css = Object.entries(bundle)
+      .filter(([name, _]) => name.endsWith('.css'))
+      .map(([name, data]) => ({ name, data }));
 
     return { js, css };
   }

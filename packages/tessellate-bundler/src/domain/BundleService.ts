@@ -21,9 +21,9 @@ export default class BundleService {
   public getBundleHandler(): IMiddleware {
     return async ctx => {
       // Parse bundle parameters.
-      const { domain, name } = ctx.params;
+      const { key } = ctx.params;
       const element = ctx.request.body;
-      log.debug('Parsed bundle request %s/%s', domain, name);
+      log.debug('Parsed bundle request %s', key);
 
       // Generate code and compile bundle.
       const source = generateScript({
@@ -33,7 +33,7 @@ export default class BundleService {
       const bundle = await this.bundler.compile(source);
 
       // Publish bundle.
-      const { js, css } = await this.contentRepository.publish({ domain, name, bundle });
+      const { js, css } = await this.contentRepository.publish({ key, bundle });
 
       ctx.status = 201;
       ctx.body = { js, css };
