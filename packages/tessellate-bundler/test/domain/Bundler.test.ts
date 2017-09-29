@@ -27,7 +27,7 @@ describe('bundle-service', () => {
     const bundle = await bundler.compile(source.toString());
     expect(bundle.js).toBeDefined();
     expect(bundle.css).not.toBeDefined();
-    expect(bundle.js.name).toMatch(/\.js$/);
-    expect(bundle.js.source.toString()).toMatchSnapshot();
+    expect(bundle.js[0].name).toMatch(/\.js$/);
+    expect(bundle.js[0].data.toString()).toMatchSnapshot();
   });
 });

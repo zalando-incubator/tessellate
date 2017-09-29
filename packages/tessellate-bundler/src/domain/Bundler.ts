@@ -1,13 +1,12 @@
-import { log } from 'tessellate-server';
+import { log, Problem } from 'tessellate-server';
 import { WebpackRunner } from 'webpack-sandboxed';
 import { TessellateBundle } from '../model';
 
-export type Options = {
-  cssSupport?: boolean;
-  production?: boolean;
-  packages?: string[];
-  externals?: { [key: string]: string };
-};
+export class BundlerProblem extends Problem {
+  constructor(detail: string) {
+    super({ title: 'Bundler error.', detail });
+  }
+}
 
 export type Args = {
   webpackRunner: WebpackRunner;
@@ -22,7 +21,14 @@ export default class Bundler {
 
   public async compile(source: string): Promise<TessellateBundle> {
     log.info('Compile webpack bundle from source.');
-    const [bundle, stats] = await this.webpackRunner.run(source);
+    let bundle;
+    let stats;
+    try {
+      [bundle, stats] = await this.webpackRunner.run(source);
+    } catch (e) {
+      log.error('Webpack error:', e);
+      throw new BundlerProblem(e.message);
+    }
 
     log.info('Compiled bundle: %s', stats.toString('minimal'));
 
