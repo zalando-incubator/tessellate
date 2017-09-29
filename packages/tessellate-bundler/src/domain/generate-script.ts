@@ -37,20 +37,25 @@ function getRootScript({ rootId, props, elementScript, imports }: ScriptArgs): s
   ${Object.keys(imports)
     .map(name => getImportScript(name, imports[name]))
     .join('\n')}
+
   export const Root = props => {
-    const bundledProps = ${JSON.stringify(props)};
-    const mergedProps = Object.assign({}, bundledProps, props);
-    const getProps = pointerFn => pointerFn(mergedProps);
     return (
       <div id="${rootId}" data-props={JSON.stringify(props)}>
-        {${elementScript}}
+        <TessellateElement {...props}/>
       </div>
     );
   };
+
+  const TessellateElement = props => {
+    const bundledProps = ${JSON.stringify(props)};
+    const mergedProps = Object.assign({}, bundledProps, props);
+    const getProps = pointerFn => pointerFn(mergedProps);
+    return ${elementScript.trim()};
+  };
+
   export default function render(element) {
-    const root = document.getElementById('${rootId}');
-    const props = root ? JSON.parse(root.getAttribute('data-props')) : {};
-    ReactDOM.render(<Root {...props}/>, element);
+    const props = JSON.parse(element.getAttribute('data-props'));
+    ReactDOM.render(<TessellateElement {...props}/>, element);
   }
   `;
   return prettier.format(script);
