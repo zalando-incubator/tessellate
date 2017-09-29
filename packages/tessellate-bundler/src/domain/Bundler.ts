@@ -24,7 +24,7 @@ export default class Bundler {
     log.info('Compile webpack bundle from source.');
     const [bundle, stats] = await this.webpackRunner.run(source);
 
-    log.info('Compiled bundle %j', stats.toJson());
+    log.info('Compiled bundle: %s', stats.toString('minimal'));
 
     const js = Object.entries(bundle)
       .filter(([name, _]) => name.endsWith('.js'))

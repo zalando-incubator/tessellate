@@ -25,13 +25,6 @@ export async function init(): Promise<TessellateServer> {
   const bundleService = new BundleService({ bundler, contentRepository });
   const healthService = new HealthService();
 
-  // const contentHandler = contentRepository.getRequestHandler();
-
-  // if (contentHandler) {
-  //   log.info('Serving files from %s', publishTarget);
-  //   server.use(contentHandler);
-  // }
-
   server.router.get('/health', healthService.getHealthHandler());
   server.router.post('/bundles/:key+', bundleService.getBundleHandler());
   server.router.get('/bundles/:key+', contentRepository.getReadHandler());

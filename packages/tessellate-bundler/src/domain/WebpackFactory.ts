@@ -79,7 +79,7 @@ export default class WebpackFactory {
   }
 
   public withPackages(packages: string[]): WebpackFactory {
-    this.packages.concat(packages);
+    this.packages.push(...packages);
     return this;
   }
 
