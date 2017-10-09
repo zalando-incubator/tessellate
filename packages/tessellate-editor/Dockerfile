@@ -1,4 +1,4 @@
-FROM registry.opensource.zalan.do/stups/node:6.4-53
+FROM registry.opensource.zalan.do/stups/node:8.4.0-28
 MAINTAINER maximilian.fellner@zalando.de
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
