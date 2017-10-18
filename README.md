@@ -15,6 +15,10 @@ Tessellate is a server-side React service that creates static HTML and a JavaScr
 |[tessellate-viewer](packages/tessellate-viewer)      |Experimental layout service for composing Mosaic fragments.        |[![npm version](https://badge.fury.io/js/tessellate-viewer.svg)](https://badge.fury.io/js/tessellate-viewer)      |
 |[tessellate-transform](packages/tessellate-transform)|Experimental JSON transformation tool.                             |[![npm version](https://badge.fury.io/js/tessellate-transform.svg)](https://badge.fury.io/js/tessellate-transform)|
 
+### Articles and videos about Tessellate
+
+* [code.talks 2017: The Recipe For Scalable Frontends](https://www.youtube.com/watch?v=m32EdvitXy4)
+
 ## Tessellate v2
 
 The next version of tessellate is under development in the `next` branch of this repository.
