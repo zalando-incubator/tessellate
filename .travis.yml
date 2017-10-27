@@ -28,12 +28,11 @@ cache:
 before_install:
   - .travis/before_install.sh
 install:
-  - npm install
-  - npm install istanbul-combine coveralls codeclimate-test-reporter
+  - yarn install
+  - yarn add istanbul-combine coveralls codeclimate-test-reporter
 script:
-  - npm run flow-check
-  - npm test
-  - npm run dist
+  - yarn test
+  - yarn run dist
 after_success:
   - ./node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/tessellate-*/coverage/coverage*.json
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

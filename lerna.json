@@ -2,5 +2,11 @@
   "lerna": "2.1.2",
   "version": "independent",
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true
+    }
+  }
 }
