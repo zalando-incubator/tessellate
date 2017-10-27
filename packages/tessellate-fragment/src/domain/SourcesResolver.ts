@@ -32,7 +32,7 @@ export default class SourcesResolver {
     const bundlesSource = conf.getString('bundlesSource');
     const sources = fromHeaders || fromQuery;
 
-    if (bundlesSource && sources) {
+    if (bundlesSource) {
       return url.resolve(bundlesSource + '/', sources);
     } else {
       throw new SourcesProblem('Cannot determine sources.');

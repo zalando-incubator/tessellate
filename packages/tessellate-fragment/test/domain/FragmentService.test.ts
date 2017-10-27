@@ -46,7 +46,7 @@ describe('FragmentService', () => {
     await handler(routerContext, () => Promise.resolve());
 
     expect(bundleRenderer.renderToString).toBeCalledWith(
-      'module.exports = 42;',     // source
+      'module.exports = 42;', // source
       expect.objectContaining({}) // props
     );
 
