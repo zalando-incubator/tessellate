@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "../dist/client",
+    "module": "commonjs",
+    "target": "es5",
+    "newLine": "LF",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "pretty": true,
+    "removeComments": true,
+    "jsx": "react",
+    "lib": ["dom", "es2015"]
+  },
+  "include": ["./**/*"],
+  "formatCodeOptions": {
+    "indentSize": 2,
+    "tabSize": 2,
+    "newLineCharacter": "\n"
+  }
+}

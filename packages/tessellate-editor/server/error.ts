@@ -1,15 +1,12 @@
-// @flow
-
-import logger from './logger';
-
-const log = logger('error');
+import { log } from './logger';
+import { Middleware } from 'koa';
 
 export class Problem extends Error {
   title: string;
-  detail: ?string;
-  status: ?number;
+  detail?: string;
+  status?: number;
 
-  constructor(args: { title: string, detail?: string, status?: number }) {
+  constructor(args: { title: string; detail?: string; status?: number }) {
     super(args.title);
     this.title = args.title;
     this.detail = args.detail;
@@ -17,7 +14,7 @@ export class Problem extends Error {
   }
 }
 
-export default (async function error(ctx: Object, next: () => Promise<any>): Promise<any> {
+export const error: Middleware = async (ctx, next) => {
   try {
     return await next();
   } catch (err) {
@@ -29,4 +26,6 @@ export default (async function error(ctx: Object, next: () => Promise<any>): Pro
       status: ctx.status
     };
   }
-});
+};
+
+export default error;

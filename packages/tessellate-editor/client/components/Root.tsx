@@ -1,38 +1,37 @@
-// @flow
-import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
-import yaml from 'js-yaml';
+import React = require('react');
+import fetch = require('isomorphic-fetch');
+import yaml = require('js-yaml');
 import FileLoader from '../components/FileLoader';
 import TextArea from '../components/TextArea';
 import SubmitForm from '../components/SubmitForm';
 
-export default class Root extends Component {
-  props: {
-    options: Object
-  };
+type Props = {
+  bundleTarget: string;
+};
 
-  state: {
-    currentFile?: File,
-    fileContent?: string,
-    status: string
-  };
+type State = {
+  currentFile?: File;
+  fileContent?: string;
+  status: string;
+};
 
-  constructor(props: Object) {
+export default class Root extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       status: ''
     };
   }
 
-  parseFileContent(file?: File, content?: string): ?string {
-    if (file && (file.name.endsWith('.yaml') || file.name.endsWith('.yml'))) {
+  private parseFileContent(file?: File, content?: string): string | undefined {
+    if (file && (file.name.endsWith('.yaml') || file.name.endsWith('.yml')) && content) {
       return JSON.stringify(yaml.safeLoad(content));
     } else {
       return content;
     }
   }
 
-  onFileChanged(file?: File) {
+  private onFileChanged(file?: File) {
     if (!file) {
       this.setState({
         currentFile: undefined,
@@ -41,10 +40,10 @@ export default class Root extends Component {
       return;
     }
     const reader = new FileReader();
-    reader.onload = e =>
+    reader.onload = () =>
       this.setState({
         currentFile: file,
-        fileContent: e.target.result
+        fileContent: reader.result
       });
     reader.onerror = e =>
       this.setState({
@@ -53,31 +52,30 @@ export default class Root extends Component {
     reader.readAsText(file);
   }
 
-  onPublishContent(args: {| domain: string, key: string |}) {
+  private async onPublishContent(args: { domain: string; key: string }) {
     this.setState({
       status: 'publishing...'
     });
-    fetch(`${this.props.options.BUNDLE_TARGET}/${args.domain}/${args.key}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: this.parseFileContent(this.state.currentFile, this.state.fileContent)
-    })
-      .then(response => {
-        return this.setState({
-          status: `${response.status} - ${response.statusText}`
-        });
-      })
-      .catch(error => {
-        this.setState({
-          status: `Error: ${error.message}`
-        });
+    try {
+      const response = await fetch(`${this.props.bundleTarget}/${args.domain}/${args.key}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: this.parseFileContent(this.state.currentFile, this.state.fileContent)
       });
+      this.setState({
+        status: `${response.status} - ${response.statusText}`
+      });
+    } catch (e) {
+      this.setState({
+        status: `Error: ${e.message}`
+      });
+    }
   }
 
-  render() {
+  public render() {
     return (
       <div className="container" style={{ padding: '1em 0' }}>
         <div className="row">

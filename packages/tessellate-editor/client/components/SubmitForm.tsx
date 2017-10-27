@@ -1,19 +1,15 @@
-// @flow
-import React, { Component } from 'react';
+import React = require('react');
 
-type Props = {|
-  onSubmit: (args: Args) => void
-|};
+type Props = {
+  onSubmit: (args: State) => void;
+};
 
-type Args = {|
-  domain: string,
-  key: string
-|};
+type State = {
+  domain: string;
+  key: string;
+};
 
-export default class SubmitForm extends Component {
-  props: Props;
-  state: Args;
-
+export default class SubmitForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -22,27 +18,27 @@ export default class SubmitForm extends Component {
     };
   }
 
-  onDomainInputChanged(e: SyntheticInputEvent) {
+  private onDomainInputChanged: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     this.setState({
       domain: e.target.value
     });
-  }
+  };
 
-  onKeyInputChanged(e: SyntheticInputEvent) {
+  private onKeyInputChanged: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     this.setState({
       key: e.target.value
     });
-  }
+  };
 
-  onSubmit(e: SyntheticInputEvent) {
+  private onSubmit: React.MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
     this.props.onSubmit({
       domain: this.state.domain,
       key: this.state.key
     });
-  }
+  };
 
   render() {
     const publishDisabled = !this.state.domain || !this.state.key;
