@@ -1,4 +1,0 @@
-NPM_MODULES:      # Node modules to provide in webpack-sandboxed. Must be locally installed.
-  - reflexbox
-# NPM_EXTERNALS:    # Node modules to provide in webpack-sandboxed. Must be locally installed.
-#   - reflexbox

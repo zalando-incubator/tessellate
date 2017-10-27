@@ -1,0 +1,26 @@
+{
+  "type": "div",
+  "props": {
+    "style": {
+      "height": "38px",
+      "lineHeight": "38px"
+    }
+  },
+  "children": [
+    {
+      "type": "reactstrap.Container",
+      "props": {
+        "style": {
+          "padding": "0 15px"
+        }
+      },
+      "children": [
+        {
+          "type": "p",
+          "props": null,
+          "children": ["2017 Zalando SE"]
+        }
+      ]
+    }
+  ]
+}

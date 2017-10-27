@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <title>Hello Tessellate</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+  <script>
+    // Externalized dependencies not included in each fragment's bundle:
+    requirejs.config({
+      paths: {
+        'react': 'https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.development',
+        'react-dom': 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.development',
+        'reactstrap': 'https://cdnjs.cloudflare.com/ajax/libs/reactstrap/5.0.0-alpha.3/reactstrap.min',
+        'react-popper': 'https://cdnjs.cloudflare.com/ajax/libs/react-popper/0.7.4/react-popper.min',
+        'prop-types': 'https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.min',
+        'react-transition-group': 'https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.2.1/react-transition-group.min',
+        'react-transition-group/Transition': 'https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.2.1/react-transition-group.min',
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <fragment src="http://localhost:3003/fragment?id=zalando.de/header" primary></fragment>
+  <fragment src="http://localhost:3003/fragment?id=zalando.de/body"></fragment>
+  <fragment src="http://localhost:3003/fragment?id=zalando.de/footer"></fragment>
+</body>
+
+</html>

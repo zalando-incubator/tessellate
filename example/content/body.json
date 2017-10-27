@@ -1,0 +1,44 @@
+{
+  "type": "reactstrap.Container",
+  "props": {
+    "style": {
+      "marginTop": "20px"
+    }
+  },
+  "children": [
+    {
+      "type": "reactstrap.Row",
+      "props": null,
+      "children": [
+        {
+          "type": "reactstrap.Col",
+          "props": null,
+          "children": [
+            {
+              "type": "reactstrap.Card",
+              "props": null,
+              "children": [
+                {
+                  "type": "reactstrap.CardBody",
+                  "props": null,
+                  "children": [
+                    {
+                      "type": "reactstrap.CardTitle",
+                      "props": null,
+                      "children": ["Hello, card title!"]
+                    },
+                    {
+                      "type": "reactstrap.CardText",
+                      "props": null,
+                      "children": ["This is some nice text."]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

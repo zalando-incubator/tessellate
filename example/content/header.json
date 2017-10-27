@@ -1,0 +1,14 @@
+{
+  "type": "reactstrap.Navbar",
+  "props": {
+    "color": "light",
+    "light": true
+  },
+  "children": [
+    {
+      "type": "reactstrap.NavbarBrand",
+      "props": null,
+      "children": ["Hello, Tessellate!"]
+    }
+  ]
+}

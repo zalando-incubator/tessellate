@@ -3,20 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "linklocal link",
-    "bundler": "tessellate-bundler --APP_PORT=3001",
-    "fragment": "tessellate-fragment --APP_PORT=3003",
-    "viewer": "tessellate-viewer --APP_PORT=3005",
-    "editor": "tessellate-editor --APP_PORT=3007",
-    "all": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment viewer editor"
+    "bundler": "TESSELLATE_CONF=bundler.conf.yaml tessellate-bundler --APP_PORT=3001",
+    "fragment": "TESSELLATE_CONF=fragment.conf.yaml tessellate-fragment --APP_PORT=3003",
+    "tailor": "node tailor.js",
+    "start": "DEBUG=tessellate-* npm-run-all --parallel bundler fragment tailor"
   },
   "dependencies": {
-    "linklocal": "2.8.0",
-    "npm-run-all": "4.0.1",
-    "reflexbox": "2.2.3",
+    "node-tailor": "3.4.0",
+    "npm-run-all": "4.1.1",
+    "react-transition-group": "2.2.1",
+    "reactstrap": "5.0.0-alpha.3",
     "tessellate-bundler": "file:../packages/tessellate-bundler",
-    "tessellate-editor": "file:../packages/tessellate-editor",
-    "tessellate-fragment": "file:../packages/tessellate-fragment",
-    "tessellate-viewer": "file:../packages/tessellate-viewer"
+    "tessellate-fragment": "file:../packages/tessellate-fragment"
   }
 }
