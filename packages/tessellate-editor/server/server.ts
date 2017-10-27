@@ -1,8 +1,8 @@
 import Koa = require('koa');
 import koaStatic = require('koa-static');
 import conf, { staticDir } from './conf';
-import { log } from './logger';
 import error from './error';
+import { log } from './logger';
 
 export function init(): Koa {
   const app = new Koa();

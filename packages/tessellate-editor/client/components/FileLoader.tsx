@@ -15,7 +15,7 @@ export default class FileLoader extends React.Component<Props> {
     }
   };
 
-  render() {
+  public render() {
     return (
       <form>
         <div className="form-group">

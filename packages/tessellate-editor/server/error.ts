@@ -1,10 +1,10 @@
-import { log } from './logger';
 import { Middleware } from 'koa';
+import { log } from './logger';
 
 export class Problem extends Error {
-  title: string;
-  detail?: string;
-  status?: number;
+  public readonly title: string;
+  public readonly detail?: string;
+  public readonly status?: number;
 
   constructor(args: { title: string; detail?: string; status?: number }) {
     super(args.title);

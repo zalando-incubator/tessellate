@@ -28,7 +28,7 @@
     "lint-client": "tslint --type-check --project client/tsconfig.json",
     "lint-server": "tslint --type-check --project server/tsconfig.json",
     "lint": "yarn run lint-client && yarn run lint-server",
-    "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
+    "test": "yarn run lint",
     "prepublishOnly": "run dist",
     "dev": "webpack-dev-server -d -w",
     "start": "TESSELLATE_CONF=conf.yaml bin/tessellate-editor"

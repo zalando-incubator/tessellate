@@ -1,9 +1,9 @@
-import React = require('react');
 import fetch = require('isomorphic-fetch');
 import yaml = require('js-yaml');
+import React = require('react');
 import FileLoader from '../components/FileLoader';
-import TextArea from '../components/TextArea';
 import SubmitForm from '../components/SubmitForm';
+import TextArea from '../components/TextArea';
 
 type Props = {
   bundleTarget: string;

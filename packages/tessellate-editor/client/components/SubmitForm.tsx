@@ -40,7 +40,7 @@ export default class SubmitForm extends React.Component<Props, State> {
     });
   };
 
-  render() {
+  public render() {
     const publishDisabled = !this.state.domain || !this.state.key;
     return (
       <form>
