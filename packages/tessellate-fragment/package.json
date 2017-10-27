@@ -1,6 +1,6 @@
 {
   "name": "tessellate-fragment",
-  "version": "0.3.1",
+  "version": "2.0.0-alpha.d484c6f9",
   "description": "Tessellate fragment service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "react-dom": "15.6.1",
     "request": "2.83.0",
     "request-promise-native": "1.0.5",
-    "tessellate-server": "1.1.1"
+    "tessellate-server": "2.0.0-alpha.d484c6f9"
   },
   "devDependencies": {
     "@types/lodash.merge": "4.6.3",
