@@ -12,7 +12,6 @@ Tessellate is a server-side React service that creates static HTML and a JavaScr
 |[tessellate-fragment](packages/tessellate-fragment)  |Dynamic server-side React render service.                          |[![npm version](https://badge.fury.io/js/tessellate-fragment.svg)](https://badge.fury.io/js/tessellate-fragment)  |
 |[tessellate-server](packages/tessellate-server)      |Shared server library.                                             |[![npm version](https://badge.fury.io/js/tessellate-server.svg)](https://badge.fury.io/js/tessellate-server)  |
 |[tessellate-editor](packages/tessellate-editor)      |Experimental editor for composing reusable components.             |[![npm version](https://badge.fury.io/js/tessellate-editor.svg)](https://badge.fury.io/js/tessellate-editor)      |
-|[tessellate-viewer](packages/tessellate-viewer)      |Experimental layout service for composing Mosaic fragments.        |[![npm version](https://badge.fury.io/js/tessellate-viewer.svg)](https://badge.fury.io/js/tessellate-viewer)      |
 
 ## Dynamic fragments
 
