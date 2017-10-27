@@ -14,7 +14,7 @@
     "test": "lerna run test",
     "clean": "lerna run clean",
     "dist": "lerna run dist",
-    "publish": "lerna publish --conventional-commits",
+    "publish": "lerna publish --conventional-commits --exact --yes",
     "prettier": "prettier --print-width=100 --single-quote --write \"packages/tessellate-*/+(src|lib|client|server|static|test)/**/*.+(js|ts)\"",
     "publish-docs": "cd docs && yarn run publish"
   },

@@ -6,7 +6,8 @@
   "command": {
     "publish": {
       "allowBranch": "master",
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "exact": true
     }
   }
 }

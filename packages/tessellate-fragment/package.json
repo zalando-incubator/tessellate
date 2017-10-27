@@ -26,7 +26,7 @@
     "lint": "tslint --type-check --project tsconfig.json",
     "test": "yarn run lint && TESSELLATE_CONF=test/conf.yaml jest --coverage",
     "docs": "typedoc --readme none --tsconfig tsconfig.json --out doc",
-    "prepublishOnly": "run dist"
+    "prepublishOnly": "yarn run dist"
   },
   "dependencies": {
     "lodash.merge": "4.6.0",

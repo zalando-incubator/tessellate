@@ -29,9 +29,9 @@
     "lint-server": "tslint --type-check --project server/tsconfig.json",
     "lint": "yarn run lint-client && yarn run lint-server",
     "test": "yarn run lint",
-    "prepublishOnly": "run dist",
     "dev": "webpack-dev-server -d -w",
-    "start": "TESSELLATE_CONF=conf.yaml bin/tessellate-editor"
+    "start": "TESSELLATE_CONF=conf.yaml bin/tessellate-editor",
+    "prepublishOnly": "yarn run dist"
   },
   "dependencies": {
     "isomorphic-fetch": "2.2.1",
