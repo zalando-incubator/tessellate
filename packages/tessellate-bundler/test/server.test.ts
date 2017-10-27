@@ -37,17 +37,6 @@ describe('server', () => {
     });
   });
 
-  describe('/static', () => {
-    test('serve static files from PUBLISH_TARGET', async () => {
-      const { appRequest } = await startServer();
-
-      await appRequest
-        .get('/content.json')
-        .expect(200)
-        .expect('Content-Type', /json/);
-    });
-  });
-
   describe.skip('/bundles/:domain/:name', () => {
     const contentService = require('../src/content-service');
 

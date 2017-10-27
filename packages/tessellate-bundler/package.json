@@ -60,7 +60,6 @@
     "@types/webpack": "3.0.14",
     "jest": "21.2.1",
     "mosaic-component-example": "1.0.2",
-    "prettier": "1.7.0",
     "rimraf": "2.6.2",
     "supertest": "3.0.0",
     "ts-jest": "21.1.3",

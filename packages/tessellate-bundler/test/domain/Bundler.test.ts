@@ -7,7 +7,7 @@ import createWebpackSandbox from 'webpack-sandboxed';
 import Bundler from '../../src/domain/Bundler';
 import WebpackFactory from '../../src/domain/WebpackFactory';
 
-describe('bundle-service', () => {
+describe('Bundler', () => {
   (jest as any).setTimeout(30000);
 
   beforeEach(() => jest.resetAllMocks());
@@ -26,7 +26,7 @@ describe('bundle-service', () => {
     const source = await fs.readFile(path.resolve(__dirname, '../fixtures/fragment-script.js'));
     const bundle = await bundler.compile(source.toString());
     expect(bundle.js).toBeDefined();
-    expect(bundle.css).not.toBeDefined();
+    expect(bundle.css).toEqual([]);
     expect(bundle.js[0].name).toMatch(/\.js$/);
     expect(bundle.js[0].data.toString()).toMatchSnapshot();
   });

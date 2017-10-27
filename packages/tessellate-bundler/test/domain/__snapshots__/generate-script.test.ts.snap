@@ -4,28 +4,30 @@ exports[`script-builder should build a fragment script string from a content str
 "import React from \\"react\\";
 import ReactDOM from \\"react-dom\\";
 import mosaicComponentExample from \\"mosaic-component-example\\";
+
 export const Root = props => {
-  const bundledProps = {};
-  const mergedProps = Object.assign({}, bundledProps, props);
-  const getProps = pointerFn => pointerFn(mergedProps);
   return (
     <div id=\\"root\\" data-props={JSON.stringify(props)}>
-      {React.createElement(
-        \\"div\\",
-        null,
-        React.createElement(
-          mosaicComponentExample,
-          { level: 3 },
-          \`Hello, World!\`
-        )
-      )}
+      {getElements(props)}
     </div>
   );
 };
+
+const getElements = props => {
+  const bundledProps = {};
+  const mergedProps = Object.assign({}, bundledProps, props);
+  const getProps = pointerFn => pointerFn(mergedProps);
+  return React.createElement(
+    \\"div\\",
+    null,
+
+    React.createElement(mosaicComponentExample, { level: 3 }, \`Hello, World!\`)
+  );
+};
+
 export default function render(element) {
-  const root = document.getElementById(\\"root\\");
-  const props = root ? JSON.parse(root.getAttribute(\\"data-props\\")) : {};
-  ReactDOM.render(<Root {...props} />, element);
+  const props = JSON.parse(element.getAttribute(\\"data-props\\"));
+  ReactDOM.render(getElements(props), element);
 }
 "
 `;
@@ -35,26 +37,32 @@ exports[`script-builder should build a fragment script string with multiple comp
 import ReactDOM from \\"react-dom\\";
 import { MyComponent1, MyComponent2 } from \\"node-module-a\\";
 import { MyComponent } from \\"node-module-b\\";
+
 export const Root = props => {
-  const bundledProps = {};
-  const mergedProps = Object.assign({}, bundledProps, props);
-  const getProps = pointerFn => pointerFn(mergedProps);
   return (
     <div id=\\"root\\" data-props={JSON.stringify(props)}>
-      {React.createElement(
-        MyComponent1,
-        null,
-        React.createElement(MyComponent2, null),
-        React.createElement(MyComponent2, null),
-        React.createElement(MyComponent, null)
-      )}
+      {getElements(props)}
     </div>
   );
 };
+
+const getElements = props => {
+  const bundledProps = {};
+  const mergedProps = Object.assign({}, bundledProps, props);
+  const getProps = pointerFn => pointerFn(mergedProps);
+  return React.createElement(
+    MyComponent1,
+    null,
+
+    React.createElement(MyComponent2, null),
+    React.createElement(MyComponent2, null),
+    React.createElement(MyComponent, null)
+  );
+};
+
 export default function render(element) {
-  const root = document.getElementById(\\"root\\");
-  const props = root ? JSON.parse(root.getAttribute(\\"data-props\\")) : {};
-  ReactDOM.render(<Root {...props} />, element);
+  const props = JSON.parse(element.getAttribute(\\"data-props\\"));
+  ReactDOM.render(getElements(props), element);
 }
 "
 `;
