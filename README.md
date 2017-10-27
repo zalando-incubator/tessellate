@@ -45,15 +45,7 @@ yarn install   # Install dependencies and initialize packages.
 yarn run dist  # Compile all packages.
 ```
 
-We recommend using [Code](https://code.visualstudio.com) for editing TypeScript packages and the [Atom](https://atom.io) text editor together with the [Nuclide](https://nuclide.io) plugin and [Flow](https://flowtype.org) for static type checking of flow-typed JavaScript packages (currently only editor, viewer and trasform).
-
-Here's how to install Nuclide (requires Atom) and Flow:
-
-```
-apm install nuclide
-npm install -g flow-bin
-```
-
+We recommend using [Visual Studio Code](https://code.visualstudio.com) for editing TypeScript code.
 For details on pull requests, commit messages and contributing please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Documentation
