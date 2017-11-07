@@ -3,10 +3,9 @@
   "props": null,
   "children": [
     {
-      "type": "mosaic-component-example.default",
-      "style": "mosaic-component-example/dist/styles.css",
+      "type": "h1",
       "props": {
-        "level": 3
+        "id": "heading"
       },
       "children": ["Hello, World!"]
     }

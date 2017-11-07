@@ -37,23 +37,23 @@ describe('server', () => {
     });
   });
 
-  describe.skip('/bundles/:domain/:name', () => {
-    const contentService = require('../src/content-service');
+  describe('/bundles/{key}', () => {
+    jest.mock('../src/domain/ContentRepository');
 
     test('build a bundle from a JSON payload', async () => {
-      contentService.publish.mockImplementation(() => Promise.resolve({ js: '', css: '' }));
-
       const json = await fs.readFile(path.resolve(__dirname, 'fixtures', 'content.json'));
       const element = JSON.parse(json.toString());
       const { appRequest } = await startServer();
 
-      await appRequest
+      const { body } = await appRequest
         .post('/bundles/zalando.de/test')
         .send(element)
         .expect(201)
         .expect('Content-Type', /json/);
 
-      expect(contentService.publish).toBeCalled();
+      expect(body.js).toHaveLength(1);
+      expect(body.css).toBeUndefined();
+      expect(body.js[0]).toMatch(/zalando.de\/test\/\S+\.js/);
     });
   });
 

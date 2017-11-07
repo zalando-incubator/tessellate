@@ -8,7 +8,7 @@
     {
       "type": "reactstrap.NavbarBrand",
       "props": null,
-      "children": ["Hello, Tessellate!"]
+      "children": ["This is only a test."]
     }
   ]
 }

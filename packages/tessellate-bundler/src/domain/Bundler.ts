@@ -1,6 +1,7 @@
+import path = require('path');
 import { log, Problem } from 'tessellate-server';
 import { WebpackRunner } from 'webpack-sandboxed';
-import { TessellateBundle } from '../model';
+import { File, TessellateBundle } from '../model';
 
 export class BundlerProblem extends Problem {
   constructor(detail: string) {
@@ -12,6 +13,9 @@ export type Args = {
   webpackRunner: WebpackRunner;
 };
 
+/**
+ * Bundler compiles JavaScript source code to webpack bundles.
+ */
 export default class Bundler {
   private readonly webpackRunner: WebpackRunner;
 
@@ -32,14 +36,14 @@ export default class Bundler {
 
     log.info('Compiled bundle: %s', stats.toString('minimal'));
 
-    const js = Object.entries(bundle)
-      .filter(([name, _]) => name.endsWith('.js'))
-      .map(([name, data]) => ({ name, data }));
-
-    const css = Object.entries(bundle)
-      .filter(([name, _]) => name.endsWith('.css'))
-      .map(([name, data]) => ({ name, data }));
-
-    return { js, css };
+    return Object.entries(bundle).reduce(
+      (collection, [name, data]) => {
+        const extname = path.extname(name).slice(1);
+        const file = { name, data } as File;
+        const files = collection[extname] || [];
+        return Object.assign(collection, { [extname]: files.concat(file) });
+      },
+      {} as TessellateBundle
+    );
   }
 }

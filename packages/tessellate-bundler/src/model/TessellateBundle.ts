@@ -4,8 +4,7 @@ export type File = {
 };
 
 export type TessellateBundle = {
-  js: File[];
-  css: File[];
+  [extname: string]: File[];
 };
 
 export default TessellateBundle;

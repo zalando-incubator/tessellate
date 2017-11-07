@@ -26,8 +26,8 @@ export async function init(): Promise<TessellateServer> {
   const healthService = new HealthService();
 
   server.router.get('/health', healthService.getHealthHandler());
-  server.router.post('/bundles/:key+', bundleService.getBundleHandler());
-  server.router.get('/bundles/:key+', contentRepository.getReadHandler());
+  server.router.post('/bundles/:key+', bundleService.getBundleWriteHandler());
+  server.router.get('/bundles/:key+', bundleService.getBundleReadHandler());
 
   return server;
 }

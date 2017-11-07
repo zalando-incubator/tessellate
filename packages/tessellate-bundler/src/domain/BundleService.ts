@@ -9,6 +9,9 @@ export type Args = {
   contentRepository: ContentRepository;
 };
 
+/**
+ * BundleService provides HTTP handlers to write and read Tessellate bundles.
+ */
 export default class BundleService {
   private readonly bundler: Bundler;
   private readonly contentRepository: ContentRepository;
@@ -18,7 +21,7 @@ export default class BundleService {
     this.contentRepository = args.contentRepository;
   }
 
-  public getBundleHandler(): IMiddleware {
+  public getBundleWriteHandler(): IMiddleware {
     return async ctx => {
       // Parse bundle parameters.
       const { key } = ctx.params;
@@ -33,10 +36,14 @@ export default class BundleService {
       const bundle = await this.bundler.compile(source);
 
       // Publish bundle.
-      const { js, css } = await this.contentRepository.publish({ key, bundle });
+      const result = await this.contentRepository.publish({ key, bundle });
 
       ctx.status = 201;
-      ctx.body = { js, css };
+      ctx.body = result;
     };
+  }
+
+  public getBundleReadHandler(): IMiddleware {
+    return this.contentRepository.getReadHandler();
   }
 }

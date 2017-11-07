@@ -2,13 +2,11 @@ import request = require('request-promise-native');
 import { log, Problem } from 'tessellate-server';
 import url = require('url');
 
-export type Headers = { [name: string]: string };
-export type BundleSources = { bundles: { src?: string; path?: string } };
 export type Bundle = {
   source: string;
+  sourceLink: string;
   links: {
-    js: string;
-    css?: string;
+    [extname: string]: string[];
   };
 };
 
@@ -18,6 +16,9 @@ class BundleProblem extends Problem {
   }
 }
 
+/**
+ * Provides Tessellate bundles from remote sources.
+ */
 export default class BundleProvider {
   public async fetchBundle(source: string): Promise<Bundle> {
     const bundle = await this.fetchBundleFromSource(source);
@@ -47,17 +48,42 @@ export default class BundleProvider {
 
     log.debug('Received bundle %j', bundle);
 
-    // TODO: validate response, handle multiple files
     const baseUrl = `${bundleUrl.protocol!}//${bundleUrl.host}`;
-    const jsUrl = url.resolve(baseUrl, bundle.js[0]);
-    const cssUrl = bundle.css[0] ? url.resolve(baseUrl, bundle.css[0]) : undefined;
 
-    log.debug('Fetch script %s', jsUrl);
+    const resolvedBundleUrls = Object.entries(bundle).reduce(
+      (collection, [extname, files]) => {
+        if (Array.isArray(files)) {
+          const resolved = files.map(file => url.resolve(baseUrl, file));
+          const allResolved = collection[extname] || [];
+          return Object.assign(collection, { [extname]: allResolved.concat(resolved) });
+        } else if (typeof files === 'string') {
+          const resolved = [url.resolve(baseUrl, files)];
+          return Object.assign(collection, { [extname]: resolved });
+        } else {
+          return collection;
+        }
+      },
+      {} as { [extname: string]: string[] }
+    );
 
-    const source = await request(jsUrl, {
+    if (!Array.isArray(resolvedBundleUrls.js)) {
+      throw new BundleProblem(`Invalid bundle ${bundleUrl} has no .js files.`);
+    }
+
+    // Convention: remove the last .js file in the array
+    // and use it as the fragment bundle source URL.
+    const sourceLink = resolvedBundleUrls.js.pop();
+
+    if (!sourceLink) {
+      throw new BundleProblem(`Invalid bundle ${bundleUrl} has no .js files.`);
+    }
+
+    log.debug('Fetch script %s', sourceLink);
+
+    const source = await request(sourceLink, {
       gzip: true
     });
 
-    return { source, links: { js: jsUrl, css: cssUrl } };
+    return { source, sourceLink, links: resolvedBundleUrls };
   }
 }

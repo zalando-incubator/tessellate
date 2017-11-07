@@ -4,7 +4,6 @@ import url = require('url');
 
 export type Headers = { [name: string]: string };
 export type Query = { [name: string]: string };
-export type Sources = { bundles: { src?: string; path?: string } };
 
 class SourcesProblem extends Problem {
   constructor(detail: string) {

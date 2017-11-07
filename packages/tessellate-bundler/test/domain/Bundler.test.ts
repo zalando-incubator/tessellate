@@ -26,7 +26,7 @@ describe('Bundler', () => {
     const source = await fs.readFile(path.resolve(__dirname, '../fixtures/fragment-script.js'));
     const bundle = await bundler.compile(source.toString());
     expect(bundle.js).toBeDefined();
-    expect(bundle.css).toEqual([]);
+    expect(bundle.css).toBeUndefined();
     expect(bundle.js[0].name).toMatch(/\.js$/);
     expect(bundle.js[0].data.toString()).toMatchSnapshot();
   });

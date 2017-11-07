@@ -3,7 +3,6 @@
 exports[`script-builder should build a fragment script string from a content structure 1`] = `
 "import React from \\"react\\";
 import ReactDOM from \\"react-dom\\";
-import mosaicComponentExample from \\"mosaic-component-example\\";
 
 export const Root = props => {
   return (
@@ -21,7 +20,7 @@ const getElements = props => {
     \\"div\\",
     null,
 
-    React.createElement(mosaicComponentExample, { level: 3 }, \`Hello, World!\`)
+    React.createElement(\\"h1\\", { id: \\"heading\\" }, \`Hello, World!\`)
   );
 };
 

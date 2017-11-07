@@ -28,14 +28,12 @@ export default class FragmentService {
 
       const props = {};
       const html = this.bundleRenderer.renderToString(bundle.source, props);
-      const links = [`<${bundle.links.js}>; rel="fragment-script"`];
-
-      if (bundle.links.css) {
-        links.push(`<${bundle.links.css}>; rel="stylesheet"`);
-      }
+      const sourceLink  = `<${bundle.sourceLink}>; rel="fragment-script"`;
+      const jsLinks = (bundle.links.js || []).map(js => `<${js}>; rel="script"`);
+      const cssLinks = (bundle.links.css || []).map(css => `<${css}>; rel="stylesheet"`);
 
       ctx.set('Content-Type', 'text/html;charset=utf-8');
-      ctx.set('Link', links);
+      ctx.set('Link', [sourceLink, ...jsLinks, ...cssLinks]);
       ctx.body = html;
     };
   }
