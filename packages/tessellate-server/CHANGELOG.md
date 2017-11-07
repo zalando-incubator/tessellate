@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.0.0-alpha.cc5a4e4b"></a>
+# [2.0.0-alpha.cc5a4e4b](https://github.com/zalando-incubator/tessellate/compare/tessellate-server@2.0.0-alpha.d484c6f9...tessellate-server@2.0.0-alpha.cc5a4e4b) (2017-11-07)
+
+
+
+
+**Note:** Version bump only for package tessellate-server
+
 <a name="2.0.0-alpha.d484c6f9"></a>
 # [2.0.0-alpha.d484c6f9](https://github.com/zalando-incubator/tessellate/compare/tessellate-server@1.1.1...tessellate-server@2.0.0-alpha.d484c6f9) (2017-10-27)
 
