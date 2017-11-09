@@ -128,3 +128,4 @@ jspm_packages
 *.tgz
 
 /coverage
+/.vscode

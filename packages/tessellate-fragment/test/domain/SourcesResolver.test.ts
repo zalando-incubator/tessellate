@@ -2,7 +2,8 @@ jest.mock('request-promise-native');
 import SourcesResolver from '../../src/domain/SourcesResolver';
 
 describe('SourcesResolver', () => {
-  const resolver = new SourcesResolver();
+  const bundlesSource = 'http://localhost:3001';
+  const resolver = new SourcesResolver({ bundlesSource });
 
   it('should use configured bundles source', async () => {
     const sources = await resolver.resolveSources({ headers: {}, query: {} });

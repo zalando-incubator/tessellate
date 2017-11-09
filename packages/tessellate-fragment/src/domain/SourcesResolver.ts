@@ -1,5 +1,5 @@
 import path = require('path');
-import { conf, Problem } from 'tessellate-server';
+import { Problem } from 'tessellate-server';
 import url = require('url');
 
 export type Headers = { [name: string]: string };
@@ -17,22 +17,17 @@ class SourcesProblem extends Problem {
 export default class SourcesResolver {
   private readonly bundlesSource: string;
 
-  constructor() {
-    const bundlesSource = conf.getString('bundlesSource');
-    if (!bundlesSource) {
-      throw new SourcesProblem('bundlesSource not set');
-    }
-    this.bundlesSource = bundlesSource;
+  constructor(args: { bundlesSource: string }) {
+    this.bundlesSource = args.bundlesSource;
   }
 
   public resolveSources(args: { headers: Headers; query: Query }): string {
     const fromHeaders = this.resolveFromHeaders(args.headers);
     const fromQuery = this.resolveFromQuery(args.query);
-    const bundlesSource = conf.getString('bundlesSource');
     const sources = fromHeaders || fromQuery;
 
-    if (bundlesSource) {
-      return url.resolve(bundlesSource + '/', sources);
+    if (this.bundlesSource) {
+      return url.resolve(this.bundlesSource + '/', sources);
     } else {
       throw new SourcesProblem('Cannot determine sources.');
     }

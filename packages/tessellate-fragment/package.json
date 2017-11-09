@@ -38,19 +38,19 @@
   },
   "devDependencies": {
     "@types/lodash.merge": "4.6.3",
-    "@types/node": "8.0.47",
-    "@types/react": "16.0.18",
+    "@types/node": "8.0.50",
+    "@types/react": "16.0.21",
     "@types/react-dom": "16.0.2",
     "@types/request": "2.0.7",
     "@types/request-promise-native": "1.0.9",
     "@types/supertest": "2.0.3",
     "jest": "21.2.1",
     "rimraf": "2.6.2",
-    "ts-jest": "21.1.4",
+    "ts-jest": "21.2.1",
     "ts-node": "3.3.0",
     "tslint": "5.8.0",
     "typedoc": "0.9.0",
-    "typescript": "2.5.3"
+    "typescript": "2.6.1"
   },
   "jest": {
     "testEnvironment": "node",

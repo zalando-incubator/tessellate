@@ -16,7 +16,7 @@ type State = {
 };
 
 export default class Root extends React.Component<Props, State> {
-  constructor(props: Props) {
+  constructor(props?: Props) {
     super(props);
     this.state = {
       status: ''
@@ -59,10 +59,10 @@ export default class Root extends React.Component<Props, State> {
     try {
       const response = await fetch(`${this.props.bundleTarget}/${args.domain}/${args.key}`, {
         method: 'POST',
-        headers: {
+        headers: new Headers({
           Accept: 'application/json',
           'Content-Type': 'application/json'
-        },
+        }),
         body: this.parseFileContent(this.state.currentFile, this.state.fileContent)
       });
       this.setState({

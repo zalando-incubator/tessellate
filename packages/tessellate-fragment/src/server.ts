@@ -12,7 +12,11 @@ export function init(): TessellateServer {
   const healthService = new HealthService();
   const bundleProvider = new BundleProvider();
   const bundleRenderer = new BundleRenderer();
-  const sourcesResolver = new SourcesResolver();
+  const bundlesSource = conf.getString('bundlesSource');
+  if (!bundlesSource) {
+    throw new Error('Missing configuration: "bundlesSource"');
+  }
+  const sourcesResolver = new SourcesResolver({ bundlesSource });
   const fragmentService = new FragmentService({
     bundleProvider,
     bundleRenderer,

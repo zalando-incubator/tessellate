@@ -11,14 +11,12 @@ export type Args = {
 export default class WebpackFactory {
   private readonly rules: webpack.Rule[];
   private readonly cssSupport: boolean;
-  private readonly production: boolean;
   private readonly packages: string[];
   private readonly plugins: webpack.Plugin[];
   private readonly externals: webpack.ExternalsObjectElement;
 
   constructor(args: Args = {}) {
     this.cssSupport = args.cssSupport || false;
-    this.production = args.production || false;
     this.packages = [];
     this.plugins = [];
     this.externals = {};
