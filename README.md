@@ -18,6 +18,7 @@ Tessellate is a server-side React service that creates static HTML and a JavaScr
 ### Articles and videos about Tessellate
 
 * [code.talks 2017: The Recipe For Scalable Frontends](https://www.youtube.com/watch?v=m32EdvitXy4)
+* [Codemotion Milan 2017: The Recipe For Scalable Frontends](https://www.youtube.com/watch?v=FdJ_-4v2CzE)
 
 ## Tessellate v2
 
