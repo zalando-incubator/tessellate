@@ -1,6 +1,6 @@
 {
   "name": "tessellate-bundler",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Tessellate bundler service.",
   "author": "Maximilian Fellner <maximilian.fellner@zalando.de>",
   "license": "MIT",
