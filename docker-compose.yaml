@@ -9,7 +9,7 @@ tessellate-fragment:
   build: packages/tessellate-fragment
   environment:
     APP_PORT: 3003
-    BUNDLE_SOURCE: http://tessellate-bundler:3001
+    BUNDLES_SOURCE: http://tessellate-bundler:3001
   ports:
     - 3003:3003
     - 3004:3004
